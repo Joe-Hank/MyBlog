@@ -1,0 +1,19 @@
+{
+  "id": "20260408-001",
+  "name": "Claude-MyBlog",
+  "alias": "个人响应式博客原型",
+  "created": "2026-04-08",
+  "modified": "2026-04-08",
+  "version": "0.1.0",
+  "language": "HTML/CSS/JavaScript",
+  "framework": "Vanilla",
+  "entry": "src/index.html",
+  "run": "python -m http.server 8765 -d src",
+  "status": "dev",
+  "tags": ["博客", "响应式", "原型", "Matrix风格", "Figma"],
+  "assets": [],
+  "git": true,
+  "repo": "https://github.com/Joe-Hank/MyBlog",
+  "figma": "https://www.figma.com/design/oC3pTaI5wE5irMoPgmjFIO",
+  "notion": "https://glacier-orbit-db2.notion.site/AI-31a70713d3b580088034eaf7cf25aab8"
+}
