@@ -1,0 +1,13 @@
+/* ============ About Page ============ */
+
+/* Timeline */
+.timeline{position:relative;padding-left:40px}
+.timeline::before{content:"";position:absolute;left:10px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl-item{position:relative;padding-bottom:56px}
+.tl-item::before{
+  content:"";position:absolute;left:-35px;top:6px;width:14px;height:14px;border-radius:50%;
+  background:var(--bg);border:2px solid var(--accent);box-shadow:var(--glow);
+}
+.tl-item .year{font-family:var(--mono);color:var(--accent);font-size:13px;margin-bottom:6px}
+.tl-item h4{font-size:18px;margin-bottom:4px}
+.tl-item p{color:var(--text-dim);font-size:14px}

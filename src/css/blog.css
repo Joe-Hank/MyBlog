@@ -1,0 +1,23 @@
+/* ============ Blog Page ============ */
+
+.blog-page-list{display:flex;flex-direction:column}
+.blog-page-item{
+  display:grid;grid-template-columns:120px 1fr auto;gap:32px;align-items:center;
+  padding:28px 0;border-bottom:1px solid var(--line);cursor:none;transition:.3s;
+}
+.blog-page-item:hover{padding-left:12px}
+.blog-page-item:hover h4{color:var(--accent);text-shadow:0 0 8px rgba(0,255,122,.6)}
+.blog-page-item .date{font-family:var(--mono);color:var(--text-dim);font-size:13px}
+.blog-page-item h4{font-size:20px;margin-bottom:6px;transition:.3s}
+.blog-page-item p{color:var(--text-dim);font-size:14px}
+.blog-page-item .tag{
+  font-family:var(--mono);font-size:11px;color:var(--accent);
+  border:1px solid var(--accent);padding:4px 10px;border-radius:999px;
+  white-space:nowrap;
+}
+
+/* ============ Mobile ============ */
+@media (max-width:768px){
+  .blog-page-item{grid-template-columns:1fr;gap:8px}
+  .blog-page-item .tag{justify-self:start}
+}

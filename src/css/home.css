@@ -1,0 +1,189 @@
+/* ============ Hero ============ */
+.hero{padding-top:80px;padding-bottom:120px}
+
+/* Single card container — Figma: 1217×551, border-radius, border */
+.hero-card{
+  position:relative;
+  max-width:1217px;
+  height:551px;
+  border-radius:var(--radius);
+  border:none;
+  overflow:hidden;
+  box-shadow:none;
+}
+
+/* Background image fills entire card */
+.hero-bg{
+  position:absolute;top:0;left:0;
+  width:100%;height:100%;
+  object-fit:cover;object-position:center;
+  display:block;
+}
+
+/* Text panel floats on the right — Figma: x=716, w=500, h=468 */
+.hero-text{
+  position:absolute;
+  right:0;top:50%;
+  transform:translateY(-50%);
+  width:500px;height:468px;
+  display:flex;align-items:center;
+  background:linear-gradient(to right,transparent 0%,rgba(10,10,10,.82) 20%,rgba(10,10,10,.92) 100%);
+}
+
+/* Inner content — Figma: 455×438, padding 22.5px left, 15px top */
+.hero-text-inner{
+  padding:15px 22px 15px 45px;
+  width:455px;
+}
+
+.hero-text-inner .section-label{margin-bottom:18px}
+
+/* Figma: heading lines ~80px each */
+.hero h1{font-size:56px;line-height:1.2;letter-spacing:-1.5px;margin:0 0 24px}
+.hero h1 .accent{display:block}
+.hero p.lead{color:var(--text-dim);font-size:16px;max-width:455px;margin-bottom:36px}
+
+/* Figma: button container 455×52, gap 16px */
+.hero-cta{display:flex;gap:16px;flex-wrap:wrap}
+/* Figma: solid buttons 130×52, ghost 100×52 */
+.hero-cta .btn{padding:14px 29px;font-size:13px}
+.hero-cta .btn.ghost{padding:14px 22px}
+
+/* ============ Works Snapshot (Accordion) ============ */
+.snapshot-section{padding-top:0}
+.snapshot-header{margin-bottom:40px}
+.snapshot{
+  display:flex;gap:12px;height:548px;
+  border-radius:var(--radius);overflow:hidden;
+}
+.snap-item{
+  position:relative;overflow:hidden;
+  border-radius:var(--radius);
+  border:1px solid var(--line);
+  cursor:none;
+  transition:flex .5s cubic-bezier(.4,0,.2,1);
+  flex:0 0 8%;
+}
+.snap-item.expanded{
+  flex:1 1 68%;
+}
+.snap-item img{
+  position:absolute;top:0;left:0;
+  width:100%;height:100%;
+  object-fit:cover;object-position:center;
+}
+.snap-item .snap-overlay{
+  position:absolute;top:0;left:0;right:0;
+  padding:20px 24px;
+  background:linear-gradient(rgba(0,0,0,.7),transparent);
+  z-index:1;
+}
+.snap-item .snap-title{
+  font-family:var(--mono);font-size:13px;
+  color:var(--text);opacity:0;
+  transition:opacity .3s;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.snap-item.expanded .snap-title{opacity:1}
+
+/* ============ AI Workflow ============ */
+.workflow-section .workflow-text{margin-bottom:12px}
+.workflow-section .workflow-desc{
+  color:var(--text-dim);font-size:16px;max-width:680px;margin-bottom:40px;
+}
+.workflow-steps{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  margin-bottom:48px;
+}
+.wf-node{
+  width:207px;height:163px;
+  background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);
+  padding:28px 20px;text-align:center;transition:.3s;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.wf-node:hover{border-color:var(--accent);box-shadow:var(--glow)}
+.wf-node .icon{font-family:var(--mono);color:var(--accent);font-size:28px;margin-bottom:12px}
+.wf-node h4{font-size:15px;margin-bottom:6px}
+.wf-node p{font-size:12px;color:var(--text-dim)}
+.wf-arrow{color:var(--accent);font-size:24px;font-family:var(--mono);flex-shrink:0}
+
+/* Logo Carousel — fixed height matching Figma (86px) */
+.logo-carousel{
+  position:relative;overflow:hidden;
+  background:transparent;border:none;border-radius:0;
+  height:86px;
+  display:flex;align-items:center;
+}
+.logo-track{
+  display:flex;align-items:center;gap:64px;
+  animation:scrollLogos 25s linear infinite;
+  width:max-content;
+}
+.logo-track .logo-item{
+  display:flex;align-items:center;gap:12px;flex-shrink:0;
+}
+.logo-track .logo-item img{height:32px;width:auto}
+.logo-track .logo-item .logo-text{height:24px;width:auto}
+@keyframes scrollLogos{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+.logo-carousel .fade-left,
+.logo-carousel .fade-right{
+  position:absolute;top:0;bottom:0;width:140px;z-index:2;pointer-events:none;
+}
+.logo-carousel .fade-left{left:0;background:linear-gradient(to right,var(--bg) 0%,rgba(10,10,10,.85) 30%,rgba(10,10,10,.4) 65%,transparent 100%)}
+.logo-carousel .fade-right{right:0;background:linear-gradient(to left,var(--bg) 0%,rgba(10,10,10,.85) 30%,rgba(10,10,10,.4) 65%,transparent 100%)}
+
+/* ============ Focus Areas ============ */
+.focus-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.focus-card{
+  background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);
+  padding:36px 28px;height:224px;
+  cursor:none;transition:.3s;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;
+}
+.focus-card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:var(--glow)}
+.focus-card .num{font-family:var(--mono);color:var(--accent);font-size:13px;margin-bottom:20px}
+.focus-card h3{font-size:20px;margin-bottom:10px}
+.focus-card p{color:var(--text-dim);font-size:14px;margin-bottom:20px}
+.focus-card .arr{font-family:var(--mono);color:var(--accent);font-size:14px}
+
+/* ============ Recent Blog ============ */
+.blog-list{display:flex;flex-direction:column}
+.blog-item{
+  display:grid;grid-template-columns:120px 1fr auto;gap:32px;align-items:center;
+  padding:28px 0;border-bottom:1px solid var(--line);cursor:none;transition:.3s;
+  text-decoration:none;
+}
+.blog-item:hover{padding-left:12px}
+.blog-item:hover h4{color:var(--accent);text-shadow:0 0 8px rgba(0,255,122,.6)}
+.blog-item .date{font-family:var(--mono);color:var(--text-dim);font-size:13px}
+.blog-item h4{font-size:20px;margin-bottom:6px;transition:.3s}
+.blog-item p{color:var(--text-dim);font-size:14px}
+.blog-item .tag{
+  font-family:var(--mono);font-size:11px;color:var(--accent);
+  border:1px solid var(--accent);padding:4px 10px;border-radius:999px;
+  white-space:nowrap;
+}
+
+/* ============ Mobile ============ */
+@media (max-width:768px){
+  .hero{padding-top:40px;padding-bottom:60px}
+  .hero-card{height:auto;max-width:100%}
+  .hero-bg{position:relative;height:240px}
+  .hero-text{position:relative;right:auto;top:auto;transform:none;width:100%;height:auto;background:var(--bg-2)}
+  .hero-text-inner{width:100%;padding:24px 20px}
+  .hero h1{font-size:36px}
+  .snapshot{flex-direction:column;height:auto}
+  .snap-item{flex:none!important;height:120px}
+  .snap-item.expanded{height:300px}
+  .snap-item .snap-title{opacity:1}
+  .workflow-steps{flex-direction:column;align-items:stretch}
+  .wf-node{width:100%;height:auto}
+  .wf-arrow{transform:rotate(90deg)}
+  .focus-cards{grid-template-columns:1fr}
+  .blog-item{grid-template-columns:1fr;gap:8px}
+  .blog-item .tag{justify-self:start}
+}

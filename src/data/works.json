@@ -1,0 +1,46 @@
+[
+  {
+    "id": "work-001",
+    "title": "PC端游戏平台·交易·工具",
+    "year": "2024",
+    "category": "应用",
+    "type": "image",
+    "thumbnail": "assets/portfolio/work-1.jpeg",
+    "images": ["assets/portfolio/work-1.jpeg"],
+    "tags": ["游戏平台", "游戏交易"],
+    "description": "<p>PC端游戏交易平台，集成了游戏内物品交易、账号管理与社区互动功能。采用现代化UI设计，支持多种游戏生态。</p><p>技术栈：React + Node.js + PostgreSQL</p>"
+  },
+  {
+    "id": "work-002",
+    "title": "移动端游戏交易平台",
+    "year": "2024",
+    "category": "应用",
+    "type": "image",
+    "thumbnail": "assets/portfolio/work-2.jpeg",
+    "images": ["assets/portfolio/work-2.jpeg"],
+    "tags": ["游戏交易"],
+    "description": "<p>移动端游戏交易平台APP，提供便捷的手机端游戏物品交易体验。支持实时价格追踪与安全交易保障。</p><p>技术栈：Flutter + Firebase</p>"
+  },
+  {
+    "id": "work-003",
+    "title": "手游项目",
+    "year": "2023",
+    "category": "游戏",
+    "type": "image",
+    "thumbnail": "assets/portfolio/work-3.png",
+    "images": ["assets/portfolio/work-3.png"],
+    "tags": ["游戏制作"],
+    "description": "<p>原创手游项目，融合策略与RPG元素。独立完成从概念设计到上线运营的全流程。</p><p>技术栈：Unity 3D + C#</p>"
+  },
+  {
+    "id": "work-004",
+    "title": "XR游戏体验",
+    "year": "2025",
+    "category": "游戏",
+    "type": "image",
+    "thumbnail": "assets/portfolio/work-4.png",
+    "images": ["assets/portfolio/work-4.png"],
+    "tags": ["虚拟现实"],
+    "description": "<p>基于XR技术的沉浸式游戏体验项目，探索虚拟现实与游戏交互的前沿可能性。</p><p>技术栈：Unreal Engine 5 + OpenXR</p>"
+  }
+]

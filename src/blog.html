@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>博客 · 我的博客·韩</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/blog.css">
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+</head>
+<body>
+
+<!-- Matrix Background -->
+<canvas id="matrix-canvas"></canvas>
+<div class="matrix-overlay"></div>
+
+<!-- ===== Nav ===== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="logo">我的博客·韩</div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="works.html">Works</a>
+      <a href="blog.html">Blog</a>
+      <a href="about.html">About</a>
+    </div>
+    <button class="hamburger" aria-label="menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ===== Blog List ===== -->
+<section id="blog">
+  <div class="section-label">// BLOG</div>
+  <h2 class="section-title">博客文章</h2>
+  <p class="section-sub">点击任意一篇查看详情。</p>
+
+  <div class="tabs" id="blog-tabs">
+    <button class="tab active" data-type="全部">全部</button>
+    <button class="tab" data-type="游戏平台">游戏平台</button>
+    <button class="tab" data-type="游戏制作">游戏制作</button>
+    <button class="tab" data-type="游戏交易">游戏交易</button>
+    <button class="tab" data-type="UGC/AIGC">UGC/AIGC</button>
+    <button class="tab" data-type="AI提效">AI提效</button>
+    <button class="tab" data-type="虚拟现实">虚拟现实</button>
+  </div>
+
+  <div class="blog-page-list" id="blog-list">
+    <!-- Rendered by blog.js -->
+  </div>
+</section>
+
+<!-- ===== Blog Detail ===== -->
+<div class="detail-section" id="blog-detail">
+  <div class="gallery">
+    <div class="gallery-header">
+      <div class="gallery-meta">
+        <h3></h3><span></span>
+      </div>
+      <div class="gallery-nav">
+        <button class="gallery-prev">← 上一篇</button>
+        <button class="gallery-next">下一篇 →</button>
+      </div>
+    </div>
+    <div class="gallery-images"></div>
+    <div class="gallery-dots"></div>
+  </div>
+  <div class="detail-content"></div>
+</div>
+
+<!-- ===== Contact ===== -->
+<section id="contact" class="contact-section">
+  <div class="section-label">// CONTACT</div>
+  <h2 class="section-title">联系我</h2>
+  <p class="section-sub">欢迎合作洽谈、技术交流或者只是打个招呼。</p>
+  <div class="contact-compact">
+    <h3>Drop me a line.</h3>
+    <p class="contact-desc">通常 24 小时内回复。对有趣的项目总是保持开放。</p>
+    <div class="contact-lines">
+      <div class="line"><span>→</span>wenhuawasi@gmail.com</div>
+      <div class="line"><span>→</span>github.com/Joe-Hank</div>
+      <div class="line"><span>→</span>Shanghai, CN</div>
+      <div class="line"><span>→</span>WX: 15222883095</div>
+      <div class="line"><span>→</span>Call: 17320029880</div>
+    </div>
+    <a class="btn solid" href="mailto:wenhuawasi@gmail.com">Send Email →</a>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <p>© 2026 MyBlog.Han · built with <span class="accent">&lt;ClaudeCode/&gt;</span> & figma</p>
+    <div class="social">
+      <a href="https://github.com/Joe-Hank" target="_blank">GitHub</a>
+      <a href="#" target="_blank">Bilibili</a>
+      <a href="#" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/matrix-bg.js"></script>
+<script src="js/cursor.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/notion-data.js"></script>
+<script src="js/blog.js"></script>
+<script src="js/contact.js"></script>
+</body>
+</html>

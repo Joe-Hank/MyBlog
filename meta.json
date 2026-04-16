@@ -1,10 +1,10 @@
 {
   "id": "20260408-001",
   "name": "Claude-MyBlog",
-  "alias": "个人响应式博客原型",
+  "alias": "个人多页面博客网站",
   "created": "2026-04-08",
-  "modified": "2026-04-08",
-  "version": "0.1.0",
+  "modified": "2026-04-13",
+  "version": "0.2.0",
   "language": "HTML/CSS/JavaScript",
   "framework": "Vanilla",
   "entry": "src/index.html",
