@@ -3,7 +3,7 @@
   "name": "Claude-MyBlog",
   "alias": "个人多页面博客网站",
   "created": "2026-04-08",
-  "modified": "2026-04-13",
+  "modified": "2026-04-16",
   "version": "0.2.0",
   "language": "HTML/CSS/JavaScript",
   "framework": "Vanilla",
@@ -14,6 +14,7 @@
   "assets": [],
   "git": true,
   "repo": "https://github.com/Joe-Hank/MyBlog",
+  "deployed_url": "https://joe-hank.github.io/MyBlog/",
   "figma": "https://www.figma.com/design/oC3pTaI5wE5irMoPgmjFIO",
   "notion": "https://glacier-orbit-db2.notion.site/AI-31a70713d3b580088034eaf7cf25aab8"
 }

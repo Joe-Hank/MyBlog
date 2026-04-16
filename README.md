@@ -1,48 +1,52 @@
-# MyBlog · Personal Responsive Blog Prototype
+# MyBlog · Personal Multi-page Blog
 
-> 一个黑客帝国科幻风格的响应式个人博客原型，同时作为 Figma 中保真设计稿的源稿。
+> 黑客帝国科幻风的多页面个人博客,Matrix 雨效背景 + 鼠标光圈揭示。同时作为 Figma 保真设计稿的源稿。
 
-## 预览截图
-
-Figma 原型：<https://www.figma.com/design/oC3pTaI5wE5irMoPgmjFIO>
+**🌐 在线访问**: <https://joe-hank.github.io/MyBlog/>
 
 ## 特性
 
-- 🖤 深色主题 + 代码绿 (`#00ff7a`) 高光，等宽字体搭配无衬线
-- 📐 网格纹理背景 + 发光边框效果
-- 📱 PC (1440) + 移动端 (390) 双端响应式
-- 🎛️ 功能模块：吸顶导航、Hero 终端动效、AI 工作流图、模块卡片、作品集（图文/视频切换）、博客列表、时间轴、联系表单、页脚
-- 🔗 外链跳转到 Notion 发布页
+- 4 个页面: Home · Works · Blog · About
+- Matrix 字符雨 Canvas 背景 + 鼠标光圈遮罩(2-stop 线性衰减 + blur 消除同心环)
+- 自定义绿色圆点光标 + hover 反馈
+- 深色主题 + 代码绿 `#00ff7a` 高光,JetBrains Mono + Inter 字体组合
+- 数据抽象层: 当前读取本地 `data/*.json`,未来可切换 Notion API 代理
 
 ## 本地运行
 
 ```bash
 python -m http.server 8765 -d src
-# 打开 http://localhost:8765/index.html  (PC)
-# 打开 http://localhost:8765/mobile.html (移动端强制布局)
+# 打开 http://localhost:8765/
 ```
 
 ## 目录结构
 
 ```
 Claude-MyBlog/
+├── .github/workflows/pages.yml   GitHub Actions 部署流水线(从 src/ 发布)
 ├── src/
-│   ├── index.html         PC 主页
-│   ├── mobile.html        移动端强制布局页（用于 Figma 捕获）
-│   ├── styles.css         主样式（含响应式媒体查询）
-│   ├── mobile-force.css   移动端强制覆写
-│   └── script.js          tabs / 汉堡菜单交互
-├── assets/                项目素材（暂无）
-├── tests/                 测试（暂无）
-├── Description.md         项目详细说明
-├── meta.json              元数据
+│   ├── index.html  blog.html  about.html  works.html
+│   ├── css/        base / home / blog / works / about 拆分
+│   ├── js/         cursor / matrix-bg / nav / 各页面模块
+│   ├── data/       blog.json / works.json(Notion 占位数据)
+│   └── assets/     logos / portfolio / backgrounds
+├── assets/                       项目级素材(当前未使用)
+├── tests/                        测试(当前未使用)
+├── Description.md                项目详细说明
+├── meta.json                     元数据
 ├── .gitignore
 └── .env.example
 ```
 
+## 部署
+
+走 GitHub Actions 模式,从 `src/` 直接发布,无需构建。详见 `.github/workflows/pages.yml`。
+
+仓库 `Settings` → `Pages` → Source 设为 `GitHub Actions` 即生效。
+
 ## 技术栈
 
-纯 HTML + CSS + JavaScript，无构建工具依赖。字体通过 Google Fonts CDN 加载（JetBrains Mono + Inter）。
+纯 HTML + CSS + JavaScript,无构建工具依赖。字体通过 Google Fonts CDN 加载。
 
 ## License
 
