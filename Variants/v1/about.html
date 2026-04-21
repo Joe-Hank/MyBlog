@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>关于 · 我的博客·韩</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/about.css">
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+</head>
+<body>
+
+<!-- Matrix Background -->
+<canvas id="matrix-canvas"></canvas>
+<div class="matrix-overlay"></div>
+
+<!-- ===== Nav ===== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="logo">我的博客·韩</div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="works.html">Works</a>
+      <a href="blog.html">Blog</a>
+      <a href="about.html">About</a>
+    </div>
+    <button class="hamburger" aria-label="menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ===== Hero (same as Home) ===== -->
+<section id="home" class="hero">
+  <div class="hero-card">
+    <img class="hero-bg" src="assets/backgrounds/hero-bg.png" alt="Cyber space">
+    <div class="hero-text">
+      <div class="hero-text-inner">
+        <div class="section-label">// WELCOME_TO_MY_BLOG</div>
+        <h1>I build with<span class="accent">AI & Creativity.</span></h1>
+        <p class="lead">一名专注于 AI 工作流、创意工程与前沿交互设计的独立创造者。在二进制与美学之间，寻找下一代产品的边界。</p>
+        <div class="hero-cta">
+          <a class="btn solid" href="works.html">我的作品 →</a>
+          <a class="btn solid" href="blog.html">我的Blog →</a>
+          <a class="btn ghost" href="#contact">联系我</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Timeline ===== -->
+<section id="about">
+  <div class="section-label">// ABOUT</div>
+  <h2 class="section-title">履历时间轴</h2>
+  <p class="section-sub">从一行 <span class="mono accent">println!("hello")</span> 到今天的一些轨迹。</p>
+  <div class="timeline">
+    <div class="tl-item"><div class="year">2018</div><h4>计算机科学 · 学士</h4><p>本科就读，专注于系统与机器学习基础</p></div>
+    <div class="tl-item"><div class="year">2021</div><h4>初入行业 · 前端工程师</h4><p>加入创业公司，参与从 0 到 1 的产品构建</p></div>
+    <div class="tl-item"><div class="year">2023</div><h4>转向 AI 工程</h4><p>All-in LLM Agent，设计可规模化的 AI 工作流</p></div>
+    <div class="tl-item"><div class="year">2025</div><h4>独立创造者</h4><p>开始 build in public，兼顾产品与内容输出</p></div>
+    <div class="tl-item"><div class="year">Future</div><h4>下一站 · 开源 + SaaS</h4><p>构建属于 AI 时代的工具与社区</p></div>
+  </div>
+</section>
+
+<!-- ===== Contact ===== -->
+<section id="contact" class="contact-section">
+  <div class="section-label">// CONTACT</div>
+  <h2 class="section-title">联系我</h2>
+  <p class="section-sub">欢迎合作洽谈、技术交流或者只是打个招呼。</p>
+  <div class="contact-compact">
+    <h3>Drop me a line.</h3>
+    <p class="contact-desc">通常 24 小时内回复。对有趣的项目总是保持开放。</p>
+    <div class="contact-lines">
+      <div class="line"><span>→</span>wenhuawasi@gmail.com</div>
+      <div class="line"><span>→</span>github.com/Joe-Hank</div>
+      <div class="line"><span>→</span>Shanghai, CN</div>
+      <div class="line"><span>→</span>WX: 15222883095</div>
+      <div class="line"><span>→</span>Call: 17320029880</div>
+    </div>
+    <a class="btn solid" href="mailto:wenhuawasi@gmail.com">Send Message →</a>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <p>© 2026 MyBlog.Han · built with <span class="accent">&lt;ClaudeCode/&gt;</span> & figma</p>
+    <div class="social">
+      <a href="https://github.com/Joe-Hank" target="_blank">GitHub</a>
+      <a href="#" target="_blank">Bilibili</a>
+      <a href="#" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/matrix-bg.js"></script>
+<script src="js/cursor.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/contact.js"></script>
+</body>
+</html>

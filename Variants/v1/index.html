@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>我的博客·韩</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/home.css">
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+</head>
+<body>
+
+<!-- Matrix Background -->
+<canvas id="matrix-canvas"></canvas>
+<div class="matrix-overlay"></div>
+
+<!-- ===== Nav ===== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="logo">我的博客·韩</div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="works.html">Works</a>
+      <a href="blog.html">Blog</a>
+      <a href="about.html">About</a>
+    </div>
+    <button class="hamburger" aria-label="menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ===== Hero ===== -->
+<section id="home" class="hero">
+  <div class="hero-card">
+    <img class="hero-bg" src="assets/backgrounds/hero-bg.png" alt="Cyber space">
+    <div class="hero-text">
+      <div class="hero-text-inner">
+        <div class="section-label">// WELCOME_TO_MY_BLOG</div>
+        <h1>I build with<span class="accent">AI & Creativity.</span></h1>
+        <p class="lead">一名专注于 AI 工作流、创意工程与前沿交互设计的独立创造者。在二进制与美学之间，寻找下一代产品的边界。</p>
+        <div class="hero-cta">
+          <a class="btn solid" href="works.html">我的作品 →</a>
+          <a class="btn solid" href="blog.html">我的Blog →</a>
+          <a class="btn ghost" href="#contact">联系我</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Works Snapshot ===== -->
+<section class="snapshot-section">
+  <div class="snapshot">
+    <div class="snap-item expanded" data-work-id="work-001">
+      <img src="assets/portfolio/work-1.jpeg" alt="PC端游戏平台·交易·工具">
+      <div class="snap-overlay"><div class="snap-title">PC端游戏平台·交易·工具</div></div>
+    </div>
+    <div class="snap-item" data-work-id="work-002">
+      <img src="assets/portfolio/work-2.jpeg" alt="移动端游戏交易平台">
+      <div class="snap-overlay"><div class="snap-title">移动端游戏交易平台</div></div>
+    </div>
+    <div class="snap-item" data-work-id="work-003">
+      <img src="assets/portfolio/work-3.png" alt="手游项目">
+      <div class="snap-overlay"><div class="snap-title">手游项目</div></div>
+    </div>
+    <div class="snap-item" data-work-id="work-004">
+      <img src="assets/portfolio/work-4.png" alt="XR游戏体验">
+      <div class="snap-overlay"><div class="snap-title">XR游戏体验</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== AI Workflow ===== -->
+<section id="workflow" class="workflow-section">
+  <div class="section-label">// AI_WORKFLOW</div>
+  <h2 class="section-title">AI增效工作流</h2>
+  <p class="workflow-desc">从目标定义到产品交付，再到商业效用验证，每个步骤都是学术积累与行业前沿的协奏曲。</p>
+
+  <div class="workflow-steps">
+    <div class="wf-node"><div class="icon">[01]</div><h4>定义目标</h4><p>价值验证 · 用户分析 · 定义指标</p></div>
+    <div class="wf-arrow">→</div>
+    <div class="wf-node"><div class="icon">[02]</div><h4>路径规划</h4><p>选择技术路径 · 评估成本与性能</p></div>
+    <div class="wf-arrow">→</div>
+    <div class="wf-node"><div class="icon">[03]</div><h4>工具选择</h4><p>LLM · Agent · Tool</p></div>
+    <div class="wf-arrow">→</div>
+    <div class="wf-node"><div class="icon">[04]</div><h4>人机协同</h4><p>协同构建执行标准</p></div>
+    <div class="wf-arrow">→</div>
+    <div class="wf-node"><div class="icon">[05]</div><h4>效用评估</h4><p>技术 · 用户体验 · 业务KPI</p></div>
+  </div>
+
+  <!-- Logo Carousel -->
+  <div class="logo-carousel">
+    <div class="fade-left"></div>
+    <div class="logo-track">
+      <!-- First set -->
+      <div class="logo-item"><img src="assets/logos/claude-color.png" alt="Claude"><img class="logo-text" src="assets/logos/claude-text.png" alt="Claude"></div>
+      <div class="logo-item"><img src="assets/logos/coze.webp" alt="Coze"><img class="logo-text" src="assets/logos/coze-text.png" alt="Coze"></div>
+      <div class="logo-item"><img src="assets/logos/qwen-color.png" alt="Qwen"><img class="logo-text" src="assets/logos/qwen-text.png" alt="Qwen"></div>
+      <div class="logo-item"><img src="assets/logos/figma-color.png" alt="Figma"><img class="logo-text" src="assets/logos/figma-text.png" alt="Figma"></div>
+      <div class="logo-item"><img src="assets/logos/comfyui.webp" alt="ComfyUI"><img class="logo-text" src="assets/logos/comfyui-text.png" alt="ComfyUI"></div>
+      <!-- Duplicate for seamless loop -->
+      <div class="logo-item"><img src="assets/logos/claude-color.png" alt="Claude"><img class="logo-text" src="assets/logos/claude-text.png" alt="Claude"></div>
+      <div class="logo-item"><img src="assets/logos/coze.webp" alt="Coze"><img class="logo-text" src="assets/logos/coze-text.png" alt="Coze"></div>
+      <div class="logo-item"><img src="assets/logos/qwen-color.png" alt="Qwen"><img class="logo-text" src="assets/logos/qwen-text.png" alt="Qwen"></div>
+      <div class="logo-item"><img src="assets/logos/figma-color.png" alt="Figma"><img class="logo-text" src="assets/logos/figma-text.png" alt="Figma"></div>
+      <div class="logo-item"><img src="assets/logos/comfyui.webp" alt="ComfyUI"><img class="logo-text" src="assets/logos/comfyui-text.png" alt="ComfyUI"></div>
+    </div>
+    <div class="fade-right"></div>
+  </div>
+</section>
+
+<!-- ===== Focus Areas ===== -->
+<section id="focus">
+  <div class="section-label">// MY_FOCUS</div>
+  <h2 class="section-title">我的关注领域</h2>
+  <p class="section-sub">以游戏为中心，以技术为脉络，探索环球前沿领域。</p>
+  <div class="focus-cards">
+    <a href="blog.html?category=游戏平台" class="focus-card"><div class="num">/ 01</div><h3>游戏平台</h3><p>Steam如何稳坐江山？ Wegame的前路在何方？</p><span class="arr">enter →</span></a>
+    <a href="blog.html?category=游戏制作" class="focus-card"><div class="num">/ 02</div><h3>游戏制作</h3><p>缘起 Unity 3D</p><span class="arr">enter →</span></a>
+    <a href="blog.html?category=游戏交易" class="focus-card"><div class="num">/ 03</div><h3>游戏交易</h3><p>游戏面向的用户不只有玩家</p><span class="arr">enter →</span></a>
+    <a href="blog.html?category=UGC/AIGC" class="focus-card"><div class="num">/ 04</div><h3>UGC / AIGC</h3><p>用户内容生态应用 / AI带来的挑战与机遇</p><span class="arr">enter →</span></a>
+    <a href="blog.html?category=AI提效" class="focus-card"><div class="num">/ 05</div><h3>AI提效</h3><p>成为多面手 拥抱未来</p><span class="arr">enter →</span></a>
+    <a href="blog.html?category=虚拟现实" class="focus-card"><div class="num">/ 06</div><h3>虚拟现实</h3><p>硬件、软件、游戏、技术</p><span class="arr">enter →</span></a>
+  </div>
+</section>
+
+<!-- ===== Recent Blog ===== -->
+<section id="blog">
+  <div class="section-label">// BLOG</div>
+  <h2 class="section-title">最近文章</h2>
+  <p class="section-sub">周期性信息与观点总结</p>
+  <div class="blog-list" id="recent-blog-list">
+    <!-- Rendered by home.js -->
+  </div>
+</section>
+
+<!-- ===== Contact ===== -->
+<section id="contact" class="contact-section">
+  <div class="section-label">// CONTACT</div>
+  <h2 class="section-title">联系我</h2>
+  <p class="section-sub">欢迎合作洽谈、技术交流或者只是打个招呼。</p>
+  <div class="contact-compact">
+    <h3>Drop me a line.</h3>
+    <p class="contact-desc">通常 24 小时内回复。对有趣的项目总是保持开放。</p>
+    <div class="contact-lines">
+      <div class="line"><span>→</span>wenhuawasi@gmail.com</div>
+      <div class="line"><span>→</span>github.com/Joe-Hank</div>
+      <div class="line"><span>→</span>Shanghai, CN</div>
+      <div class="line"><span>→</span>WX: 15222883095</div>
+      <div class="line"><span>→</span>Call: 17320029880</div>
+    </div>
+    <a class="btn solid" href="mailto:wenhuawasi@gmail.com">Send Email →</a>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <p>© 2026 MyBlog.Han · built with <span class="accent">&lt;ClaudeCode/&gt;</span> & figma</p>
+    <div class="social">
+      <a href="https://github.com/Joe-Hank" target="_blank">GitHub</a>
+      <a href="#" target="_blank">Bilibili</a>
+      <a href="#" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/matrix-bg.js"></script>
+<script src="js/cursor.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/notion-data.js"></script>
+<script src="js/home.js"></script>
+<script src="js/contact.js"></script>
+</body>
+</html>

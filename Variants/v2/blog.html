@@ -120,25 +120,6 @@ a{color:inherit;text-decoration:none;cursor:none}button{cursor:none}img{max-widt
 .footer .social a{color:var(--text-muted);font-size:11px;font-family:var(--mono);transition:color .15s;text-transform:uppercase;letter-spacing:.5px}
 .footer .social a:hover{color:var(--accent)}
 
-/* ============ Scroll Reveal ============ */
-.reveal{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
-.reveal.revealed{opacity:1;transform:translateY(0)}
-.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}.reveal-d4{transition-delay:.4s}.reveal-d5{transition-delay:.5s}
-
-/* ============ Enhanced Hover ============ */
-.blog-row:hover{transform:translateX(8px)}
-.blog-row:hover .blog-title{text-shadow:0 0 8px rgba(247,201,72,.4)}
-.btn:hover{transform:translateY(-1px)}
-.btn.primary:hover{transform:translateY(-1px)}
-
-/* ============ Tab Fade ============ */
-.blog-table{transition:opacity .25s ease}
-
-/* ============ Nav Shrink ============ */
-.nav{transition:height .3s ease,background .3s ease}
-.nav.scrolled{height:48px;background:rgba(18,18,18,.98)}
-.nav.scrolled .nav-links a{height:48px}
-
 @media (max-width:768px){
   body{cursor:auto}a,button{cursor:auto}.custom-cursor{display:none}
   .nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:absolute;top:56px;left:0;right:0;background:var(--bg-surface);border-bottom:1px solid var(--border)}
@@ -226,7 +207,7 @@ a{color:inherit;text-decoration:none;cursor:none}button{cursor:none}img{max-widt
         });
     }
 })();
-var DataStore=(function(){var bc=null;function f(u){return fetch(u).then(function(r){return r.json()})}function gab(){return bc?Promise.resolve(bc):f('data/blog.json').then(function(d){bc=d;return d})}function gb(filter){return gab().then(function(d){if(!filter||filter==='全部')return d;return d.filter(function(b){return b.category===filter})})}return{getAllBlogPosts:gab,getBlogPosts:gb}})();
+var DataStore=(function(){var bc=null;function f(u){return fetch(u).then(function(r){return r.json()})}function gab(){return bc?Promise.resolve(bc):f('../../src/data/blog.json').then(function(d){bc=d;return d})}function gb(filter){return gab().then(function(d){if(!filter||filter==='全部')return d;return d.filter(function(b){return b.category===filter})})}return{getAllBlogPosts:gab,getBlogPosts:gb}})();
 
 (function(){
   var list=document.getElementById('blog-list');var detail=document.getElementById('blog-detail');if(!list)return;
@@ -293,7 +274,7 @@ var DataStore=(function(){var bc=null;function f(u){return fetch(u).then(functio
     var gallery=detail.querySelector('.gallery');
     if(post.images&&post.images.length>0){
       gallery.classList.remove('hidden');
-      detail.querySelector('.gallery-images').innerHTML=post.images.map(function(s){return '<img src="'+s+'" alt="'+post.title+'">'}).join('');
+      detail.querySelector('.gallery-images').innerHTML=post.images.map(function(s){return '<img src="../../src/'+s+'" alt="'+post.title+'">'}).join('');
       updateDots();updateImgNav();
     }else{gallery.classList.add('hidden')}
     detail.querySelector('.gallery-meta').innerHTML='<h3>'+post.title+'</h3><span>'+post.date+' · '+post.category+'</span>';
@@ -315,27 +296,6 @@ var DataStore=(function(){var bc=null;function f(u){return fetch(u).then(functio
   }
 })();
 document.querySelectorAll('a[href="#contact"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var t=document.getElementById('contact');if(t)t.scrollIntoView({behavior:'smooth'})})});
-
-// Scroll Reveal
-(function(){
-  document.querySelectorAll('.blog-table,.contact-section,.contact-block,.detail-section').forEach(function(s){s.classList.add('reveal')});
-  var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('revealed');obs.unobserve(e.target)}})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
-  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
-})();
-
-// Tab Fade
-(function(){
-  var table=document.querySelector('.blog-table');if(!table)return;
-  var list=document.getElementById('blog-list');if(!list)return;
-  var mo=new MutationObserver(function(){setTimeout(function(){table.style.opacity='1'},30)});
-  mo.observe(list,{childList:true});
-  document.querySelectorAll('#blog-tabs .tab').forEach(function(tab){
-    tab.addEventListener('click',function(){table.style.opacity='0'},true);
-  });
-})();
-
-// Nav Scroll Shrink
-(function(){var nav=document.querySelector('.nav');if(!nav)return;window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>100)},{passive:true})})();
 
 </script>
 </body>

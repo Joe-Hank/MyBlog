@@ -226,7 +226,7 @@ a{color:inherit;text-decoration:none;cursor:none}button{cursor:none}img{max-widt
         });
     }
 })();
-var DataStore=(function(){var bc=null;function f(u){return fetch(u).then(function(r){return r.json()})}function gab(){return bc?Promise.resolve(bc):f('data/blog.json').then(function(d){bc=d;return d})}function gb(filter){return gab().then(function(d){if(!filter||filter==='全部')return d;return d.filter(function(b){return b.category===filter})})}return{getAllBlogPosts:gab,getBlogPosts:gb}})();
+var DataStore=(function(){var bc=null;function f(u){return fetch(u).then(function(r){return r.json()})}function gab(){return bc?Promise.resolve(bc):f('../../src/data/blog.json').then(function(d){bc=d;return d})}function gb(filter){return gab().then(function(d){if(!filter||filter==='全部')return d;return d.filter(function(b){return b.category===filter})})}return{getAllBlogPosts:gab,getBlogPosts:gb}})();
 
 (function(){
   var list=document.getElementById('blog-list');var detail=document.getElementById('blog-detail');if(!list)return;
@@ -293,7 +293,7 @@ var DataStore=(function(){var bc=null;function f(u){return fetch(u).then(functio
     var gallery=detail.querySelector('.gallery');
     if(post.images&&post.images.length>0){
       gallery.classList.remove('hidden');
-      detail.querySelector('.gallery-images').innerHTML=post.images.map(function(s){return '<img src="'+s+'" alt="'+post.title+'">'}).join('');
+      detail.querySelector('.gallery-images').innerHTML=post.images.map(function(s){return '<img src="../../src/'+s+'" alt="'+post.title+'">'}).join('');
       updateDots();updateImgNav();
     }else{gallery.classList.add('hidden')}
     detail.querySelector('.gallery-meta').innerHTML='<h3>'+post.title+'</h3><span>'+post.date+' · '+post.category+'</span>';

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>博客 · MYBLOG.HAN</title>
+<title>作品 · MYBLOG.HAN</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
@@ -46,33 +46,36 @@ a{color:inherit;text-decoration:none;cursor:none}button{cursor:none}img{max-widt
 .btn.primary{background:var(--accent);color:#000;border-color:var(--accent)}
 .btn.primary:hover{background:#ffe066;box-shadow:0 0 16px rgba(247,201,72,.3)}
 
+/* Section */
 .section-header{display:flex;align-items:center;justify-content:space-between;padding:24px 0;border-bottom:1px solid var(--border);margin-bottom:0}
 .section-header .section-id{font-family:var(--mono);font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:2px;margin-right:16px}
 .section-header h2{font-size:20px;font-weight:700;letter-spacing:-.2px;flex:1}
 
-.tabs{display:flex;gap:0;border-bottom:1px solid var(--border)}
+/* Tabs */
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-top:0}
 .tab{padding:12px 20px;font-family:var(--mono);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);background:none;border:none;border-bottom:2px solid transparent;cursor:none;transition:all .15s}
 .tab:hover{color:var(--text);background:var(--bg-surface)}
 .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
 
-/* Blog table */
-.blog-table{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:24px}
-.blog-table-header{display:grid;grid-template-columns:100px 1fr 120px;padding:10px 20px;background:var(--bg-elevated);border-bottom:1px solid var(--border);font-family:var(--mono);font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.5px}
-.blog-row{display:grid;grid-template-columns:100px 1fr 120px;padding:16px 20px;align-items:center;border-bottom:1px solid var(--border);background:var(--bg-surface);transition:all .15s;cursor:none}
-.blog-row:last-child{border-bottom:none}
-.blog-row:hover{background:var(--bg-elevated)}
-.blog-row:hover .blog-title{color:var(--accent)}
-.blog-row .blog-date{font-family:var(--mono);font-size:11px;color:var(--text-muted)}
-.blog-row .blog-title{font-size:13px;font-weight:600;transition:color .15s}
-.blog-row .blog-summary{font-size:11px;color:var(--text-secondary);margin-top:2px}
-.blog-row .blog-category{font-family:var(--mono);font-size:10px;color:var(--accent);background:var(--accent-bg);padding:3px 8px;border-radius:3px;text-align:center}
+/* Works Grid */
+.works-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:24px}
+.work-card{background:var(--bg-surface);cursor:none;transition:all .2s;overflow:hidden}
+.work-card:hover{background:var(--bg-elevated)}
+.work-card:hover .thumb img{transform:scale(1.05)}
+.work-card .thumb{aspect-ratio:16/10;overflow:hidden}
+.work-card .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s;filter:saturate(.7)}
+.work-card:hover .thumb img{filter:saturate(1)}
+.work-card .card-meta{padding:16px 20px;border-top:1px solid var(--border)}
+.work-card .card-meta h4{font-size:14px;font-weight:600;margin-bottom:4px}
+.work-card .card-meta .card-info{font-family:var(--mono);font-size:10px;color:var(--text-muted);display:flex;gap:12px;align-items:center}
+.work-card .card-meta .card-tag{font-size:10px;color:var(--accent);background:var(--accent-bg);padding:2px 8px;border-radius:3px}
 
 /* Detail */
 .detail-section{max-width:1400px;margin:0 auto;padding:0 32px 64px;display:none;scroll-margin-top:80px}
 .detail-section.visible{display:block}
 .gallery{position:relative;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:24px;margin-top:24px}
 .gallery.hidden{display:none}
-.gallery-header{position:absolute;top:0;left:0;right:0;z-index:2;padding:20px 24px;background:linear-gradient(to bottom,rgba(18,18,18,.9),transparent);display:flex;justify-content:space-between;align-items:flex-start}
+.gallery-header{position:absolute;top:0;left:0;right:0;z-index:2;padding:20px 24px;background:linear-gradient(to bottom,rgba(18,18,18,.9) 0%,transparent 100%);display:flex;justify-content:space-between;align-items:flex-start}
 .gallery-meta{font-family:var(--mono);font-size:12px;color:var(--text-secondary)}
 .gallery-meta h3{font-size:18px;color:var(--text);margin-bottom:4px;font-family:var(--sans)}
 .gallery-nav{display:flex;gap:8px}
@@ -85,6 +88,7 @@ a{color:inherit;text-decoration:none;cursor:none}button{cursor:none}img{max-widt
 .gallery-dots span{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);transition:.2s;cursor:none}
 .gallery-dots span:hover{background:rgba(255,255,255,.5)}
 .gallery-dots span.active{background:var(--accent);box-shadow:0 0 6px rgba(247,201,72,.4)}
+/* Gallery image arrows */
 .gallery-img-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.15);color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;cursor:none;transition:all .2s;backdrop-filter:blur(4px)}
 .gallery-img-nav:hover{background:var(--accent);color:#000;border-color:var(--accent)}
 .gallery-img-nav:disabled{opacity:0;pointer-events:none}
@@ -120,68 +124,44 @@ a{color:inherit;text-decoration:none;cursor:none}button{cursor:none}img{max-widt
 .footer .social a{color:var(--text-muted);font-size:11px;font-family:var(--mono);transition:color .15s;text-transform:uppercase;letter-spacing:.5px}
 .footer .social a:hover{color:var(--accent)}
 
-/* ============ Scroll Reveal ============ */
-.reveal{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
-.reveal.revealed{opacity:1;transform:translateY(0)}
-.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}.reveal-d4{transition-delay:.4s}.reveal-d5{transition-delay:.5s}
-
-/* ============ Enhanced Hover ============ */
-.blog-row:hover{transform:translateX(8px)}
-.blog-row:hover .blog-title{text-shadow:0 0 8px rgba(247,201,72,.4)}
-.btn:hover{transform:translateY(-1px)}
-.btn.primary:hover{transform:translateY(-1px)}
-
-/* ============ Tab Fade ============ */
-.blog-table{transition:opacity .25s ease}
-
-/* ============ Nav Shrink ============ */
-.nav{transition:height .3s ease,background .3s ease}
-.nav.scrolled{height:48px;background:rgba(18,18,18,.98)}
-.nav.scrolled .nav-links a{height:48px}
-
 @media (max-width:768px){
   body{cursor:auto}a,button{cursor:auto}.custom-cursor{display:none}
   .nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:absolute;top:56px;left:0;right:0;background:var(--bg-surface);border-bottom:1px solid var(--border)}
   .nav-links.open a{height:48px;padding:0 32px;border-bottom:1px solid var(--border)}.hamburger{display:flex}
+  .works-grid{grid-template-columns:1fr}
   .tabs{flex-wrap:wrap}.tab{padding:8px 14px;font-size:10px}
-  .blog-table-header{display:none}.blog-row{grid-template-columns:1fr;gap:4px;padding:14px 20px}
-  .contact-block{grid-template-columns:1fr}.footer-inner{flex-direction:column;text-align:center}.container{padding:0 20px}
+  .contact-block{grid-template-columns:1fr}
+  .footer-inner{flex-direction:column;text-align:center}.container{padding:0 20px}
   .detail-section{padding:0 20px 48px}
 }
 </style>
 </head>
 <body>
-<nav class="nav"><div class="nav-inner"><div class="logo">MYBLOG.HAN</div><div class="nav-links"><a href="index.html">Home</a><a href="works.html">Works</a><a href="blog.html" class="active">Blog</a><a href="about.html">About</a></div><button class="hamburger" aria-label="menu"><span></span><span></span><span></span></button></div></nav>
+<nav class="nav"><div class="nav-inner"><div class="logo">MYBLOG.HAN</div><div class="nav-links"><a href="index.html">Home</a><a href="works.html" class="active">Works</a><a href="blog.html">Blog</a><a href="about.html">About</a></div><button class="hamburger" aria-label="menu"><span></span><span></span><span></span></button></div></nav>
 
 <section style="padding:64px 0">
   <div class="container">
-    <div class="section-header"><span class="section-id">Blog</span><h2>博客文章</h2></div>
-    <p style="color:var(--text-secondary);font-size:13px;margin-top:16px;margin-bottom:0">点击任意一篇查看详情。</p>
-    <div class="tabs" id="blog-tabs">
+    <div class="section-header"><span class="section-id">Portfolio</span><h2>作品卡片</h2></div>
+    <p style="color:var(--text-secondary);font-size:13px;margin-top:16px;margin-bottom:0">点击任意卡片查看详情。</p>
+
+    <div class="tabs" id="works-tabs">
       <button class="tab active" data-type="全部">全部</button>
-      <button class="tab" data-type="游戏平台">游戏平台</button>
-      <button class="tab" data-type="游戏制作">游戏制作</button>
-      <button class="tab" data-type="游戏交易">游戏交易</button>
-      <button class="tab" data-type="UGC/AIGC">UGC/AIGC</button>
-      <button class="tab" data-type="AI提效">AI提效</button>
-      <button class="tab" data-type="虚拟现实">虚拟现实</button>
+      <button class="tab" data-type="应用">应用</button>
+      <button class="tab" data-type="游戏">游戏</button>
     </div>
-    <div class="blog-table">
-      <div class="blog-table-header"><span>Date</span><span>Title</span><span>Category</span></div>
-      <div id="blog-list">
-        <div class="blog-row" data-id="post-001"><span class="blog-date">2025.03.18</span><div><div class="blog-title">从零搭建一条可复用的 AI 工作流</div><div class="blog-summary">为什么你应该把 Agent 拆成流水线而不是对话</div></div><span class="blog-category">AI提效</span></div>
-        <div class="blog-row" data-id="post-002"><span class="blog-date">2025.02.22</span><div><div class="blog-title">Claude Code 使用心得：把 CLI 变成副驾驶</div><div class="blog-summary">三个月深度使用后的 10 条真经验</div></div><span class="blog-category">AI提效</span></div>
-        <div class="blog-row" data-id="post-003"><span class="blog-date">2025.01.10</span><div><div class="blog-title">设计系统与 Design Token 的第二春</div><div class="blog-summary">在 AI 生成式设计时代，Token 为什么更重要了</div></div><span class="blog-category">UGC/AIGC</span></div>
-        <div class="blog-row" data-id="post-004"><span class="blog-date">2024.12.05</span><div><div class="blog-title">一个独立开发者的年度复盘</div><div class="blog-summary">关于时间、精力与持续产出的一些思考</div></div><span class="blog-category">游戏制作</span></div>
-        <div class="blog-row" data-id="post-005"><span class="blog-date">2024.11.14</span><div><div class="blog-title">Rust × WebAssembly 的前端复兴</div><div class="blog-summary">性能、工程化与心智模型的全面对比</div></div><span class="blog-category">游戏平台</span></div>
-      </div>
+
+    <div class="works-grid" id="works-grid">
+      <div class="work-card" data-id="work-001"><div class="thumb"><img src="../../src/assets/portfolio/work-1.jpeg" alt="PC端游戏平台·交易·工具" loading="lazy"></div><div class="card-meta"><h4>PC端游戏平台·交易·工具</h4><div class="card-info"><span>2024</span><span class="card-tag">游戏平台</span></div></div></div>
+      <div class="work-card" data-id="work-002"><div class="thumb"><img src="../../src/assets/portfolio/work-2.jpeg" alt="移动端游戏交易平台" loading="lazy"></div><div class="card-meta"><h4>移动端游戏交易平台</h4><div class="card-info"><span>2024</span><span class="card-tag">游戏交易</span></div></div></div>
+      <div class="work-card" data-id="work-003"><div class="thumb"><img src="../../src/assets/portfolio/work-3.png" alt="手游项目" loading="lazy"></div><div class="card-meta"><h4>手游项目</h4><div class="card-info"><span>2023</span><span class="card-tag">游戏制作</span></div></div></div>
+      <div class="work-card" data-id="work-004"><div class="thumb"><img src="../../src/assets/portfolio/work-4.png" alt="XR游戏体验" loading="lazy"></div><div class="card-meta"><h4>XR游戏体验</h4><div class="card-info"><span>2025</span><span class="card-tag">虚拟现实</span></div></div></div>
     </div>
   </div>
 </section>
 
-<div class="detail-section" id="blog-detail">
+<div class="detail-section" id="works-detail">
   <div class="gallery">
-    <div class="gallery-header"><div class="gallery-meta"><h3></h3><span></span></div><div class="gallery-nav"><button class="gallery-prev">&larr; 上一篇</button><button class="gallery-next">下一篇 &rarr;</button></div></div>
+    <div class="gallery-header"><div class="gallery-meta"><h3></h3><span></span></div><div class="gallery-nav"><button class="gallery-prev">&larr; 上一个</button><button class="gallery-next">下一个 &rarr;</button></div></div>
     <div class="gallery-images"></div>
     <button class="gallery-img-nav img-prev" id="img-prev">&larr;</button>
     <button class="gallery-img-nav img-next" id="img-next">&rarr;</button>
@@ -195,23 +175,22 @@ a{color:inherit;text-decoration:none;cursor:none}button{cursor:none}img{max-widt
 <footer class="footer"><div class="footer-inner"><p>&copy; 2026 MYBLOG.HAN · built with <span class="accent">&lt;ClaudeCode/&gt;</span> & figma</p><div class="social"><a href="https://github.com/Joe-Hank" target="_blank">GitHub</a><a href="#" target="_blank">Bilibili</a><a href="#" target="_blank">LinkedIn</a></div></div></footer>
 
 <script>
+// Cursor
 (function(){
-  // 仅在纯触摸设备（如手机、平板）上禁用自定义光标
   if (navigator.maxTouchPoints > 0) return;
   var cursor=document.createElement('div');cursor.className='custom-cursor';document.body.appendChild(cursor);
   document.addEventListener('mousemove',function(e){cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px'});
   document.addEventListener('mousedown',function(){cursor.classList.add('click')});
   document.addEventListener('mouseup',function(){setTimeout(function(){cursor.classList.remove('click')},150)});
   function bindHover(){
-    document.querySelectorAll('a,button,.blog-row,.tab,.gallery-dots span').forEach(function(el){
+    document.querySelectorAll('a,button,.work-card,.tab,.gallery-dots span').forEach(function(el){
       el.addEventListener('mouseenter',function(){cursor.classList.add('hover')});
       el.addEventListener('mouseleave',function(){cursor.classList.remove('hover')});
     });
   }
   bindHover();window._cursorBindHover=bindHover;
 })();
-
-// Nav - Fixed
+// Nav
 (function(){
     var h = document.querySelector('.hamburger');
     var n = document.querySelector('.nav-links');
@@ -223,45 +202,43 @@ a{color:inherit;text-decoration:none;cursor:none}button{cursor:none}img{max-widt
             a.addEventListener('click', function(){
                 n.classList.remove('open');
             });
-        });
+        }); // 这里补全了 forEach 和 if 的括号
     }
-})();
-var DataStore=(function(){var bc=null;function f(u){return fetch(u).then(function(r){return r.json()})}function gab(){return bc?Promise.resolve(bc):f('data/blog.json').then(function(d){bc=d;return d})}function gb(filter){return gab().then(function(d){if(!filter||filter==='全部')return d;return d.filter(function(b){return b.category===filter})})}return{getAllBlogPosts:gab,getBlogPosts:gb}})();
+})(); // 这里补全了自执行函数的括号
+// Data
+var DataStore=(function(){var wc=null;function f(u){return fetch(u).then(function(r){return r.json()})}function gaw(){return wc?Promise.resolve(wc):f('../../src/data/works.json').then(function(d){wc=d;return d})}function gw(filter){return gaw().then(function(d){if(!filter||filter==='全部')return d;return d.filter(function(w){return w.category===filter})})}return{getAllWorks:gaw,getWorks:gw}})();
 
+// Works page
 (function(){
-  var list=document.getElementById('blog-list');var detail=document.getElementById('blog-detail');if(!list)return;
-  var allPosts=[];var currentPost=null;var galleryIndex=0;
+  var grid=document.getElementById('works-grid');var detail=document.getElementById('works-detail');if(!grid)return;
+  var allWorks=[];var currentWork=null;var galleryIndex=0;
 
-  DataStore.getAllBlogPosts().then(function(posts){
-    allPosts=posts;renderList(posts);
-    var params=new URLSearchParams(window.location.search);
-    var category=params.get('category');var id=params.get('id');
-    if(category){document.querySelectorAll('#blog-tabs .tab').forEach(function(tab){if(tab.dataset.type===category)tab.click()})}
-    if(id){var p=posts.find(function(p){return p.id===id});if(p)showDetail(p)}
+  DataStore.getAllWorks().then(function(works){
+    allWorks=works;renderGrid(works);
+    var params=new URLSearchParams(window.location.search);var id=params.get('id');
+    if(id){var w=works.find(function(w){return w.id===id});if(w)showDetail(w)}
   });
 
-  document.querySelectorAll('#blog-tabs .tab').forEach(function(tab){
+  document.querySelectorAll('#works-tabs .tab').forEach(function(tab){
     tab.addEventListener('click',function(){
-      document.querySelectorAll('#blog-tabs .tab').forEach(function(t){t.classList.remove('active')});
-      tab.classList.add('active');DataStore.getBlogPosts(tab.dataset.type).then(renderList);
+      document.querySelectorAll('#works-tabs .tab').forEach(function(t){t.classList.remove('active')});
+      tab.classList.add('active');DataStore.getWorks(tab.dataset.type).then(renderGrid);
     });
   });
 
-  function renderList(posts){
-    list.innerHTML=posts.map(function(post){
-      var title=post.title.length>24?post.title.substring(0,24)+'…':post.title;
-      var summary=post.summary.length>30?post.summary.substring(0,30)+'…':post.summary;
-      return '<div class="blog-row" data-id="'+post.id+'"><span class="blog-date">'+post.date+'</span><div><div class="blog-title">'+title+'</div><div class="blog-summary">'+summary+'</div></div><span class="blog-category">'+post.category+'</span></div>';
+  function renderGrid(works){
+    grid.innerHTML=works.map(function(w){
+      return '<div class="work-card" data-id="'+w.id+'"><div class="thumb"><img src="../../src/'+w.thumbnail+'" alt="'+w.title+'" loading="lazy"></div><div class="card-meta"><h4>'+w.title+'</h4><div class="card-info"><span>'+w.year+'</span>'+(w.tags[0]?'<span class="card-tag">'+w.tags[0]+'</span>':'')+'</div></div></div>';
     }).join('');
-    list.querySelectorAll('.blog-row').forEach(function(row){
-      row.addEventListener('click',function(){var p=allPosts.find(function(p){return p.id===row.dataset.id});if(p)showDetail(p)});
+    grid.querySelectorAll('.work-card').forEach(function(card){
+      card.addEventListener('click',function(){var w=allWorks.find(function(w){return w.id===card.dataset.id});if(w)showDetail(w)});
     });
     if(window._cursorBindHover)window._cursorBindHover();
   }
 
   function slideGallery(idx){
-    if(!currentPost||!currentPost.images)return;
-    var total=currentPost.images.length;
+    if(!currentWork)return;
+    var total=currentWork.images.length;
     if(idx<0)idx=0;if(idx>=total)idx=total-1;
     galleryIndex=idx;
     var images=detail.querySelectorAll('.gallery-images img');
@@ -270,9 +247,9 @@ var DataStore=(function(){var bc=null;function f(u){return fetch(u).then(functio
   }
 
   function updateDots(){
-    if(!currentPost||!currentPost.images||!detail)return;
+    if(!currentWork||!detail)return;
     var dotsEl=detail.querySelector('.gallery-dots');
-    dotsEl.innerHTML=currentPost.images.map(function(_,i){return '<span class="'+(i===galleryIndex?'active':'')+'" data-idx="'+i+'"></span>'}).join('');
+    dotsEl.innerHTML=currentWork.images.map(function(_,i){return '<span class="'+(i===galleryIndex?'active':'')+'" data-idx="'+i+'"></span>'}).join('');
     dotsEl.querySelectorAll('span').forEach(function(dot){
       dot.addEventListener('click',function(){slideGallery(parseInt(dot.dataset.idx))});
     });
@@ -281,33 +258,31 @@ var DataStore=(function(){var bc=null;function f(u){return fetch(u).then(functio
 
   function updateImgNav(){
     var imgPrev=document.getElementById('img-prev');var imgNext=document.getElementById('img-next');
-    if(!currentPost||!currentPost.images)return;
-    var total=currentPost.images.length;
+    if(!currentWork)return;
+    var total=currentWork.images.length;
     if(imgPrev)imgPrev.disabled=galleryIndex<=0||total<=1;
     if(imgNext)imgNext.disabled=galleryIndex>=total-1||total<=1;
   }
 
-  function showDetail(post){
-    currentPost=post;galleryIndex=0;
+  function showDetail(work){
+    currentWork=work;galleryIndex=0;
     if(!detail)return;detail.classList.add('visible');
-    var gallery=detail.querySelector('.gallery');
-    if(post.images&&post.images.length>0){
-      gallery.classList.remove('hidden');
-      detail.querySelector('.gallery-images').innerHTML=post.images.map(function(s){return '<img src="'+s+'" alt="'+post.title+'">'}).join('');
-      updateDots();updateImgNav();
-    }else{gallery.classList.add('hidden')}
-    detail.querySelector('.gallery-meta').innerHTML='<h3>'+post.title+'</h3><span>'+post.date+' · '+post.category+'</span>';
-    var idx=allPosts.indexOf(currentPost);
+    var img=detail.querySelector('.gallery-images');
+    img.innerHTML=work.images.map(function(s){return '<img src="../../src/'+s+'" alt="'+work.title+'">'}).join('');
+    detail.querySelector('.gallery-meta').innerHTML='<h3>'+work.title+'</h3><span>'+work.year+' · '+(work.tags[0]||work.category)+'</span>';
+    updateDots();updateImgNav();
+    // Work-level prev/next
+    var idx=allWorks.indexOf(currentWork);
     var p=detail.querySelector('.gallery-prev');var n=detail.querySelector('.gallery-next');
-    if(p)p.disabled=idx<=0;if(n)n.disabled=idx>=allPosts.length-1;
-    detail.querySelector('.detail-content').innerHTML=post.content;
+    if(p)p.disabled=idx<=0;if(n)n.disabled=idx>=allWorks.length-1;
+    detail.querySelector('.detail-content').innerHTML=work.description;
     detail.scrollIntoView({behavior:'smooth'});
   }
 
   if(detail){
-    // Post-level navigation
-    detail.querySelector('.gallery-prev').addEventListener('click',function(){var i=allPosts.indexOf(currentPost);if(i>0)showDetail(allPosts[i-1])});
-    detail.querySelector('.gallery-next').addEventListener('click',function(){var i=allPosts.indexOf(currentPost);if(i<allPosts.length-1)showDetail(allPosts[i+1])});
+    // Work-level navigation
+    detail.querySelector('.gallery-prev').addEventListener('click',function(){var i=allWorks.indexOf(currentWork);if(i>0)showDetail(allWorks[i-1])});
+    detail.querySelector('.gallery-next').addEventListener('click',function(){var i=allWorks.indexOf(currentWork);if(i<allWorks.length-1)showDetail(allWorks[i+1])});
     // Image-level navigation
     var imgPrev=document.getElementById('img-prev');var imgNext=document.getElementById('img-next');
     if(imgPrev)imgPrev.addEventListener('click',function(){slideGallery(galleryIndex-1)});
@@ -315,27 +290,6 @@ var DataStore=(function(){var bc=null;function f(u){return fetch(u).then(functio
   }
 })();
 document.querySelectorAll('a[href="#contact"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var t=document.getElementById('contact');if(t)t.scrollIntoView({behavior:'smooth'})})});
-
-// Scroll Reveal
-(function(){
-  document.querySelectorAll('.blog-table,.contact-section,.contact-block,.detail-section').forEach(function(s){s.classList.add('reveal')});
-  var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('revealed');obs.unobserve(e.target)}})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
-  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
-})();
-
-// Tab Fade
-(function(){
-  var table=document.querySelector('.blog-table');if(!table)return;
-  var list=document.getElementById('blog-list');if(!list)return;
-  var mo=new MutationObserver(function(){setTimeout(function(){table.style.opacity='1'},30)});
-  mo.observe(list,{childList:true});
-  document.querySelectorAll('#blog-tabs .tab').forEach(function(tab){
-    tab.addEventListener('click',function(){table.style.opacity='0'},true);
-  });
-})();
-
-// Nav Scroll Shrink
-(function(){var nav=document.querySelector('.nav');if(!nav)return;window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>100)},{passive:true})})();
 
 </script>
 </body>
