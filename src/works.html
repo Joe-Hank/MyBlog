@@ -153,6 +153,10 @@ a{color:inherit;text-decoration:none;cursor:none}button{cursor:none}img{max-widt
   .footer-inner{flex-direction:column;text-align:center}.container{padding:0 20px}
   .detail-section{padding:0 20px 48px}
 }
+.back-to-top{position:fixed;right:24px;bottom:24px;width:40px;height:40px;border-radius:50%;background:var(--bg-surface);border:1px solid var(--border-strong);color:var(--text-secondary);font-size:18px;display:flex;align-items:center;justify-content:center;cursor:none;transition:all .3s;opacity:0;pointer-events:none;z-index:90}
+.back-to-top.visible{opacity:1;pointer-events:auto}
+.back-to-top:hover{background:var(--accent);color:#000;border-color:var(--accent);transform:translateY(-2px)}
+@media(max-width:768px){.back-to-top{cursor:auto;right:16px;bottom:16px}}
 </style>
 </head>
 <body>
@@ -189,10 +193,13 @@ a{color:inherit;text-decoration:none;cursor:none}button{cursor:none}img{max-widt
   <div class="detail-content"></div>
 </div>
 
-<section id="contact" class="contact-section"><div class="container"><div class="section-header"><span class="section-id">SEC.05</span><h2>联系我</h2></div><div class="contact-block"><div class="contact-info"><h3>Drop me a line.</h3><p class="desc">通常 24 小时内回复。对有趣的项目总是保持开放。</p><div class="lines"><div class="line"><span class="label">Email</span>wenhuawasi@gmail.com</div><div class="line"><span class="label">GitHub</span>github.com/Joe-Hank</div><div class="line"><span class="label">Loc</span>Shanghai, CN</div><div class="line"><span class="label">WeChat</span>15222883095</div><div class="line"><span class="label">Phone</span>17320029880</div></div></div><div class="contact-cta"><div class="big-arrow">&rarr;</div><p>Ready to collaborate?</p><a class="btn primary" href="mailto:wenhuawasi@gmail.com">Send Email &rarr;</a></div></div></div></section>
+<section id="contact" class="contact-section"><div class="container"><div class="section-header"><span class="section-id">SEC.05</span><h2>联系我</h2></div><div class="contact-block"><div class="contact-info"><h3>Drop me a line.</h3><p class="desc">通常 24 小时内回复。对有趣的项目总是保持开放。</p><div class="lines"><div class="line"><span class="label">Email</span><a href="mailto:wenhuawasi@gmail.com">wenhuawasi@gmail.com</a></div><div class="line"><span class="label">GitHub</span><a href="https://github.com/Joe-Hank" target="_blank">github.com/Joe-Hank</a></div><div class="line"><span class="label">Loc</span>Shanghai, CN</div><div class="line"><span class="label">WeChat</span>15222883095</div><div class="line"><span class="label">Phone</span>17320029880</div></div></div><div class="contact-cta"><div class="big-arrow">&rarr;</div><p>Ready to collaborate?</p><a class="btn primary" href="mailto:wenhuawasi@gmail.com">Send Email &rarr;</a></div></div></div></section>
 
 <footer class="footer"><div class="footer-inner"><p>&copy; 2026 MYBLOG.HAN · built with <span class="accent">&lt;ClaudeCode/&gt;</span> & figma</p><div class="social"><a href="https://github.com/Joe-Hank" target="_blank">GitHub</a><a href="#" target="_blank">Bilibili</a><a href="#" target="_blank">LinkedIn</a></div></div></footer>
 
+<button class="back-to-top" id="back-to-top" aria-label="回到顶部">&uarr;</button>
+
+<script src="data/config.js"></script>
 <script>
 // Cursor
 (function(){
@@ -225,7 +232,7 @@ a{color:inherit;text-decoration:none;cursor:none}button{cursor:none}img{max-widt
     }
 })(); // 这里补全了自执行函数的括号
 // Data
-var DataStore=(function(){var wc=null;function f(u){return fetch(u).then(function(r){return r.json()})}function gaw(){return wc?Promise.resolve(wc):f('data/works.json').then(function(d){wc=d;return d})}function gw(filter){return gaw().then(function(d){if(!filter||filter==='全部')return d;return d.filter(function(w){return w.category===filter})})}return{getAllWorks:gaw,getWorks:gw}})();
+var DataStore=(function(){var wc=null;var proxy=(typeof SITE_CONFIG!=='undefined'&&SITE_CONFIG.notionProxy)||'';function f(u){return fetch(u).then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})}function fs(ep,loc){if(proxy)return f(proxy+ep).catch(function(){return f(loc)});return f(loc)}function gaw(){return wc?Promise.resolve(wc):fs('/works','data/works.json').then(function(d){wc=d;return d})}function gw(filter){return gaw().then(function(d){if(!filter||filter==='全部')return d;return d.filter(function(w){return w.category===filter})})}return{getAllWorks:gaw,getWorks:gw}})();
 
 // Works page
 (function(){
@@ -306,6 +313,8 @@ var DataStore=(function(){var wc=null;function f(u){return fetch(u).then(functio
     var imgPrev=document.getElementById('img-prev');var imgNext=document.getElementById('img-next');
     if(imgPrev)imgPrev.addEventListener('click',function(){slideGallery(galleryIndex-1)});
     if(imgNext)imgNext.addEventListener('click',function(){slideGallery(galleryIndex+1)});
+    // Keyboard: ← → 切换图片, Esc 关闭详情
+    document.addEventListener('keydown',function(e){if(!detail.classList.contains('visible'))return;if(e.key==='ArrowLeft'){e.preventDefault();slideGallery(galleryIndex-1)}else if(e.key==='ArrowRight'){e.preventDefault();slideGallery(galleryIndex+1)}else if(e.key==='Escape'){detail.classList.remove('visible')}});
   }
 })();
 document.querySelectorAll('a[href="#contact"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var t=document.getElementById('contact');if(t)t.scrollIntoView({behavior:'smooth'})})});
@@ -329,6 +338,9 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){a.addEventLi
 
 // Nav Scroll Shrink
 (function(){var nav=document.querySelector('.nav');if(!nav)return;window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>100)},{passive:true})})();
+
+// Back to Top
+(function(){var btn=document.getElementById('back-to-top');if(!btn)return;window.addEventListener('scroll',function(){btn.classList.toggle('visible',window.scrollY>400)},{passive:true});btn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})})})();
 
 </script>
 </body>

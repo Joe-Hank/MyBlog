@@ -153,6 +153,10 @@ a{color:inherit;text-decoration:none;cursor:none}button{cursor:none}img{max-widt
 .contact-block{grid-template-columns:1fr}
   .footer-inner{flex-direction:column;text-align:center}.container{padding:0 20px}
 }
+.back-to-top{position:fixed;right:24px;bottom:24px;width:40px;height:40px;border-radius:50%;background:var(--bg-surface);border:1px solid var(--border-strong);color:var(--text-secondary);font-size:18px;display:flex;align-items:center;justify-content:center;cursor:none;transition:all .3s;opacity:0;pointer-events:none;z-index:90}
+.back-to-top.visible{opacity:1;pointer-events:auto}
+.back-to-top:hover{background:var(--accent);color:#000;border-color:var(--accent);transform:translateY(-2px)}
+@media(max-width:768px){.back-to-top{cursor:auto;right:16px;bottom:16px}}
 </style>
 </head>
 <body>
@@ -205,9 +209,11 @@ a{color:inherit;text-decoration:none;cursor:none}button{cursor:none}img{max-widt
 
 
 <!-- Contact -->
-<section id="contact" class="contact-section"><div class="container"><div class="section-header"><span class="section-id">SEC.05</span><h2>联系我</h2></div><div class="contact-block"><div class="contact-info"><h3>Drop me a line.</h3><p class="desc">通常 24 小时内回复。对有趣的项目总是保持开放。</p><div class="lines"><div class="line"><span class="label">Email</span>wenhuawasi@gmail.com</div><div class="line"><span class="label">GitHub</span>github.com/Joe-Hank</div><div class="line"><span class="label">Loc</span>Shanghai, CN</div><div class="line"><span class="label">WeChat</span>15222883095</div><div class="line"><span class="label">Phone</span>17320029880</div></div></div><div class="contact-cta"><div class="big-arrow">&rarr;</div><p>Ready to collaborate?</p><a class="btn primary" href="mailto:wenhuawasi@gmail.com">Send Email &rarr;</a></div></div></div></section>
+<section id="contact" class="contact-section"><div class="container"><div class="section-header"><span class="section-id">SEC.05</span><h2>联系我</h2></div><div class="contact-block"><div class="contact-info"><h3>Drop me a line.</h3><p class="desc">通常 24 小时内回复。对有趣的项目总是保持开放。</p><div class="lines"><div class="line"><span class="label">Email</span><a href="mailto:wenhuawasi@gmail.com">wenhuawasi@gmail.com</a></div><div class="line"><span class="label">GitHub</span><a href="https://github.com/Joe-Hank" target="_blank">github.com/Joe-Hank</a></div><div class="line"><span class="label">Loc</span>Shanghai, CN</div><div class="line"><span class="label">WeChat</span>15222883095</div><div class="line"><span class="label">Phone</span>17320029880</div></div></div><div class="contact-cta"><div class="big-arrow">&rarr;</div><p>Ready to collaborate?</p><a class="btn primary" href="mailto:wenhuawasi@gmail.com">Send Email &rarr;</a></div></div></div></section>
 
 <footer class="footer"><div class="footer-inner"><p>&copy; 2026 MYBLOG.HAN · built with <span class="accent">&lt;ClaudeCode/&gt;</span> & figma</p><div class="social"><a href="https://github.com/Joe-Hank" target="_blank">GitHub</a><a href="#" target="_blank">Bilibili</a><a href="#" target="_blank">LinkedIn</a></div></div></footer>
+
+<button class="back-to-top" id="back-to-top" aria-label="回到顶部">&uarr;</button>
 
 <script>
 (function(){
@@ -251,6 +257,9 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){a.addEventLi
 
 // Nav Scroll Shrink
 (function(){var nav=document.querySelector('.nav');if(!nav)return;window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>100)},{passive:true})})();
+
+// Back to Top
+(function(){var btn=document.getElementById('back-to-top');if(!btn)return;window.addEventListener('scroll',function(){btn.classList.toggle('visible',window.scrollY>400)},{passive:true});btn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})})})();
 
 </script>
 </body>

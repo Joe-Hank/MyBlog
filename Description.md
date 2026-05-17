@@ -5,8 +5,8 @@
 | 项目ID | 20260408-001 |
 | 中文别名 | 个人多页面博客网站 |
 | 创建日期 | 2026-04-08 |
-| 最后修改 | 2026-04-16 |
-| 当前版本 | 0.2.0 |
+| 最后修改 | 2026-05-17 |
+| 当前版本 | 0.3.0 |
 | 在线访问 | https://joe-hank.github.io/MyBlog/ |
 | 开发语言 | HTML / CSS / JavaScript |
 | 依赖环境 | Python 3（仅本地预览用 http.server） |
@@ -16,7 +16,7 @@
 
 ## 功能简介
 
-多页面个人博客网站，基于 PRD 全面改版。科技创意方向，黑客帝国科幻风配色（黑/深灰 + 代码绿 #00ff7a）。
+多页面个人博客网站，Industrial Dark + Amber 主题（黑底 #121212 + 琥珀色 #f7c948）。
 
 **4 个页面：**
 - **Home**（首页）：Hero 展示区、作品快照手风琴（4窗口自动轮播）、AI 工作流（5步骤 + 工具 Logo 轮播）、关注领域卡片、最近博客
@@ -24,9 +24,9 @@
 - **Blog**（博客页）：博客文章列表（6类别筛选）、博客详情
 - **About**（关于页）：Hero + 履历时间轴
 
-**全局特效：** Matrix 字符雨 Canvas 背景 + 鼠标光圈揭示效果 + 自定义绿色圆点鼠标
+**全局特效：** 自定义琥珀色圆点光标 + scroll reveal 动画 + nav shrink + 各元素 hover 交互 + back-to-top 按钮
 
-**数据层：** 抽象数据接口（当前读取本地 JSON 占位数据，未来可切换 Notion API 代理）
+**数据层：** 抽象数据接口，支持 Notion API 代理（Cloudflare Worker）+ 本地 JSON 自动降级
 
 本项目同时作为 Figma 中保真原型的**源稿** —— 通过 Figma MCP 捕获页面并导入 Figma 设计文件。
 
@@ -43,14 +43,16 @@
 
 ## 已知问题 / TODO
 
-- [ ] Notion 数据库集成：需提供 DB ID 和 API Key，搭建后端代理
-- [ ] 邮件发送：当前使用 mailto: 方案，需升级为 EmailJS 或后端服务
+- [x] Notion 数据库集成：Cloudflare Worker 代理已就绪（workers/），需部署并配置 DB ID + Token
+- [x] 邮件发送：使用 mailto: 直接调起邮件客户端
 - [ ] 博客/作品详情的图片素材需补充
-- [ ] Figma 中 hover/click 交互需手动补充
+- [x] 交互增强：keyboard nav（← → Esc）、clickable 联系方式、back-to-top 按钮
 - [ ] 移动端细节适配需进一步优化
 
 ## 版本日志
-- 0.2.0 - 2026-04-16 首次上线 GitHub Pages（Actions 模式从 src/ 发布），修复 matrix-overlay 同心环
+- 0.3.0 - 2026-05-17 Notion 集成（Cloudflare Worker 代理 + DataStore 降级）、交互增强（keyboard nav / back-to-top / clickable contacts）
+- 0.2.1 - 2026-04-22 切换到 Industrial Dark+Amber 主题（v2.1），整理变体目录
+- 0.2.0 - 2026-04-16 首次上线 GitHub Pages（Actions 模式从 src/ 发布）
 - 0.2.0 - 2026-04-13 PRD 全面改版：4 页面架构、Matrix 背景、鼠标特效、作品手风琴、Logo 轮播、数据抽象层
 - 0.1.0 - 2026-04-08 初始版本：完成 PC + 移动端 HTML/CSS/JS，成功导入 Figma
 
@@ -61,8 +63,8 @@
 
 **Notion 文章发布页**：https://glacier-orbit-db2.notion.site/AI-31a70713d3b580088034eaf7cf25aab8
 
-**配色规范**：
-- 背景 `#0a0a0a` / 次级 `#111418` / 三级 `#161b22`
-- 主文 `#f5f7fa` / 次文 `#8a94a3`
-- 高光 `#00ff7a` / 暗高光 `#00c85f`
+**配色规范（Industrial Dark + Amber）**：
+- 背景 `#121212` / 次级 `#1a1a1a` / 三级 `#222`
+- 主文 `#e0e0e0` / 次文 `#888`
+- 高光 `#f7c948` / 暗高光 `#c9a233`
 - 字体：JetBrains Mono（代码）+ Inter（正文）

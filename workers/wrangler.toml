@@ -1,0 +1,16 @@
+name = "myblog-notion-proxy"
+main = "notion-proxy.js"
+compatibility_date = "2024-01-01"
+
+[vars]
+# Notion 数据库 ID（从浏览器地址栏复制，去掉连字符）
+# 例: https://www.notion.so/xxx/abc123def456...  →  BLOG_DB_ID = "abc123def456..."
+BLOG_DB_ID = ""
+WORKS_DB_ID = ""
+
+# 允许的前端域名（CORS），多域名用逗号隔开
+ALLOWED_ORIGIN = "https://joe-hank.github.io"
+
+# NOTION_TOKEN 必须通过 secret 设置（不要写在这里）:
+#   wrangler secret put NOTION_TOKEN
+# 然后粘贴你在 https://www.notion.so/my-integrations 创建的 Internal Integration Token

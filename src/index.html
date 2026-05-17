@@ -440,6 +440,10 @@ img{max-width:100%;display:block}
   .footer-inner{flex-direction:column;text-align:center}
   .container{padding:0 20px}
 }
+.back-to-top{position:fixed;right:24px;bottom:24px;width:40px;height:40px;border-radius:50%;background:var(--bg-surface);border:1px solid var(--border-strong);color:var(--text-secondary);font-size:18px;display:flex;align-items:center;justify-content:center;cursor:none;transition:all .3s;opacity:0;pointer-events:none;z-index:90}
+.back-to-top.visible{opacity:1;pointer-events:auto}
+.back-to-top:hover{background:var(--accent);color:#000;border-color:var(--accent);transform:translateY(-2px)}
+@media(max-width:768px){.back-to-top{cursor:auto;right:16px;bottom:16px}}
 </style>
 </head>
 <body>
@@ -634,8 +638,8 @@ img{max-width:100%;display:block}
         <h3>Drop me a line.</h3>
         <p class="desc">通常 24 小时内回复。对有趣的项目总是保持开放。</p>
         <div class="lines">
-          <div class="line"><span class="label">Email</span>wenhuawasi@gmail.com</div>
-          <div class="line"><span class="label">GitHub</span>github.com/Joe-Hank</div>
+          <div class="line"><span class="label">Email</span><a href="mailto:wenhuawasi@gmail.com">wenhuawasi@gmail.com</a></div>
+          <div class="line"><span class="label">GitHub</span><a href="https://github.com/Joe-Hank" target="_blank">github.com/Joe-Hank</a></div>
           <div class="line"><span class="label">Loc</span>Shanghai, CN</div>
           <div class="line"><span class="label">WeChat</span>15222883095</div>
           <div class="line"><span class="label">Phone</span>17320029880</div>
@@ -662,6 +666,9 @@ img{max-width:100%;display:block}
   </div>
 </footer>
 
+<button class="back-to-top" id="back-to-top" aria-label="回到顶部">&uarr;</button>
+
+<script src="data/config.js"></script>
 <script>
 // Custom Cursor — 不再用 'ontouchstart' in window 判断，因为 Win11 触屏设备即使用鼠标也会返回 true
 (function(){
@@ -724,14 +731,16 @@ img{max-width:100%;display:block}
   start();
 })();
 
-// Data layer
+// Data layer (Notion proxy with local JSON fallback)
 var DataStore=(function(){
   var worksCache=null;var blogCache=null;
-  function fetchJSON(url){return fetch(url).then(function(r){return r.json()})}
-  function getAllWorks(){return worksCache?Promise.resolve(worksCache):fetchJSON('data/works.json').then(function(d){worksCache=d;return d})}
+  var proxy=(typeof SITE_CONFIG!=='undefined'&&SITE_CONFIG.notionProxy)||'';
+  function fetchJSON(url){return fetch(url).then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})}
+  function fetchSrc(endpoint,local){if(proxy)return fetchJSON(proxy+endpoint).catch(function(){return fetchJSON(local)});return fetchJSON(local)}
+  function getAllWorks(){return worksCache?Promise.resolve(worksCache):fetchSrc('/works','data/works.json').then(function(d){worksCache=d;return d})}
   function getWorks(filter){return getAllWorks().then(function(data){if(!filter||filter==='全部')return data;return data.filter(function(w){return w.category===filter})})}
   function getWorkById(id){return getAllWorks().then(function(data){return data.find(function(w){return w.id===id})||null})}
-  function getAllBlogPosts(){return blogCache?Promise.resolve(blogCache):fetchJSON('data/blog.json').then(function(d){blogCache=d;return d})}
+  function getAllBlogPosts(){return blogCache?Promise.resolve(blogCache):fetchSrc('/blog','data/blog.json').then(function(d){blogCache=d;return d})}
   function getBlogPosts(filter){return getAllBlogPosts().then(function(data){if(!filter||filter==='全部')return data;return data.filter(function(b){return b.category===filter})})}
   function getBlogPostById(id){return getAllBlogPosts().then(function(data){return data.find(function(b){return b.id===id})||null})}
   return {getAllWorks:getAllWorks,getWorks:getWorks,getWorkById:getWorkById,getAllBlogPosts:getAllBlogPosts,getBlogPosts:getBlogPosts,getBlogPostById:getBlogPostById};
@@ -772,6 +781,9 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
 
 // Nav Scroll Shrink
 (function(){var nav=document.querySelector('.nav');if(!nav)return;window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>100)},{passive:true})})();
+
+// Back to Top
+(function(){var btn=document.getElementById('back-to-top');if(!btn)return;window.addEventListener('scroll',function(){btn.classList.toggle('visible',window.scrollY>400)},{passive:true});btn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})})})();
 
 </script>
 </body>
