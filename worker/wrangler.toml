@@ -1,0 +1,8 @@
+name = "myblog-notion-proxy"
+main = "src/index.js"
+compatibility_date = "2024-12-01"
+
+[vars]
+NOTION_BLOG_DB = "3418e10c17cc80078d13f4778a16cdbd"
+NOTION_WORKS_DB = "3418e10c17cc80ca975ee7d9a241dc24"
+ALLOWED_ORIGIN = "https://joe-hank.github.io"
