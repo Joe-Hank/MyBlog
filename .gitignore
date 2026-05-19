@@ -9,3 +9,4 @@ desktop.ini
 .vscode/
 .idea/
 *.log
+worker/.wrangler/
