@@ -122,6 +122,17 @@ function transformWork(page, index) {
   };
 }
 
+function transformBanner(page, index) {
+  const p = page.properties;
+  return {
+    id: `banner-${String(index + 1).padStart(3, '0')}`,
+    title: getPlainText(p['标题']),
+    subtitle: getPlainText(p['副标题']),
+    image: getFileUrls(p['图片'])[0] || '',
+    link: p['跳转链接']?.url || '',
+  };
+}
+
 // ── Request handler ────────────────────────────────────────────────────────
 
 export default {
@@ -165,9 +176,18 @@ export default {
         });
       }
 
+      if (path === '/banner') {
+        const pages = await queryDatabase(env.NOTION_BANNER_DB, env.NOTION_TOKEN);
+        const banners = pages.map((p, i) => transformBanner(p, i)).filter(b => b.image);
+
+        return new Response(JSON.stringify(banners), {
+          headers: { ...cors, 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=300' },
+        });
+      }
+
       // Health check
       if (path === '/') {
-        return new Response(JSON.stringify({ status: 'ok', endpoints: ['/blog', '/works'] }), {
+        return new Response(JSON.stringify({ status: 'ok', endpoints: ['/blog', '/works', '/banner'] }), {
           headers: { ...cors, 'Content-Type': 'application/json' },
         });
       }

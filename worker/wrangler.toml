@@ -5,4 +5,5 @@ compatibility_date = "2024-12-01"
 [vars]
 NOTION_BLOG_DB = "3418e10c17cc80078d13f4778a16cdbd"
 NOTION_WORKS_DB = "3418e10c17cc80ca975ee7d9a241dc24"
+NOTION_BANNER_DB = "3a4bd9ae988c4ee5b92613f192f40a18"
 ALLOWED_ORIGIN = "https://joe-hank.github.io"

@@ -1,0 +1,30 @@
+[
+  {
+    "id": "banner-001",
+    "title": "Digital Space",
+    "subtitle": "",
+    "image": "assets/backgrounds/hero-bg.png",
+    "link": ""
+  },
+  {
+    "id": "banner-002",
+    "title": "PC端游戏平台·交易·工具",
+    "subtitle": "",
+    "image": "assets/portfolio/work-1.jpeg",
+    "link": "works.html?id=work-001"
+  },
+  {
+    "id": "banner-003",
+    "title": "移动端游戏交易平台",
+    "subtitle": "",
+    "image": "assets/portfolio/work-2.jpeg",
+    "link": "works.html?id=work-002"
+  },
+  {
+    "id": "banner-004",
+    "title": "手游项目",
+    "subtitle": "",
+    "image": "assets/portfolio/work-3.png",
+    "link": "works.html?id=work-003"
+  }
+]

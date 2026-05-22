@@ -141,13 +141,14 @@ img{max-width:100%;display:block}
   border-right:1px solid var(--border);
 }
 .hero-slider{
-  display:flex;width:500%;height:100%;
+  display:flex;height:100%;
   transition:transform .8s cubic-bezier(.4,0,.2,1);
 }
 .hero-slider .slide{
-  width:20%;height:100%;flex-shrink:0;
+  height:100%;flex-shrink:0;
   position:relative;
 }
+.hero-slider .slide a{display:block;width:100%;height:100%}
 .hero-slider .slide img{
   width:100%;height:100%;object-fit:cover;
 }
@@ -469,18 +470,10 @@ img{max-width:100%;display:block}
 <div class="hero">
   <div class="hero-grid">
     <div class="hero-visual">
-      <div class="hero-slider" id="hero-slider">
-        <div class="slide"><img src="assets/backgrounds/hero-bg.png" alt="Banner"><div class="slide-title">Digital Space</div></div>
-        <div class="slide"><img src="assets/portfolio/work-1.jpeg" alt="PC端游戏平台"><div class="slide-title">PC端游戏平台·交易·工具</div></div>
-        <div class="slide"><img src="assets/portfolio/work-2.jpeg" alt="移动端游戏交易平台"><div class="slide-title">移动端游戏交易平台</div></div>
-        <div class="slide"><img src="assets/portfolio/work-3.png" alt="手游项目"><div class="slide-title">手游项目</div></div>
-        <div class="slide"><img src="assets/portfolio/work-4.png" alt="XR游戏体验"><div class="slide-title">XR游戏体验</div></div>
-      </div>
+      <div class="hero-slider" id="hero-slider"></div>
       <button class="hero-arrow prev" id="hero-prev">&larr;</button>
       <button class="hero-arrow next" id="hero-next">&rarr;</button>
-      <div class="hero-dots" id="hero-dots">
-        <span class="active"></span><span></span><span></span><span></span><span></span>
-      </div>
+      <div class="hero-dots" id="hero-dots"></div>
     </div>
     <div class="hero-panel">
       <div class="eyebrow">// Welcome</div>
@@ -504,24 +497,7 @@ img{max-width:100%;display:block}
       <a href="works.html" class="section-action">View All &rarr;</a>
     </div>
   </div>
-  <div class="works-grid">
-    <div class="work-card" onclick="location.href='works.html?id=work-001'">
-      <div class="work-thumb"><img src="assets/portfolio/work-1.jpeg" alt="PC端游戏平台·交易·工具" loading="lazy"></div>
-      <div class="work-meta"><h4>PC端游戏平台·交易·工具</h4><div class="work-info"><span>2024</span><span>应用</span></div></div>
-    </div>
-    <div class="work-card" onclick="location.href='works.html?id=work-002'">
-      <div class="work-thumb"><img src="assets/portfolio/work-2.jpeg" alt="移动端游戏交易平台" loading="lazy"></div>
-      <div class="work-meta"><h4>移动端游戏交易平台</h4><div class="work-info"><span>2024</span><span>应用</span></div></div>
-    </div>
-    <div class="work-card" onclick="location.href='works.html?id=work-003'">
-      <div class="work-thumb"><img src="assets/portfolio/work-3.png" alt="手游项目" loading="lazy"></div>
-      <div class="work-meta"><h4>手游项目</h4><div class="work-info"><span>2023</span><span>游戏</span></div></div>
-    </div>
-    <div class="work-card" onclick="location.href='works.html?id=work-004'">
-      <div class="work-thumb"><img src="assets/portfolio/work-4.png" alt="XR游戏体验" loading="lazy"></div>
-      <div class="work-meta"><h4>XR游戏体验</h4><div class="work-info"><span>2025</span><span>游戏</span></div></div>
-    </div>
-  </div>
+  <div class="works-grid" id="home-works-grid"></div>
 </section>
 </div><!-- /hero-works-wrap -->
 
@@ -548,11 +524,13 @@ img{max-width:100%;display:block}
         <div class="logo-item"><img src="assets/logos/claude-color.png" alt="Claude"><img class="logo-text" src="assets/logos/claude-text-dark.png" alt="Claude"></div>
         <div class="logo-item"><img src="assets/logos/coze.webp" alt="Coze"><img class="logo-text" src="assets/logos/coze-text-dark.png" alt="Coze"></div>
         <div class="logo-item"><img src="assets/logos/qwen-color.png" alt="Qwen"><img class="logo-text" src="assets/logos/qwen-text-dark.png" alt="Qwen"></div>
+        <div class="logo-item"><img src="assets/logos/mimo-color.png" alt="Mimo"><img class="logo-text" src="assets/logos/mimo-text-dark.png" alt="Mimo"></div>
         <div class="logo-item"><img src="assets/logos/figma-color.png" alt="Figma"><img class="logo-text" src="assets/logos/figma-text-dark.png" alt="Figma"></div>
         <div class="logo-item"><img src="assets/logos/comfyui.webp" alt="ComfyUI"><img class="logo-text" src="assets/logos/comfyui-text-dark.png" alt="ComfyUI"></div>
         <div class="logo-item"><img src="assets/logos/claude-color.png" alt="Claude"><img class="logo-text" src="assets/logos/claude-text-dark.png" alt="Claude"></div>
         <div class="logo-item"><img src="assets/logos/coze.webp" alt="Coze"><img class="logo-text" src="assets/logos/coze-text-dark.png" alt="Coze"></div>
         <div class="logo-item"><img src="assets/logos/qwen-color.png" alt="Qwen"><img class="logo-text" src="assets/logos/qwen-text-dark.png" alt="Qwen"></div>
+        <div class="logo-item"><img src="assets/logos/mimo-color.png" alt="Mimo"><img class="logo-text" src="assets/logos/mimo-text-dark.png" alt="Mimo"></div>
         <div class="logo-item"><img src="assets/logos/figma-color.png" alt="Figma"><img class="logo-text" src="assets/logos/figma-text-dark.png" alt="Figma"></div>
         <div class="logo-item"><img src="assets/logos/comfyui.webp" alt="ComfyUI"><img class="logo-text" src="assets/logos/comfyui-text-dark.png" alt="ComfyUI"></div>
       </div>
@@ -704,38 +682,74 @@ img{max-width:100%;display:block}
   }
 })();
 
-// Hero Banner — 8s auto-rotate + arrows
+// Hero Banner — dynamic (Notion-driven, 8s auto-rotate + arrows)
 (function(){
   var slider=document.getElementById('hero-slider');
-  var dots=document.querySelectorAll('#hero-dots span');
+  var dotsEl=document.getElementById('hero-dots');
   var prevBtn=document.getElementById('hero-prev');
   var nextBtn=document.getElementById('hero-next');
-  if(!slider||!dots.length)return;
-  var current=0;var total=dots.length;var timer;
+  if(!slider||!dotsEl)return;
+  if(!window.DataStore)return;
 
-  function go(idx){
-    current=((idx%total)+total)%total;
-    slider.style.transform='translateX(-'+(current*20)+'%)';
-    dots.forEach(function(d,i){d.classList.toggle('active',i===current)});
-  }
-  function next(){go(current+1)}
-  function prev(){go(current-1)}
-  function start(){stop();timer=setInterval(next,8000)}
-  function stop(){if(timer){clearInterval(timer);timer=null}}
+  DataStore.getBanners().then(function(banners){
+    if(!banners||!banners.length)return;
+    var total=banners.length;
+    var slideW=100/total;
 
-  dots.forEach(function(d,i){d.addEventListener('click',function(){stop();go(i);start()})});
-  prevBtn.addEventListener('click',function(){stop();prev();start()});
-  nextBtn.addEventListener('click',function(){stop();next();start()});
+    slider.style.width=(total*100)+'%';
+    slider.innerHTML=banners.map(function(b){
+      var inner='<img src="'+b.image+'" alt="'+(b.title||'banner')+'">'
+        +(b.title?'<div class="slide-title">'+b.title+(b.subtitle?' · '+b.subtitle:'')+'</div>':'');
+      var body=b.link?'<a href="'+b.link+'">'+inner+'</a>':inner;
+      return '<div class="slide" style="width:'+slideW+'%">'+body+'</div>';
+    }).join('');
+    dotsEl.innerHTML=banners.map(function(_,i){return '<span'+(i===0?' class="active"':'')+'></span>'}).join('');
+    var dots=dotsEl.querySelectorAll('span');
 
-  var visual=slider.parentElement;
-  visual.addEventListener('mouseenter',stop);
-  visual.addEventListener('mouseleave',start);
-  start();
+    var current=0;var timer;
+    function go(idx){
+      current=((idx%total)+total)%total;
+      slider.style.transform='translateX(-'+(current*slideW)+'%)';
+      dots.forEach(function(d,i){d.classList.toggle('active',i===current)});
+    }
+    function next(){go(current+1)}
+    function prev(){go(current-1)}
+    function start(){stop();if(total>1)timer=setInterval(next,8000)}
+    function stop(){if(timer){clearInterval(timer);timer=null}}
+
+    dots.forEach(function(d,i){d.addEventListener('click',function(){stop();go(i);start()})});
+    if(prevBtn)prevBtn.addEventListener('click',function(){stop();prev();start()});
+    if(nextBtn)nextBtn.addEventListener('click',function(){stop();next();start()});
+
+    var visual=slider.parentElement;
+    visual.addEventListener('mouseenter',stop);
+    visual.addEventListener('mouseleave',start);
+    start();
+    if(window._cursorBindHover)window._cursorBindHover();
+  });
+})();
+
+// Home Works Grid — top 4 from Notion (or local fallback)
+(function(){
+  var grid=document.getElementById('home-works-grid');
+  if(!grid||!window.DataStore)return;
+  DataStore.getAllWorks().then(function(works){
+    var top=works.slice(0,4);
+    grid.innerHTML=top.map(function(w){
+      var thumb=w.thumbnail||(w.images&&w.images[0])||'';
+      var tag=w.tags&&w.tags[0]?w.tags[0]:(w.category||'');
+      return '<div class="work-card" onclick="location.href=\'works.html?id='+w.id+'\'">'
+        +'<div class="work-thumb"><img src="'+thumb+'" alt="'+w.title+'" loading="lazy"></div>'
+        +'<div class="work-meta"><h4>'+w.title+'</h4><div class="work-info"><span>'+(w.year||'')+'</span><span>'+tag+'</span></div></div>'
+        +'</div>';
+    }).join('');
+    if(window._cursorBindHover)window._cursorBindHover();
+  });
 })();
 
 // Data layer (Notion proxy with local JSON fallback)
 var DataStore=(function(){
-  var worksCache=null;var blogCache=null;
+  var worksCache=null;var blogCache=null;var bannerCache=null;
   var proxy=(typeof SITE_CONFIG!=='undefined'&&SITE_CONFIG.notionProxy)||'';
   function fetchJSON(url){return fetch(url).then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})}
   function fetchSrc(endpoint,local){if(proxy)return fetchJSON(proxy+endpoint).catch(function(){return fetchJSON(local)});return fetchJSON(local)}
@@ -745,7 +759,8 @@ var DataStore=(function(){
   function getAllBlogPosts(){return blogCache?Promise.resolve(blogCache):fetchSrc('/blog','data/blog.json').then(function(d){blogCache=d;return d})}
   function getBlogPosts(filter){return getAllBlogPosts().then(function(data){if(!filter||filter==='全部')return data;return data.filter(function(b){return b.category===filter})})}
   function getBlogPostById(id){return getAllBlogPosts().then(function(data){return data.find(function(b){return b.id===id})||null})}
-  return {getAllWorks:getAllWorks,getWorks:getWorks,getWorkById:getWorkById,getAllBlogPosts:getAllBlogPosts,getBlogPosts:getBlogPosts,getBlogPostById:getBlogPostById};
+  function getBanners(){return bannerCache?Promise.resolve(bannerCache):fetchSrc('/banner','data/banner.json').then(function(d){bannerCache=d;return d})}
+  return {getAllWorks:getAllWorks,getWorks:getWorks,getWorkById:getWorkById,getAllBlogPosts:getAllBlogPosts,getBlogPosts:getBlogPosts,getBlogPostById:getBlogPostById,getBanners:getBanners};
 })();
 
 // Recent Blog

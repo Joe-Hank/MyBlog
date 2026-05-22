@@ -79,8 +79,8 @@ a{color:inherit;text-decoration:none;cursor:none}button{cursor:none}img{max-widt
 .gallery-nav button{padding:6px 14px;border-radius:var(--radius);border:1px solid var(--border-strong);background:var(--bg-surface);color:var(--text-secondary);font-family:var(--mono);font-size:11px;cursor:none;transition:.2s}
 .gallery-nav button:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
 .gallery-nav button:disabled{opacity:.3;cursor:not-allowed}
-.gallery-images{width:100%;aspect-ratio:16/9;display:flex;overflow:hidden}
-.gallery-images img{width:100%;height:100%;object-fit:cover;flex-shrink:0;transition:transform .3s}
+.gallery-images{width:100%;aspect-ratio:16/9;display:flex;overflow:hidden;background:#0a0a0a}
+.gallery-images img{width:100%;height:100%;object-fit:contain;flex-shrink:0;transition:transform .3s}
 .gallery-dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:2}
 .gallery-dots span{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);transition:.2s;cursor:none}
 .gallery-dots span:hover{background:rgba(255,255,255,.5)}
