@@ -130,6 +130,7 @@ function transformBanner(page, index) {
     subtitle: getPlainText(p['副标题']),
     image: getFileUrls(p['图片'])[0] || '',
     link: p['跳转链接']?.url || '',
+    order: getNumberValue(p['顺序']),
   };
 }
 
@@ -179,6 +180,15 @@ export default {
       if (path === '/banner') {
         const pages = await queryDatabase(env.NOTION_BANNER_DB, env.NOTION_TOKEN);
         const banners = pages.map((p, i) => transformBanner(p, i)).filter(b => b.image);
+        // Sort by 顺序 ascending (smaller first); null orders go to the end
+        banners.sort((a, b) => {
+          if (a.order == null && b.order == null) return 0;
+          if (a.order == null) return 1;
+          if (b.order == null) return -1;
+          return a.order - b.order;
+        });
+        // Re-index after sort so banner-001 is the first displayed
+        banners.forEach((b, i) => { b.id = `banner-${String(i + 1).padStart(3, '0')}`; });
 
         return new Response(JSON.stringify(banners), {
           headers: { ...cors, 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=300' },
