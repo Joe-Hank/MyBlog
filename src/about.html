@@ -69,7 +69,7 @@ a{color:inherit;text-decoration:none;cursor:none}button{cursor:none}img{max-widt
 .timeline-section{padding:64px 0}
 .timeline{margin-top:32px;position:relative;padding-left:0}
 .tl-row{
-  display:grid;grid-template-columns:120px 40px 1fr;gap:0;align-items:stretch;
+  display:grid;grid-template-columns:120px 40px 1fr auto;gap:0;align-items:stretch;
   min-height:100px;
 }
 .tl-year{
@@ -92,9 +92,22 @@ a{color:inherit;text-decoration:none;cursor:none}button{cursor:none}img{max-widt
   padding:16px 0 16px 20px;
   border-bottom:1px solid var(--border);
 }
-.tl-row:last-child .tl-content{border-bottom:none}
+.tl-row:last-child .tl-content,
+.tl-row:last-child .tl-images{border-bottom:none}
 .tl-content h4{font-size:15px;font-weight:700;margin-bottom:4px}
 .tl-content p{color:var(--text-secondary);font-size:13px;line-height:1.6}
+.tl-images{
+  padding:16px 0 16px 16px;
+  display:flex;gap:8px;align-items:center;
+  justify-content:flex-end;flex-wrap:wrap;
+  border-bottom:1px solid var(--border);
+  max-width:340px;
+}
+.tl-images img{
+  width:72px;height:72px;object-fit:cover;border-radius:4px;
+  border:1px solid var(--border);flex-shrink:0;
+  pointer-events:none;
+}
 
 
 /* Contact */
@@ -149,7 +162,9 @@ a{color:inherit;text-decoration:none;cursor:none}button{cursor:none}img{max-widt
   .nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:absolute;top:56px;left:0;right:0;background:var(--bg-surface);border-bottom:1px solid var(--border)}
   .nav-links.open a{height:48px;padding:0 32px;border-bottom:1px solid var(--border)}.hamburger{display:flex}
   .hero-banner{height:240px}.hero-banner .overlay h1{font-size:24px}
-  .tl-row{grid-template-columns:80px 30px 1fr}
+  .tl-row{grid-template-columns:80px 30px 1fr;}
+  .tl-images{grid-column:1/-1;justify-content:flex-start;padding:0 0 16px 110px;max-width:none}
+  .tl-images img{width:60px;height:60px}
 .contact-block{grid-template-columns:1fr}
   .footer-inner{flex-direction:column;text-align:center}.container{padding:0 20px}
 }
@@ -179,33 +194,7 @@ a{color:inherit;text-decoration:none;cursor:none}button{cursor:none}img{max-widt
     <div class="section-header"><span class="section-id">About</span><h2>履历时间轴</h2></div>
     <p style="color:var(--text-secondary);font-size:13px;margin-top:16px">从一行 <span style="font-family:var(--mono);color:var(--accent)">println!("hello")</span> 到今天的一些轨迹。</p>
 
-    <div class="timeline">
-      <div class="tl-row">
-        <div class="tl-year">2018</div>
-        <div class="tl-line"><div class="dot"></div></div>
-        <div class="tl-content"><h4>计算机科学 · 学士</h4><p>本科就读，专注于系统与机器学习基础</p></div>
-      </div>
-      <div class="tl-row">
-        <div class="tl-year">2021</div>
-        <div class="tl-line"><div class="dot"></div></div>
-        <div class="tl-content"><h4>初入行业 · 前端工程师</h4><p>加入创业公司，参与从 0 到 1 的产品构建</p></div>
-      </div>
-      <div class="tl-row">
-        <div class="tl-year">2023</div>
-        <div class="tl-line"><div class="dot"></div></div>
-        <div class="tl-content"><h4>转向 AI 工程</h4><p>All-in LLM Agent，设计可规模化的 AI 工作流</p></div>
-      </div>
-      <div class="tl-row">
-        <div class="tl-year">2025</div>
-        <div class="tl-line"><div class="dot"></div></div>
-        <div class="tl-content"><h4>独立创造者</h4><p>开始 build in public，兼顾产品与内容输出</p></div>
-      </div>
-      <div class="tl-row">
-        <div class="tl-year">FUTURE</div>
-        <div class="tl-line"><div class="dot"></div></div>
-        <div class="tl-content"><h4>下一站 · 开源 + SaaS</h4><p>构建属于 AI 时代的工具与社区</p></div>
-      </div>
-    </div>
+    <div class="timeline" id="timeline"></div>
   </div>
 </section>
 
@@ -217,6 +206,7 @@ a{color:inherit;text-decoration:none;cursor:none}button{cursor:none}img{max-widt
 
 <button class="back-to-top" id="back-to-top" aria-label="回到顶部">&uarr;</button>
 
+<script src="data/config.js"></script>
 <script>
 (function(){
   if (navigator.maxTouchPoints > 0) return;
@@ -249,12 +239,41 @@ a{color:inherit;text-decoration:none;cursor:none}button{cursor:none}img{max-widt
 })();
 document.querySelectorAll('a[href="#contact"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var t=document.getElementById('contact');if(t)t.scrollIntoView({behavior:'smooth'})})});
 
-// Scroll Reveal — timeline rows with stagger
+// Scroll Reveal — sections (timeline rows revealed inside the timeline IIFE after render)
+var __aboutObs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('revealed');__aboutObs.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
 (function(){
-  document.querySelectorAll('.timeline-section,.contact-section,.contact-block').forEach(function(s){s.classList.add('reveal')});
-  document.querySelectorAll('.tl-row').forEach(function(el,i){el.classList.add('reveal');if(i>0&&i<6)el.classList.add('reveal-d'+i)});
-  var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('revealed');obs.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
-  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
+  document.querySelectorAll('.timeline-section,.contact-section,.contact-block').forEach(function(s){s.classList.add('reveal');__aboutObs.observe(s)});
+})();
+
+// Timeline — dynamic from Notion (with local fallback)
+(function(){
+  var container=document.getElementById('timeline');
+  if(!container)return;
+  var proxy=(typeof SITE_CONFIG!=='undefined'&&SITE_CONFIG.notionProxy)||'';
+  function fetchJSON(u){return fetch(u).then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})}
+  function fetchSrc(ep,loc){if(proxy)return fetchJSON(proxy+ep).catch(function(){return fetchJSON(loc)});return fetchJSON(loc)}
+  function esc(s){return String(s||'').replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+  fetchSrc('/timeline','data/timeline.json').then(function(items){
+    if(!items||!items.length){container.innerHTML='<p style="color:var(--text-muted);padding:24px 0">暂无履历条目。</p>';return}
+    container.innerHTML=items.map(function(it){
+      var y=it.year||'';
+      // Year > 2050 => FUTURE
+      var label=(y && parseInt(y,10)>2050)?'FUTURE':y;
+      var imgs=(it.images&&it.images.length)?'<div class="tl-images">'+it.images.map(function(u){return '<img src="'+esc(u)+'" alt="" loading="lazy">'}).join('')+'</div>':'<div class="tl-images"></div>';
+      return '<div class="tl-row">'
+        +'<div class="tl-year">'+esc(label)+'</div>'
+        +'<div class="tl-line"><div class="dot"></div></div>'
+        +'<div class="tl-content"><h4>'+esc(it.title)+'</h4><p>'+esc(it.subtitle)+'</p></div>'
+        +imgs
+        +'</div>';
+    }).join('');
+    // Now wire up reveal + cursor hover for the new rows
+    container.querySelectorAll('.tl-row').forEach(function(el,i){
+      el.classList.add('reveal');
+      if(i>0&&i<6)el.classList.add('reveal-d'+i);
+      __aboutObs.observe(el);
+    });
+  }).catch(function(e){console.error('timeline load failed:',e)});
 })();
 
 // Nav Scroll Shrink

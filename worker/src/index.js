@@ -134,6 +134,19 @@ function transformBanner(page, index) {
   };
 }
 
+function transformTimeline(page, index) {
+  const p = page.properties;
+  const dateStr = getDateValue(p['时间']); // ISO yyyy-mm-dd
+  return {
+    id: `tl-${String(index + 1).padStart(3, '0')}`,
+    date: dateStr,
+    year: dateStr ? dateStr.substring(0, 4) : '',
+    title: getPlainText(p['标题']),
+    subtitle: getPlainText(p['副标题']),
+    images: getFileUrls(p['图片']),
+  };
+}
+
 // ── Request handler ────────────────────────────────────────────────────────
 
 export default {
@@ -177,6 +190,23 @@ export default {
         });
       }
 
+      if (path === '/timeline') {
+        const pages = await queryDatabase(env.NOTION_TIMELINE_DB, env.NOTION_TOKEN);
+        const items = pages.map((p, i) => transformTimeline(p, i));
+        // Sort by date descending (newest first); empty dates go to the end
+        items.sort((a, b) => {
+          if (!a.date && !b.date) return 0;
+          if (!a.date) return 1;
+          if (!b.date) return -1;
+          return b.date.localeCompare(a.date);
+        });
+        items.forEach((it, i) => { it.id = `tl-${String(i + 1).padStart(3, '0')}`; });
+
+        return new Response(JSON.stringify(items), {
+          headers: { ...cors, 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=300' },
+        });
+      }
+
       if (path === '/banner') {
         const pages = await queryDatabase(env.NOTION_BANNER_DB, env.NOTION_TOKEN);
         const banners = pages.map((p, i) => transformBanner(p, i)).filter(b => b.image);
@@ -197,7 +227,7 @@ export default {
 
       // Health check
       if (path === '/') {
-        return new Response(JSON.stringify({ status: 'ok', endpoints: ['/blog', '/works', '/banner'] }), {
+        return new Response(JSON.stringify({ status: 'ok', endpoints: ['/blog', '/works', '/banner', '/timeline'] }), {
           headers: { ...cors, 'Content-Type': 'application/json' },
         });
       }
