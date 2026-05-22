@@ -682,6 +682,22 @@ img{max-width:100%;display:block}
   }
 })();
 
+// Data layer (Notion proxy with local JSON fallback)
+var DataStore=(function(){
+  var worksCache=null;var blogCache=null;var bannerCache=null;
+  var proxy=(typeof SITE_CONFIG!=='undefined'&&SITE_CONFIG.notionProxy)||'';
+  function fetchJSON(url){return fetch(url).then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})}
+  function fetchSrc(endpoint,local){if(proxy)return fetchJSON(proxy+endpoint).catch(function(){return fetchJSON(local)});return fetchJSON(local)}
+  function getAllWorks(){return worksCache?Promise.resolve(worksCache):fetchSrc('/works','data/works.json').then(function(d){worksCache=d;return d})}
+  function getWorks(filter){return getAllWorks().then(function(data){if(!filter||filter==='全部')return data;return data.filter(function(w){return w.category===filter})})}
+  function getWorkById(id){return getAllWorks().then(function(data){return data.find(function(w){return w.id===id})||null})}
+  function getAllBlogPosts(){return blogCache?Promise.resolve(blogCache):fetchSrc('/blog','data/blog.json').then(function(d){blogCache=d;return d})}
+  function getBlogPosts(filter){return getAllBlogPosts().then(function(data){if(!filter||filter==='全部')return data;return data.filter(function(b){return b.category===filter})})}
+  function getBlogPostById(id){return getAllBlogPosts().then(function(data){return data.find(function(b){return b.id===id})||null})}
+  function getBanners(){return bannerCache?Promise.resolve(bannerCache):fetchSrc('/banner','data/banner.json').then(function(d){bannerCache=d;return d})}
+  return {getAllWorks:getAllWorks,getWorks:getWorks,getWorkById:getWorkById,getAllBlogPosts:getAllBlogPosts,getBlogPosts:getBlogPosts,getBlogPostById:getBlogPostById,getBanners:getBanners};
+})();
+
 // Hero Banner — dynamic (Notion-driven, 8s auto-rotate + arrows)
 (function(){
   var slider=document.getElementById('hero-slider');
@@ -745,22 +761,6 @@ img{max-width:100%;display:block}
     }).join('');
     if(window._cursorBindHover)window._cursorBindHover();
   });
-})();
-
-// Data layer (Notion proxy with local JSON fallback)
-var DataStore=(function(){
-  var worksCache=null;var blogCache=null;var bannerCache=null;
-  var proxy=(typeof SITE_CONFIG!=='undefined'&&SITE_CONFIG.notionProxy)||'';
-  function fetchJSON(url){return fetch(url).then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})}
-  function fetchSrc(endpoint,local){if(proxy)return fetchJSON(proxy+endpoint).catch(function(){return fetchJSON(local)});return fetchJSON(local)}
-  function getAllWorks(){return worksCache?Promise.resolve(worksCache):fetchSrc('/works','data/works.json').then(function(d){worksCache=d;return d})}
-  function getWorks(filter){return getAllWorks().then(function(data){if(!filter||filter==='全部')return data;return data.filter(function(w){return w.category===filter})})}
-  function getWorkById(id){return getAllWorks().then(function(data){return data.find(function(w){return w.id===id})||null})}
-  function getAllBlogPosts(){return blogCache?Promise.resolve(blogCache):fetchSrc('/blog','data/blog.json').then(function(d){blogCache=d;return d})}
-  function getBlogPosts(filter){return getAllBlogPosts().then(function(data){if(!filter||filter==='全部')return data;return data.filter(function(b){return b.category===filter})})}
-  function getBlogPostById(id){return getAllBlogPosts().then(function(data){return data.find(function(b){return b.id===id})||null})}
-  function getBanners(){return bannerCache?Promise.resolve(bannerCache):fetchSrc('/banner','data/banner.json').then(function(d){bannerCache=d;return d})}
-  return {getAllWorks:getAllWorks,getWorks:getWorks,getWorkById:getWorkById,getAllBlogPosts:getAllBlogPosts,getBlogPosts:getBlogPosts,getBlogPostById:getBlogPostById,getBanners:getBanners};
 })();
 
 // Recent Blog
