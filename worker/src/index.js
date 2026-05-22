@@ -87,13 +87,148 @@ function getFileUrls(prop) {
   }).filter(Boolean);
 }
 
+// ── Page body → Markdown ───────────────────────────────────────────────────
+
+async function fetchBlockChildren(blockId, notionToken) {
+  const blocks = [];
+  let cursor;
+  do {
+    const url = new URL(`https://api.notion.com/v1/blocks/${blockId}/children`);
+    url.searchParams.set('page_size', '100');
+    if (cursor) url.searchParams.set('start_cursor', cursor);
+    const res = await fetch(url, {
+      headers: {
+        'Authorization': `Bearer ${notionToken}`,
+        'Notion-Version': '2022-06-28',
+      },
+    });
+    if (!res.ok) throw new Error(`Notion blocks ${res.status}: ${await res.text()}`);
+    const data = await res.json();
+    blocks.push(...data.results);
+    cursor = data.has_more ? data.next_cursor : undefined;
+  } while (cursor);
+  return blocks;
+}
+
+function richTextToMd(rtArr) {
+  if (!rtArr || !rtArr.length) return '';
+  return rtArr.map(rt => {
+    let t = rt.plain_text || '';
+    if (!t) return '';
+    const a = rt.annotations || {};
+    if (a.code) t = '`' + t + '`';
+    if (a.bold) t = '**' + t + '**';
+    if (a.italic) t = '*' + t + '*';
+    if (a.strikethrough) t = '~~' + t + '~~';
+    if (rt.href) t = '[' + t + '](' + rt.href + ')';
+    return t;
+  }).join('');
+}
+
+async function blockToMd(block, notionToken, depth = 0) {
+  const t = block.type;
+  const indent = '  '.repeat(depth);
+
+  switch (t) {
+    case 'paragraph':
+      return richTextToMd(block.paragraph.rich_text) + '\n\n';
+    case 'heading_1':
+      return '# ' + richTextToMd(block.heading_1.rich_text) + '\n\n';
+    case 'heading_2':
+      return '## ' + richTextToMd(block.heading_2.rich_text) + '\n\n';
+    case 'heading_3':
+      return '### ' + richTextToMd(block.heading_3.rich_text) + '\n\n';
+    case 'bulleted_list_item': {
+      let out = indent + '- ' + richTextToMd(block.bulleted_list_item.rich_text) + '\n';
+      if (block.has_children) {
+        const kids = await fetchBlockChildren(block.id, notionToken);
+        for (const k of kids) out += await blockToMd(k, notionToken, depth + 1);
+      }
+      return out;
+    }
+    case 'numbered_list_item': {
+      let out = indent + '1. ' + richTextToMd(block.numbered_list_item.rich_text) + '\n';
+      if (block.has_children) {
+        const kids = await fetchBlockChildren(block.id, notionToken);
+        for (const k of kids) out += await blockToMd(k, notionToken, depth + 1);
+      }
+      return out;
+    }
+    case 'to_do': {
+      const box = block.to_do.checked ? '[x]' : '[ ]';
+      return indent + '- ' + box + ' ' + richTextToMd(block.to_do.rich_text) + '\n';
+    }
+    case 'quote':
+      return '> ' + richTextToMd(block.quote.rich_text) + '\n\n';
+    case 'callout':
+      return '> ' + richTextToMd(block.callout.rich_text) + '\n\n';
+    case 'code': {
+      const lang = block.code.language || '';
+      const text = (block.code.rich_text || []).map(rt => rt.plain_text).join('');
+      return '```' + lang + '\n' + text + '\n```\n\n';
+    }
+    case 'divider':
+      return '---\n\n';
+    case 'image': {
+      const img = block.image;
+      const u = img.type === 'external' ? img.external.url : img.file.url;
+      const cap = richTextToMd(img.caption || []);
+      return '![' + cap + '](' + u + ')\n\n';
+    }
+    case 'table': {
+      if (!block.has_children) return '';
+      const rows = await fetchBlockChildren(block.id, notionToken);
+      const lines = [];
+      rows.forEach((row, i) => {
+        if (row.type !== 'table_row') return;
+        const cells = row.table_row.cells.map(cell => richTextToMd(cell).replace(/\n/g, ' ').replace(/\|/g, '\\|'));
+        lines.push('| ' + cells.join(' | ') + ' |');
+        if (i === 0) lines.push('|' + cells.map(() => '---').join('|') + '|');
+      });
+      return lines.join('\n') + '\n\n';
+    }
+    case 'toggle': {
+      let out = richTextToMd(block.toggle.rich_text) + '\n\n';
+      if (block.has_children) {
+        const kids = await fetchBlockChildren(block.id, notionToken);
+        for (const k of kids) out += await blockToMd(k, notionToken, depth);
+      }
+      return out;
+    }
+    case 'bookmark':
+    case 'embed':
+    case 'video':
+    case 'file': {
+      const u = block[t]?.url || block[t]?.external?.url || block[t]?.file?.url || '';
+      return u ? '[' + u + '](' + u + ')\n\n' : '';
+    }
+    default:
+      return '';
+  }
+}
+
+async function pageBodyToMarkdown(pageId, notionToken) {
+  const blocks = await fetchBlockChildren(pageId, notionToken);
+  let md = '';
+  for (const b of blocks) md += await blockToMd(b, notionToken);
+  return md.trim();
+}
+
 // ── Transform Notion pages → frontend JSON ─────────────────────────────────
 
-function transformBlogPost(page, index) {
+async function transformBlogPost(page, index, notionToken) {
   const p = page.properties;
   const date = getDateValue(p['日期']);
-  // Format date: "2025-03-18" → "2025.03.18"
   const formattedDate = date ? date.substring(0, 10).replace(/-/g, '.') : '';
+
+  // Read content from page body (markdown). Fallback to 内容 property if body is empty.
+  let content = '';
+  try {
+    content = await pageBodyToMarkdown(page.id, notionToken);
+  } catch (e) {
+    console.error('pageBodyToMarkdown failed for', page.id, e.message);
+  }
+  if (!content) content = getPlainText(p['内容']);
 
   return {
     id: `post-${String(index + 1).padStart(3, '0')}`,
@@ -102,12 +237,21 @@ function transformBlogPost(page, index) {
     summary: getPlainText(p['摘要']),
     category: getSelectValue(p['分类']),
     images: getFileUrls(p['图片']),
-    content: getPlainText(p['内容']),
+    content,
   };
 }
 
-function transformWork(page, index) {
+async function transformWork(page, index, notionToken) {
   const p = page.properties;
+
+  // Read description from page body. Fallback to 描述 property if body is empty.
+  let description = '';
+  try {
+    description = await pageBodyToMarkdown(page.id, notionToken);
+  } catch (e) {
+    console.error('pageBodyToMarkdown failed for', page.id, e.message);
+  }
+  if (!description) description = getPlainText(p['描述']);
 
   return {
     id: `work-${String(index + 1).padStart(3, '0')}`,
@@ -118,7 +262,7 @@ function transformWork(page, index) {
     thumbnail: getFileUrls(p['缩略图'])[0] || '',
     images: getFileUrls(p['图片/视频']),
     tags: getMultiSelectValues(p['标签']),
-    description: getPlainText(p['描述']),
+    description,
   };
 }
 
@@ -170,8 +314,9 @@ export default {
     try {
       if (path === '/blog') {
         const pages = await queryDatabase(env.NOTION_BLOG_DB, env.NOTION_TOKEN);
+        // Fetch page bodies concurrently
+        const posts = await Promise.all(pages.map((p, i) => transformBlogPost(p, i, env.NOTION_TOKEN)));
         // Sort by date descending
-        const posts = pages.map((p, i) => transformBlogPost(p, i));
         posts.sort((a, b) => b.date.localeCompare(a.date));
         // Re-index after sort
         posts.forEach((p, i) => { p.id = `post-${String(i + 1).padStart(3, '0')}`; });
@@ -183,7 +328,7 @@ export default {
 
       if (path === '/works') {
         const pages = await queryDatabase(env.NOTION_WORKS_DB, env.NOTION_TOKEN);
-        const works = pages.map((p, i) => transformWork(p, i));
+        const works = await Promise.all(pages.map((p, i) => transformWork(p, i, env.NOTION_TOKEN)));
 
         return new Response(JSON.stringify(works), {
           headers: { ...cors, 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=300' },
