@@ -10,3 +10,6 @@ desktop.ini
 .idea/
 *.log
 worker/.wrangler/
+
+# Claude Code per-project state (do not version)
+.claude/
