@@ -78,13 +78,37 @@ function getNumberValue(prop) {
   return prop?.number ?? null;
 }
 
-function getFileUrls(prop) {
+function getFileUrls(prop, mirrorBase) {
   if (!prop?.files) return [];
   return prop.files.map(f => {
-    if (f.type === 'file') return f.file.url;
+    if (f.type === 'file') return rewriteFileUrl(f.file.url, mirrorBase);
     if (f.type === 'external') return f.external.url;
     return '';
   }).filter(Boolean);
+}
+
+// ── Notion S3 → GitHub Pages mirror ────────────────────────────────────────
+// Notion-hosted attachments are served via short-lived (1 h) AWS S3 pre-signed
+// URLs. We mirror them into the repo (src/assets/notion/<file-id>.<ext>) and
+// rewrite outgoing URLs to that stable GitHub Pages location so visitors don't
+// hit 403 when the signed URL expires. Pass mirrorBase = null/empty (or
+// request /endpoint?raw=1) to skip rewrite — used by the sync script.
+function rewriteFileUrl(url, mirrorBase) {
+  if (!url || !mirrorBase) return url;
+  try {
+    const u = new URL(url);
+    if (!u.hostname.includes('amazonaws.com')) return url;
+    const segs = u.pathname.split('/').filter(Boolean);
+    if (segs.length < 2) return url;
+    const fileId = segs[segs.length - 2];
+    const filename = decodeURIComponent(segs[segs.length - 1]);
+    const dot = filename.lastIndexOf('.');
+    const ext = dot >= 0 ? filename.substring(dot).toLowerCase() : '';
+    if (!ext) return url;
+    return `${mirrorBase.replace(/\/$/, '')}/${fileId}${ext}`;
+  } catch {
+    return url;
+  }
 }
 
 // ── Page body → Markdown ───────────────────────────────────────────────────
@@ -125,7 +149,7 @@ function richTextToMd(rtArr) {
   }).join('');
 }
 
-async function blockToMd(block, notionToken, depth = 0) {
+async function blockToMd(block, notionToken, mirrorBase, depth = 0) {
   const t = block.type;
   const indent = '  '.repeat(depth);
 
@@ -142,7 +166,7 @@ async function blockToMd(block, notionToken, depth = 0) {
       let out = indent + '- ' + richTextToMd(block.bulleted_list_item.rich_text) + '\n';
       if (block.has_children) {
         const kids = await fetchBlockChildren(block.id, notionToken);
-        for (const k of kids) out += await blockToMd(k, notionToken, depth + 1);
+        for (const k of kids) out += await blockToMd(k, notionToken, mirrorBase, depth + 1);
       }
       return out;
     }
@@ -150,7 +174,7 @@ async function blockToMd(block, notionToken, depth = 0) {
       let out = indent + '1. ' + richTextToMd(block.numbered_list_item.rich_text) + '\n';
       if (block.has_children) {
         const kids = await fetchBlockChildren(block.id, notionToken);
-        for (const k of kids) out += await blockToMd(k, notionToken, depth + 1);
+        for (const k of kids) out += await blockToMd(k, notionToken, mirrorBase, depth + 1);
       }
       return out;
     }
@@ -171,7 +195,8 @@ async function blockToMd(block, notionToken, depth = 0) {
       return '---\n\n';
     case 'image': {
       const img = block.image;
-      const u = img.type === 'external' ? img.external.url : img.file.url;
+      const rawUrl = img.type === 'external' ? img.external.url : img.file.url;
+      const u = img.type === 'file' ? rewriteFileUrl(rawUrl, mirrorBase) : rawUrl;
       const cap = richTextToMd(img.caption || []);
       return '![' + cap + '](' + u + ')\n\n';
     }
@@ -191,7 +216,7 @@ async function blockToMd(block, notionToken, depth = 0) {
       let out = richTextToMd(block.toggle.rich_text) + '\n\n';
       if (block.has_children) {
         const kids = await fetchBlockChildren(block.id, notionToken);
-        for (const k of kids) out += await blockToMd(k, notionToken, depth);
+        for (const k of kids) out += await blockToMd(k, notionToken, mirrorBase, depth);
       }
       return out;
     }
@@ -199,7 +224,8 @@ async function blockToMd(block, notionToken, depth = 0) {
     case 'embed':
     case 'video':
     case 'file': {
-      const u = block[t]?.url || block[t]?.external?.url || block[t]?.file?.url || '';
+      const rawU = block[t]?.url || block[t]?.external?.url || block[t]?.file?.url || '';
+      const u = block[t]?.file?.url ? rewriteFileUrl(rawU, mirrorBase) : rawU;
       return u ? '[' + u + '](' + u + ')\n\n' : '';
     }
     default:
@@ -207,16 +233,16 @@ async function blockToMd(block, notionToken, depth = 0) {
   }
 }
 
-async function pageBodyToMarkdown(pageId, notionToken) {
+async function pageBodyToMarkdown(pageId, notionToken, mirrorBase) {
   const blocks = await fetchBlockChildren(pageId, notionToken);
   let md = '';
-  for (const b of blocks) md += await blockToMd(b, notionToken);
+  for (const b of blocks) md += await blockToMd(b, notionToken, mirrorBase);
   return md.trim();
 }
 
 // ── Transform Notion pages → frontend JSON ─────────────────────────────────
 
-async function transformBlogPost(page, index, notionToken) {
+async function transformBlogPost(page, index, notionToken, mirrorBase) {
   const p = page.properties;
   const date = getDateValue(p['日期']);
   const formattedDate = date ? date.substring(0, 10).replace(/-/g, '.') : '';
@@ -224,7 +250,7 @@ async function transformBlogPost(page, index, notionToken) {
   // Read content from page body (markdown). Fallback to 内容 property if body is empty.
   let content = '';
   try {
-    content = await pageBodyToMarkdown(page.id, notionToken);
+    content = await pageBodyToMarkdown(page.id, notionToken, mirrorBase);
   } catch (e) {
     console.error('pageBodyToMarkdown failed for', page.id, e.message);
   }
@@ -236,18 +262,18 @@ async function transformBlogPost(page, index, notionToken) {
     title: getPlainText(p['标题']),
     summary: getPlainText(p['摘要']),
     category: getSelectValue(p['分类']),
-    images: getFileUrls(p['图片']),
+    images: getFileUrls(p['图片'], mirrorBase),
     content,
   };
 }
 
-async function transformWork(page, index, notionToken) {
+async function transformWork(page, index, notionToken, mirrorBase) {
   const p = page.properties;
 
   // Read description from page body. Fallback to 描述 property if body is empty.
   let description = '';
   try {
-    description = await pageBodyToMarkdown(page.id, notionToken);
+    description = await pageBodyToMarkdown(page.id, notionToken, mirrorBase);
   } catch (e) {
     console.error('pageBodyToMarkdown failed for', page.id, e.message);
   }
@@ -259,26 +285,26 @@ async function transformWork(page, index, notionToken) {
     year: String(getNumberValue(p['项目年份']) || ''),
     category: getSelectValue(p['分类']),
     type: getSelectValue(p['类型']),
-    thumbnail: getFileUrls(p['缩略图'])[0] || '',
-    images: getFileUrls(p['图片/视频']),
+    thumbnail: getFileUrls(p['缩略图'], mirrorBase)[0] || '',
+    images: getFileUrls(p['图片/视频'], mirrorBase),
     tags: getMultiSelectValues(p['标签']),
     description,
   };
 }
 
-function transformBanner(page, index) {
+function transformBanner(page, index, mirrorBase) {
   const p = page.properties;
   return {
     id: `banner-${String(index + 1).padStart(3, '0')}`,
     title: getPlainText(p['标题']),
     subtitle: getPlainText(p['副标题']),
-    image: getFileUrls(p['图片'])[0] || '',
+    image: getFileUrls(p['图片'], mirrorBase)[0] || '',
     link: p['跳转链接']?.url || '',
     order: getNumberValue(p['顺序']),
   };
 }
 
-function transformTimeline(page, index) {
+function transformTimeline(page, index, mirrorBase) {
   const p = page.properties;
   const dateStr = getDateValue(p['时间']); // ISO yyyy-mm-dd
   return {
@@ -287,7 +313,7 @@ function transformTimeline(page, index) {
     year: dateStr ? dateStr.substring(0, 4) : '',
     title: getPlainText(p['标题']),
     subtitle: getPlainText(p['副标题']),
-    images: getFileUrls(p['图片']),
+    images: getFileUrls(p['图片'], mirrorBase),
   };
 }
 
@@ -311,11 +337,16 @@ export default {
 
     const path = url.pathname;
 
+    // mirrorBase = null → emit raw Notion S3 URLs (used by sync-notion-images.ps1)
+    // mirrorBase = MIRROR_BASE   → rewrite to stable GitHub Pages URLs
+    const raw = url.searchParams.get('raw') === '1';
+    const mirrorBase = raw ? null : (env.MIRROR_BASE || '');
+
     try {
       if (path === '/blog') {
         const pages = await queryDatabase(env.NOTION_BLOG_DB, env.NOTION_TOKEN);
         // Fetch page bodies concurrently
-        const posts = await Promise.all(pages.map((p, i) => transformBlogPost(p, i, env.NOTION_TOKEN)));
+        const posts = await Promise.all(pages.map((p, i) => transformBlogPost(p, i, env.NOTION_TOKEN, mirrorBase)));
         // Sort by date descending
         posts.sort((a, b) => b.date.localeCompare(a.date));
         // Re-index after sort
@@ -328,7 +359,7 @@ export default {
 
       if (path === '/works') {
         const pages = await queryDatabase(env.NOTION_WORKS_DB, env.NOTION_TOKEN);
-        const works = await Promise.all(pages.map((p, i) => transformWork(p, i, env.NOTION_TOKEN)));
+        const works = await Promise.all(pages.map((p, i) => transformWork(p, i, env.NOTION_TOKEN, mirrorBase)));
 
         return new Response(JSON.stringify(works), {
           headers: { ...cors, 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=300' },
@@ -337,7 +368,7 @@ export default {
 
       if (path === '/timeline') {
         const pages = await queryDatabase(env.NOTION_TIMELINE_DB, env.NOTION_TOKEN);
-        const items = pages.map((p, i) => transformTimeline(p, i));
+        const items = pages.map((p, i) => transformTimeline(p, i, mirrorBase));
         // Sort by date descending (newest first); empty dates go to the end
         items.sort((a, b) => {
           if (!a.date && !b.date) return 0;
@@ -354,7 +385,7 @@ export default {
 
       if (path === '/banner') {
         const pages = await queryDatabase(env.NOTION_BANNER_DB, env.NOTION_TOKEN);
-        const banners = pages.map((p, i) => transformBanner(p, i)).filter(b => b.image);
+        const banners = pages.map((p, i) => transformBanner(p, i, mirrorBase)).filter(b => b.image);
         // Sort by 顺序 ascending (smaller first); null orders go to the end
         banners.sort((a, b) => {
           if (a.order == null && b.order == null) return 0;

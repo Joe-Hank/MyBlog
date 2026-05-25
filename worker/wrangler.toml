@@ -8,3 +8,7 @@ NOTION_WORKS_DB = "3418e10c17cc80ca975ee7d9a241dc24"
 NOTION_BANNER_DB = "3a4bd9ae988c4ee5b92613f192f40a18"
 NOTION_TIMELINE_DB = "ad16a00224ba4b179a4cb95a2e19a1c4"
 ALLOWED_ORIGIN = "https://joe-hank.github.io"
+# Where mirrored Notion attachments live (see scripts/sync-notion-images.ps1).
+# Worker rewrites every Notion S3 URL to <MIRROR_BASE>/<file-id>.<ext>.
+# Pass ?raw=1 on any endpoint to opt out (sync script uses this).
+MIRROR_BASE = "https://joe-hank.github.io/MyBlog/assets/notion"
