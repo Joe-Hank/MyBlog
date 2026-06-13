@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>博客 · MYBLOG.HAN · 改版预览</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#121212;--bg-surface:#1a1a1a;--bg-elevated:#222;--bg-hover:#2a2a2a;
+  --text:#e0e0e0;--text-secondary:#888;--text-muted:#555;
+  --accent:#f7c948;--accent-dim:#c9a233;--accent-bg:rgba(247,201,72,.08);
+  --border:#262626;--border-strong:#3a3a3a;
+  --radius:6px;--radius-lg:10px;
+  --mono:'JetBrains Mono','Fira Code',Consolas,monospace;
+  --sans:'Inter','Helvetica Neue','PingFang SC',sans-serif;
+  --nav-h:56px;
+
+  /* category tone palette */
+  --tone-ai:#1d2030;
+  --tone-ugc:#2a1a3e;
+  --tone-vr:#1a2e2a;
+  --tone-platform:#2a2418;
+  --tone-make:#1e1e22;
+  --tone-trade:#2e2418;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.5;min-height:100vh;overflow-x:hidden;font-size:14px;cursor:none}
+a{color:inherit;text-decoration:none;cursor:none}
+button{cursor:none;font-family:inherit}
+img{max-width:100%;display:block}
+::selection{background:var(--accent);color:#000}
+
+.custom-cursor{position:fixed;left:-100px;top:-100px;width:14px;height:14px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .15s,height .15s,background .15s,border .15s,opacity .15s;box-shadow:0 0 10px rgba(247,201,72,.4)}
+.custom-cursor.click{width:24px;height:24px}
+.custom-cursor.hover{width:22px;height:22px;background:transparent;border:2px solid var(--accent);box-shadow:0 0 14px rgba(247,201,72,.5)}
+
+.container{max-width:1400px;margin:0 auto;padding:0 32px}
+
+/* ============ Nav ============ */
+.nav{position:sticky;top:0;z-index:100;background:rgba(18,18,18,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--nav-h);transition:height .3s ease,background .3s ease}
+.nav.scrolled{height:48px;background:rgba(18,18,18,.98)}
+.nav.scrolled .nav-links a{height:48px}
+.nav-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:100%}
+.logo{font-family:var(--mono);font-weight:700;font-size:16px;letter-spacing:2px;text-transform:uppercase;color:var(--accent)}
+.nav-links{display:flex;gap:0;height:100%}
+.nav-links a{display:flex;align-items:center;padding:0 20px;height:var(--nav-h);font-family:var(--mono);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-secondary);border-bottom:2px solid transparent;transition:all .15s}
+.nav-links a:hover{color:var(--text);background:var(--bg-hover)}
+.nav-links a.active{color:var(--accent);border-bottom-color:var(--accent)}
+.hamburger{display:none;flex-direction:column;gap:4px;background:none;border:0;cursor:none}
+.hamburger span{width:20px;height:2px;background:var(--text);display:block}
+
+/* ============ Page head ============ */
+.page-head{padding:56px 0 28px;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;border-bottom:1px solid var(--border)}
+.page-head .left{display:flex;flex-direction:column;gap:14px}
+.page-head .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent)}
+.page-head .eyebrow::before{content:"";width:36px;height:2px;background:var(--accent)}
+.page-head h1{font-size:42px;font-weight:800;letter-spacing:-1px;line-height:1.1}
+.page-head .sub{color:var(--text-secondary);font-size:13px;margin-top:6px}
+
+.view-toggle{display:inline-flex;border:1px solid var(--border-strong);border-radius:999px;padding:3px;background:var(--bg-surface)}
+.view-toggle button{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border:0;background:transparent;color:var(--text-secondary);font-family:var(--mono);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;border-radius:999px;transition:all .2s}
+.view-toggle button.active{background:var(--accent);color:#000}
+.view-toggle button:not(.active):hover{color:var(--text)}
+.view-toggle svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* ============ Chips ============ */
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:24px 0 0}
+.chip{padding:7px 16px;border-radius:999px;border:1px solid var(--border-strong);background:transparent;color:var(--text-secondary);font-family:var(--mono);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;transition:all .15s}
+.chip:hover{color:var(--text);border-color:var(--text-secondary)}
+.chip.active{background:var(--accent);color:#000;border-color:var(--accent)}
+
+/* ============ Card view ============ */
+.card-view{padding:32px 0 64px}
+.card-view.hidden{display:none}
+.list-view{padding:24px 0 64px}
+.list-view.hidden{display:none}
+
+/* Featured: 按真设计稿 ~2.5:1 */
+.featured-card{position:relative;display:grid;grid-template-columns:54% 46%;aspect-ratio:1000/400;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:48px;cursor:none;transition:transform .25s ease,border-color .25s ease;container-type:inline-size}
+.featured-card:hover{transform:translateY(-2px);border-color:var(--border-strong)}
+.featured-tone{position:relative;padding:30px 36px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;background:var(--tone)}
+.featured-tone::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.04),transparent 60%);pointer-events:none}
+.featured-tone .num{font-family:var(--mono);font-weight:800;font-size:clamp(96px,14cqw,180px);line-height:.9;color:var(--accent);opacity:.18;letter-spacing:-6px}
+.featured-tone .tone-foot{display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase}
+.featured-tone .tone-foot .stamp{color:var(--text-muted)}
+.featured-tone .tone-foot .cat{color:var(--accent);font-weight:700}
+
+.featured-body{position:relative;padding:30px 36px;display:flex;flex-direction:column;justify-content:space-between;min-width:0;overflow:hidden}
+.featured-body .body-top{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.featured-body .featured-tag{display:inline-flex;align-items:center;gap:8px;padding:5px 10px 5px 12px;border:1px solid var(--accent);color:var(--accent);font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:3px}
+.featured-body .featured-tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.featured-body .body-meta{font-family:var(--mono);font-size:11px;color:var(--text-muted);letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap}
+.featured-body .body-meta .accent{color:var(--text-secondary)}
+.featured-body h2{font-size:clamp(22px,2.6cqw,34px);font-weight:800;line-height:1.2;letter-spacing:-.5px;color:var(--text);transition:color .2s;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-top:10px}
+.featured-card:hover h2{color:var(--accent)}
+.featured-body .summary{color:var(--text-secondary);font-size:13.5px;line-height:1.65;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-top:12px}
+.featured-body .read-cta{font-family:var(--mono);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:700;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:18px;margin-top:14px;transition:gap .25s}
+.featured-card:hover .read-cta{gap:6px}
+.featured-card:hover .read-cta .arrow{transform:translateX(4px)}
+.featured-body .read-cta .arrow{transition:transform .25s}
+
+/* Archive divider */
+.archive-divider{display:flex;justify-content:space-between;align-items:center;padding:0 0 20px;font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase}
+.archive-divider .label{color:var(--text-muted)}
+.archive-divider .count{color:var(--text-secondary)}
+
+/* Grid: 三段式 —— 色块 / chip+meta / 标题 */
+.grid-row{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-card{display:flex;flex-direction:column;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;cursor:none;transition:transform .25s ease,border-color .25s ease;container-type:inline-size}
+.grid-card:hover{transform:translateY(-3px);border-color:var(--border-strong)}
+
+.grid-tone{position:relative;aspect-ratio:320/180;padding:18px 22px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;background:var(--tone)}
+.grid-tone::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.03),transparent 60%);pointer-events:none}
+.grid-tone .num{font-family:var(--mono);font-weight:800;font-size:clamp(56px,20cqw,96px);line-height:.9;color:var(--accent);opacity:.2;letter-spacing:-3px}
+.grid-tone .tone-foot{display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase}
+.grid-tone .tone-foot .stamp{color:var(--text-muted)}
+.grid-tone .tone-foot .cat{color:var(--accent);font-weight:700}
+
+.grid-mid{padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--border)}
+.grid-mid .chip-inline{display:inline-block;padding:4px 10px;border:1px solid var(--accent);color:var(--accent);font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border-radius:3px;flex-shrink:0}
+.grid-mid .meta{font-family:var(--mono);font-size:10px;color:var(--text-muted);letter-spacing:1.2px;text-transform:uppercase;white-space:nowrap;text-align:right;flex-shrink:0}
+
+.grid-foot{padding:14px 22px 18px;display:flex;flex-direction:column;gap:6px;flex:1;min-width:0;overflow:hidden}
+.grid-foot h3{font-size:15px;font-weight:700;line-height:1.35;letter-spacing:-.2px;color:var(--text);transition:color .2s;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.grid-card:hover h3{color:var(--accent)}
+.grid-foot .summary{font-size:11.5px;color:var(--text-muted);line-height:1.5;display:-webkit-box;-webkit-line-clamp:1;line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+
+/* Load more */
+.load-more-wrap{display:flex;justify-content:center;padding:40px 0 0}
+.load-more{padding:13px 32px;border-radius:999px;border:1px solid var(--border-strong);background:var(--bg-surface);color:var(--text);font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;display:inline-flex;align-items:center;gap:10px;transition:all .2s}
+.load-more:hover{background:var(--accent);color:#000;border-color:var(--accent);transform:translateY(-1px);box-shadow:0 0 16px rgba(247,201,72,.25)}
+.load-more.hidden{display:none}
+.load-more .remain{opacity:.7}
+
+/* ============ List view (legacy table) ============ */
+.blog-table{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.blog-table-header{display:grid;grid-template-columns:100px 1fr 120px;padding:10px 20px;background:var(--bg-elevated);border-bottom:1px solid var(--border);font-family:var(--mono);font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.5px}
+.blog-row{display:grid;grid-template-columns:100px 1fr 120px;padding:16px 20px;align-items:center;border-bottom:1px solid var(--border);background:var(--bg-surface);transition:all .15s;cursor:none}
+.blog-row:last-child{border-bottom:none}
+.blog-row:hover{background:var(--bg-elevated);transform:translateX(8px)}
+.blog-row:hover .blog-title{color:var(--accent);text-shadow:0 0 8px rgba(247,201,72,.4)}
+.blog-row .blog-date{font-family:var(--mono);font-size:11px;color:var(--text-muted)}
+.blog-row .blog-title{font-size:13px;font-weight:600;transition:color .15s}
+.blog-row .blog-summary{font-size:11px;color:var(--text-secondary);margin-top:2px}
+.blog-row .blog-category{font-family:var(--mono);font-size:10px;color:var(--accent);background:var(--accent-bg);padding:3px 8px;border-radius:3px;text-align:center}
+
+.empty{padding:80px 20px;text-align:center;color:var(--text-muted);font-family:var(--mono);font-size:13px;letter-spacing:1px;text-transform:uppercase}
+
+/* ============ Modal ============ */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(6px);z-index:1000;display:none}
+.modal.open{display:block}
+.modal-scroll{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+.modal-shell{max-width:1200px;margin:32px auto;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+
+.modal-head{display:flex;justify-content:space-between;align-items:center;padding:20px 36px;border-bottom:1px solid var(--border)}
+.modal-head-left{display:flex;align-items:center;gap:18px}
+.modal-close{width:38px;height:38px;border-radius:50%;border:1px solid var(--border-strong);background:transparent;color:var(--text-secondary);display:inline-flex;align-items:center;justify-content:center;transition:all .2s}
+.modal-close:hover{border-color:var(--accent);color:var(--accent)}
+.modal-idx{font-family:var(--mono);font-size:13px;letter-spacing:2px;color:var(--text-secondary)}
+.modal-head-right{display:flex;gap:10px}
+.modal-nav{padding:8px 18px;border:1px solid var(--border-strong);background:transparent;color:var(--text-secondary);font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;border-radius:var(--radius);transition:all .2s}
+.modal-nav:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+.modal-nav:disabled{opacity:.3}
+
+.modal-article-head{padding:42px 36px 36px;border-bottom:1px solid var(--border)}
+.modal-chip{display:inline-block;padding:5px 12px;border:1px solid var(--accent);color:var(--accent);font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border-radius:3px;margin-right:18px}
+.modal-meta{font-family:var(--mono);font-size:12px;color:var(--text-muted);letter-spacing:1.5px;text-transform:uppercase}
+#modal-title{font-size:42px;font-weight:800;line-height:1.15;letter-spacing:-1px;color:var(--text);margin-top:24px}
+.modal-summary{margin-top:18px;color:var(--text-secondary);font-size:15px;line-height:1.7;max-width:880px}
+
+.modal-body{padding:36px 36px 48px;color:var(--text-secondary);font-size:15px;line-height:1.85;max-width:980px}
+.modal-body h2{color:var(--text);font-size:24px;font-weight:800;letter-spacing:-.3px;margin:36px 0 14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.modal-body h2::before{content:"// ";color:var(--text-muted);font-family:var(--mono);font-weight:700}
+.modal-body h3{color:var(--text);font-size:18px;font-weight:700;margin:24px 0 10px}
+.modal-body p{margin:0 0 16px}
+.modal-body strong{color:var(--text);font-weight:700}
+.modal-body em{color:var(--text);font-style:normal;background:linear-gradient(transparent 60%,var(--accent-bg) 60%)}
+.modal-body ul,.modal-body ol{margin:12px 0 18px 24px}
+.modal-body li{margin-bottom:8px}
+.modal-body li strong{color:var(--text)}
+.modal-body code{font-family:var(--mono);font-size:.9em;font-weight:600;padding:2px 8px;border-radius:3px;background:#1a1410;color:var(--accent);border:1px solid rgba(247,201,72,.18)}
+.modal-body pre{font-family:var(--mono);font-size:13px;line-height:1.6;padding:18px 20px;border-radius:var(--radius);background:#0e0e0e;border:1px solid var(--border);overflow-x:auto;margin:16px 0;color:var(--text)}
+.modal-body pre code{padding:0;background:transparent;border:0;color:inherit}
+.modal-body blockquote{border-left:3px solid var(--accent);padding:14px 18px;margin:18px 0;background:rgba(247,201,72,.06);color:var(--text);border-radius:0 var(--radius) var(--radius) 0}
+.modal-body blockquote p:last-child{margin-bottom:0}
+.modal-body a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.modal-body img{max-width:100%;margin:18px 0;border:1px solid var(--border);border-radius:var(--radius)}
+
+.modal-foot{display:grid;grid-template-columns:1fr 1fr;gap:1px;border-top:1px solid var(--border)}
+.foot-nav{padding:28px 36px;background:var(--bg-surface);text-align:left;border:0;border-right:1px solid var(--border);transition:background .2s;display:flex;flex-direction:column;gap:10px;min-height:120px}
+.foot-nav.next{border-right:0;text-align:right;align-items:flex-end}
+.foot-nav:hover:not(:disabled){background:var(--bg-elevated)}
+.foot-nav:disabled{opacity:.4}
+.foot-nav .dir{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted)}
+.foot-nav .t{font-size:16px;font-weight:700;color:var(--text);transition:color .2s}
+.foot-nav:hover:not(:disabled) .t{color:var(--accent)}
+.foot-nav:disabled .t::before{content:"——";color:var(--text-muted);font-weight:400}
+
+body.modal-open{overflow:hidden}
+
+/* ============ Footer ============ */
+.footer{border-top:1px solid var(--border);padding:20px 32px;background:var(--bg-surface);margin-top:48px}
+.footer-inner{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer p{color:var(--text-muted);font-size:11px;font-family:var(--mono)}
+.footer .accent{color:var(--accent)}
+.footer .social{display:flex;gap:20px}
+.footer .social a{color:var(--text-muted);font-size:11px;font-family:var(--mono);transition:color .15s;text-transform:uppercase;letter-spacing:.5px}
+.footer .social a:hover{color:var(--accent)}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+.reveal.revealed{opacity:1;transform:translateY(0)}
+
+/* Responsive */
+@media (max-width:1024px){
+  .grid-row{grid-template-columns:repeat(2,1fr);gap:18px}
+  .featured-card{grid-template-columns:1fr;aspect-ratio:auto}
+  .featured-tone{aspect-ratio:16/9;padding:24px}
+  .featured-body{padding:24px}
+  .grid-card{aspect-ratio:auto;min-height:140px}
+}
+@media (max-width:640px){
+  body{cursor:auto}
+  a,button{cursor:auto}
+  .custom-cursor{display:none}
+  .nav-links{display:none}
+  .nav-links.open{display:flex;flex-direction:column;position:absolute;top:56px;left:0;right:0;background:var(--bg-surface);border-bottom:1px solid var(--border)}
+  .nav-links.open a{height:48px;padding:0 32px;border-bottom:1px solid var(--border)}
+  .hamburger{display:flex}
+  .container{padding:0 20px}
+  .page-head{padding:36px 0 20px}
+  .page-head h1{font-size:30px}
+  .grid-row{grid-template-columns:1fr;gap:14px}
+  .featured-tone{padding:20px}
+  .featured-body{padding:20px}
+  .featured-body h2{font-size:22px}
+  .blog-table-header{display:none}
+  .blog-row{grid-template-columns:1fr;gap:4px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="nav-inner">
+  <div class="logo">MYBLOG.HAN</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="works.html">Works</a>
+    <a href="blog.html" class="active">Blog</a>
+    <a href="about.html">About</a>
+  </div>
+  <button class="hamburger" aria-label="menu"><span></span><span></span><span></span></button>
+</div></nav>
+
+<section>
+  <div class="container">
+    <div class="page-head">
+      <div class="left">
+        <span class="eyebrow">Blog · Magazine</span>
+        <h1>博客文章</h1>
+        <p class="sub">事实工程师的观察笔记。点击任一篇查看全文。</p>
+      </div>
+      <div class="view-toggle" id="view-toggle">
+        <button class="active" data-view="card">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          卡片
+        </button>
+        <button data-view="list">
+          <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          列表
+        </button>
+      </div>
+    </div>
+
+    <div class="chips" id="chips"></div>
+
+    <div class="card-view" id="card-view">
+      <div id="featured-slot"></div>
+      <div class="archive-divider" id="archive-divider"><span class="label">// Archive</span><span class="count"></span></div>
+      <div class="grid-row" id="grid-slot"></div>
+      <div class="load-more-wrap"><button class="load-more hidden" id="load-more">Load more <span class="remain"></span> →</button></div>
+    </div>
+
+    <div class="list-view hidden" id="list-view">
+      <div class="blog-table">
+        <div class="blog-table-header"><span>Date</span><span>Title</span><span>Category</span></div>
+        <div id="list-slot"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="modal" id="post-modal" aria-hidden="true">
+  <div class="modal-scroll">
+    <div class="modal-shell">
+      <header class="modal-head">
+        <div class="modal-head-left">
+          <button class="modal-close" id="modal-close" aria-label="关闭"><svg viewBox="0 0 24 24" width="14" height="14"><line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2"/><line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2"/></svg></button>
+          <span class="modal-idx" id="modal-idx"></span>
+        </div>
+        <div class="modal-head-right">
+          <button class="modal-nav" id="modal-prev">&larr; 上一篇</button>
+          <button class="modal-nav" id="modal-next">下一篇 &rarr;</button>
+        </div>
+      </header>
+      <section class="modal-article-head">
+        <span class="modal-chip" id="modal-cat"></span>
+        <span class="modal-meta" id="modal-meta"></span>
+        <h1 id="modal-title"></h1>
+        <p class="modal-summary" id="modal-summary"></p>
+      </section>
+      <article class="modal-body" id="modal-body"></article>
+      <footer class="modal-foot">
+        <button class="foot-nav prev" id="foot-prev"><span class="dir">&larr; Previous</span><span class="t"></span></button>
+        <button class="foot-nav next" id="foot-next"><span class="dir">Next &rarr;</span><span class="t"></span></button>
+      </footer>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-inner">
+  <p>&copy; 2026 MYBLOG.HAN · built with <span class="accent">&lt;ClaudeCode/&gt;</span> & figma · <span class="accent">改版预览稿</span></p>
+  <div class="social"><a href="#">GitHub</a><a href="#">Bilibili</a><a href="#">LinkedIn</a></div>
+</div></footer>
+
+<script>
+// ============ Mock data (4 real + 10 mock) ============
+const POSTS=[
+  {id:"p001",date:"2026.05.22",category:"AI提效",title:"让 AI 团队学会开发 Unity 游戏",summary:"CrewAI Harness 工程：一个月跑完，把 AI 一键 Unity 从理想拉回工程现实——7 层防御、3 类南墙、3 条可迁移收获。",content:`
+<h2>先说结论</h2>
+<p>用 CrewAI Harness 工程实现「让 AI 自动做一款可玩的 Unity 游戏」，在今天这个时间点做不到。LLM 类 AI 只是基于概率的伪智能，它终究不明白「指令」的意义。</p>
+<p>而可以做到的是：<strong>十分钟、一元钱</strong>，从一句话到「完整的游戏设计 + 各类数字资产」。</p>
+<h2>三类南墙</h2>
+<p><strong>第一种「假成功」</strong>——QA 给 pass、task done、前端绿色对勾，磁盘上一查文件根本不存在。</p>
+<p><strong>第二种「契约漂移」</strong>——head 给的 spec 里类名是 <code>GameManager</code>，executor 写出来类名是 <code>Manager</code>。两个都正确，但拼不到一起。</p>
+<p><strong>第三种「工具用了但没调」</strong>——模型的思考链里写着 <code>Action: emit_output</code>，但 <code>tool_calls</code> 字段是空的。</p>
+<h2>三条可迁移的收获</h2>
+<ol>
+<li><strong>AI 工程化的本质，是给 AI 加限制层</strong>，使概率向期望值坍缩。</li>
+<li><strong>连辅助你的 AI 自己都会偷懒</strong>，要保持警惕。</li>
+<li><strong>多 agent 框架有清晰的适用边界</strong>——适合容忍创意空间的任务。</li>
+</ol>
+<blockquote><p>一个月最大的收获不是这套代码，而是一套关于「AI 能力边界 + AI 项目成本控制」的判断框架。</p></blockquote>
+`.trim()},
+  {id:"p002",date:"2026.04.22",category:"AI提效",title:"把 Claude Code 变成副驾驶",summary:"把自己扩张成一支队伍 —— Skills、Hooks、Memory 三件套的实际落地。",content:"<h2>三件套的边界</h2><p>Skills 管「怎么做」，Hooks 管「什么时候做」，Memory 管「之前怎么做的」。</p>"},
+  {id:"p003",date:"2026.03.18",category:"UGC/AIGC",title:"给 UGC 平台插一条 AIGC 旁路",summary:"用户产能不动，但内容池靠 AIGC 翻倍 —— 不替代创作者，而是给冷启分类托底。",content:"<h2>旁路 vs 主路</h2><p>AIGC 不进推荐主池，单独走「灵感」入口。</p>"},
+  {id:"p004",date:"2026.02.10",category:"游戏交易",title:"游戏电商业的一年：两个 0→1",summary:"从 PC 端交易插件到移动端品类专区，一年做完两个从零到一。",content:"<h2>两条线并行的代价</h2><p>团队 5 个人，两个项目都要在三个月内出第一版。</p>"},
+  {id:"p005",date:"2026.01.30",category:"游戏制作",title:"Unity URP 里把屏幕做脏",summary:"屏幕脏污是体感差异化的一招 —— 三层 noise + 雨刷 mask 的实际开销。",content:"<h2>三层 noise 的代价</h2><p>1080p 全屏，三层 noise + 雨刷遮罩，移动端 12ms。</p>"},
+  {id:"p006",date:"2025.12.05",category:"游戏平台",title:"Steam Deck 上跑国内云游戏的几个坑",summary:"Proton + 国内云客户端的兼容矩阵，以及一些奇怪的延迟问题。",content:"<h2>不止是 Proton 的问题</h2><p>NIC 路由优先级、IME 接管、controller 映射，三个坑。</p>"},
+  {id:"p007",date:"2025.11.14",category:"AI提效",title:"Notion + Worker：一个人的内容流水线",summary:"Notion 写稿，Worker 取数，GitHub Pages 出站 —— 编辑器只剩一个。",content:"<h2>四个 endpoint 的设计</h2><p>blog / works / about / projects，每个一个 Worker route。</p>"},
+  {id:"p008",date:"2025.10.02",category:"游戏交易",title:"把交易插件做成桌面常驻",summary:"从浏览器扩展到 Electron 客户端 —— 体验提升的几个点，代价是包体翻 8 倍。",content:"<h2>为什么不再是扩展</h2><p>用户要的不是「打开网页时帮我比价」，是「我玩游戏时帮我盯价」。</p>"},
+  {id:"p009",date:"2025.08.20",category:"虚拟现实",title:"Quest 3 透视下的空间标注实验",summary:"在真实空间里贴标签的几种手势，以及为什么最直观的那个不是最好用的。",content:"<h2>三种手势的取舍</h2><p>捏取 / 指点 / 凝视，捏取最直观但疲劳最快。</p>"},
+  {id:"p010",date:"2025.07.11",category:"UGC/AIGC",title:"用户的二创作品如何反哺主线内容",summary:"不靠运营推，靠数据找 —— 二创高互动的那批，往往就是主线没讲透的角色。",content:"<h2>把二创当作信号</h2><p>互动数据是用户在告诉你「这个角色你没讲完」。</p>"},
+  {id:"p011",date:"2025.05.28",category:"游戏制作",title:"关卡难度曲线的两次重做",summary:"第一次靠数值表手调，第二次靠回放数据找拐点 —— 后者快得多，但不会替代直觉。",content:"<h2>数据找拐点的工程量</h2><p>每个版本回放 ~5000 局，跑统计 ~30 分钟。</p>"},
+  {id:"p012",date:"2025.03.16",category:"游戏平台",title:"把 Web 端做得像启动器",summary:"渐进式 PWA + 本地缓存 + 离线启动 —— Web 比客户端轻，体验却尽量贴近。",content:"<h2>缓存策略的三层</h2><p>shell / data / assets，分别走不同 TTL。</p>"},
+  {id:"p013",date:"2024.12.01",category:"AI提效",title:"与其叫 Agent 不如叫 Crew",summary:"单 Agent 解决不了协作 —— 一个会议室里坐六个 LLM，比一个全能 LLM 更靠谱。",content:"<h2>多 Agent 的隐藏成本</h2><p>token 涨 3x，但完成率涨 5x，划算。</p>"},
+  {id:"p014",date:"2024.10.20",category:"虚拟现实",title:"诺丁汉一年：在一条正确的道路上",summary:"Distinction · 年级前 5% · 五个真正改变我看世界方式的学科切片。",content:"<h2>五个切片</h2><p>HCI / Embodied Cognition / Spatial UI / Design Ethics / Field Study —— 顺序不是难度，是认知层次。</p>"}
+];
+
+const CATEGORIES=["全部","AI提效","UGC/AIGC","虚拟现实","游戏平台","游戏制作","游戏交易"];
+const TONE_MAP={
+  "AI提效":"var(--tone-ai)",
+  "UGC/AIGC":"var(--tone-ugc)",
+  "虚拟现实":"var(--tone-vr)",
+  "游戏平台":"var(--tone-platform)",
+  "游戏制作":"var(--tone-make)",
+  "游戏交易":"var(--tone-trade)"
+};
+const PAGE_SIZE=12; // 1 featured + 11 grid
+
+// ============ State ============
+let state={cat:"全部",view:localStorage.getItem("blog-view")||"card",limit:PAGE_SIZE};
+
+// ============ Helpers ============
+function pad(n){return String(n).padStart(3,"0")}
+function sorted(){return [...POSTS].sort((a,b)=>b.date.localeCompare(a.date))}
+function filtered(){const all=sorted();return state.cat==="全部"?all:all.filter(p=>p.category===state.cat)}
+function dotDate(d){return d.replace(/\./g," · ")}     // 2026.05.22 -> 2026 · 05 · 22
+function readMin(p){const txt=(p.content||"")+(p.summary||"");const cn=(txt.match(/[一-龥]/g)||[]).length;return Math.max(1,Math.round(cn/350))}
+
+// ============ Render: Chips ============
+function renderChips(){
+  const root=document.getElementById("chips");
+  root.innerHTML=CATEGORIES.map(c=>`<button class="chip${c===state.cat?" active":""}" data-cat="${c}">${c}</button>`).join("");
+  root.querySelectorAll(".chip").forEach(b=>b.addEventListener("click",()=>{
+    state.cat=b.dataset.cat;state.limit=PAGE_SIZE;render();
+  }));
+}
+
+// ============ Render: Cards ============
+function renderCards(){
+  const list=filtered();
+  const featuredSlot=document.getElementById("featured-slot");
+  const gridSlot=document.getElementById("grid-slot");
+  const loadMore=document.getElementById("load-more");
+  const divider=document.getElementById("archive-divider");
+
+  if(list.length===0){
+    featuredSlot.innerHTML='<div class="empty">— 该分类下暂无文章 —</div>';
+    gridSlot.innerHTML="";
+    divider.style.display="none";
+    loadMore.classList.add("hidden");
+    return;
+  }
+
+  const hero=list[0];
+  const heroIdx=sorted().indexOf(hero);
+  featuredSlot.innerHTML=`
+    <article class="featured-card reveal" data-id="${hero.id}">
+      <div class="featured-tone" style="--tone:${TONE_MAP[hero.category]||'var(--bg-elevated)'}">
+        <div class="num">${pad(heroIdx+1)}</div>
+        <div class="tone-foot">
+          <span class="stamp">// ${dotDate(hero.date)}</span>
+          <span class="cat">${hero.category}</span>
+        </div>
+      </div>
+      <div class="featured-body">
+        <div>
+          <div class="body-top">
+            <span class="featured-tag">Featured</span>
+            <span class="body-meta">${dotDate(hero.date)} · <span class="accent">${hero.category}</span> · ${readMin(hero)} Min Read</span>
+          </div>
+          <h2>${hero.title}</h2>
+          <p class="summary">${hero.summary}</p>
+        </div>
+        <div class="read-cta"><span>Read Article</span><span class="arrow">→</span></div>
+      </div>
+    </article>`;
+
+  const gridItems=list.slice(1,state.limit);
+  const restCount=list.length-1;
+  divider.style.display=restCount>0?"flex":"none";
+  divider.querySelector(".count").textContent=`${restCount} post${restCount===1?"":"s"}`;
+
+  gridSlot.innerHTML=gridItems.map(p=>{
+    const idx=sorted().indexOf(p);
+    return `
+      <article class="grid-card reveal" data-id="${p.id}">
+        <div class="grid-tone" style="--tone:${TONE_MAP[p.category]||'var(--bg-elevated)'}">
+          <div class="num">${pad(idx+1)}</div>
+          <div class="tone-foot">
+            <span class="stamp">// ${dotDate(p.date)}</span>
+            <span class="cat">${p.category}</span>
+          </div>
+        </div>
+        <div class="grid-mid">
+          <span class="chip-inline">${p.category}</span>
+          <span class="meta">${dotDate(p.date)} · ${readMin(p)} Min</span>
+        </div>
+        <div class="grid-foot">
+          <h3>${p.title}</h3>
+          <p class="summary">${p.summary}</p>
+        </div>
+      </article>`;
+  }).join("");
+
+  const remain=Math.max(0,restCount-(state.limit-1));
+  if(remain>0){
+    loadMore.classList.remove("hidden");
+    loadMore.querySelector(".remain").textContent=`(${remain})`;
+  }else{
+    loadMore.classList.add("hidden");
+  }
+
+  // bind click
+  featuredSlot.querySelectorAll("[data-id]").forEach(el=>el.addEventListener("click",()=>showDetail(el.dataset.id)));
+  gridSlot.querySelectorAll("[data-id]").forEach(el=>el.addEventListener("click",()=>showDetail(el.dataset.id)));
+
+  if(window._cursorBindHover)window._cursorBindHover();
+  triggerReveal();
+}
+
+// ============ Render: List ============
+function renderList(){
+  const list=filtered();
+  const slot=document.getElementById("list-slot");
+  if(list.length===0){slot.innerHTML='<div class="empty">— 该分类下暂无文章 —</div>';return}
+  slot.innerHTML=list.map(p=>`
+    <div class="blog-row" data-id="${p.id}">
+      <span class="blog-date">${p.date}</span>
+      <div>
+        <div class="blog-title">${p.title}</div>
+        <div class="blog-summary">${p.summary}</div>
+      </div>
+      <span class="blog-category">${p.category}</span>
+    </div>`).join("");
+  slot.querySelectorAll(".blog-row").forEach(r=>r.addEventListener("click",()=>showDetail(r.dataset.id)));
+  if(window._cursorBindHover)window._cursorBindHover();
+}
+
+// ============ Render: View switch ============
+function renderView(){
+  document.getElementById("card-view").classList.toggle("hidden",state.view!=="card");
+  document.getElementById("list-view").classList.toggle("hidden",state.view!=="list");
+  document.querySelectorAll("#view-toggle button").forEach(b=>b.classList.toggle("active",b.dataset.view===state.view));
+}
+
+function render(){
+  renderView();
+  renderChips();
+  if(state.view==="card")renderCards();else renderList();
+}
+
+// ============ Modal ============
+const modal=document.getElementById("post-modal");
+let currentId=null;
+
+function openModal(id){
+  const all=sorted();
+  const post=POSTS.find(p=>p.id===id);if(!post)return;
+  const idx=all.indexOf(post);
+  const prev=all[idx-1]||null;     // 编号靠前 = 时间更新
+  const next=all[idx+1]||null;     // 编号靠后 = 时间更老
+
+  // 时间线方向：上一篇 = 编号更小 = 更新（index-1）；下一篇 = 编号更大 = 更老（index+1）
+  const newer=all[idx-1]||null;
+  const older=all[idx+1]||null;
+
+  currentId=id;
+  document.getElementById("modal-idx").textContent=`${pad(idx+1)} / ${pad(all.length)}`;
+  document.getElementById("modal-cat").textContent=post.category;
+  document.getElementById("modal-meta").textContent=`${dotDate(post.date)} · ${readMin(post)} Min Read`;
+  document.getElementById("modal-title").textContent=post.title;
+  document.getElementById("modal-summary").textContent=post.summary;
+  document.getElementById("modal-body").innerHTML=post.content;
+
+  const topPrev=document.getElementById("modal-prev");
+  const topNext=document.getElementById("modal-next");
+  const footPrev=document.getElementById("foot-prev");
+  const footNext=document.getElementById("foot-next");
+
+  topPrev.disabled=!newer;topPrev.onclick=()=>newer&&openModal(newer.id);
+  topNext.disabled=!older;topNext.onclick=()=>older&&openModal(older.id);
+
+  footPrev.disabled=!newer;
+  footPrev.querySelector(".t").textContent=newer?newer.title:"";
+  footPrev.onclick=()=>newer&&openModal(newer.id);
+  footNext.disabled=!older;
+  footNext.querySelector(".t").textContent=older?older.title:"";
+  footNext.onclick=()=>older&&openModal(older.id);
+
+  modal.classList.add("open");modal.setAttribute("aria-hidden","false");
+  document.body.classList.add("modal-open");
+  modal.querySelector(".modal-scroll").scrollTop=0;
+  if(window._cursorBindHover)window._cursorBindHover();
+}
+
+function closeModal(){
+  modal.classList.remove("open");modal.setAttribute("aria-hidden","true");
+  document.body.classList.remove("modal-open");
+  currentId=null;
+}
+
+document.getElementById("modal-close").addEventListener("click",closeModal);
+modal.addEventListener("click",e=>{if(e.target===modal||e.target.classList.contains("modal-scroll"))closeModal()});
+document.addEventListener("keydown",e=>{
+  if(!modal.classList.contains("open"))return;
+  if(e.key==="Escape"){closeModal();return}
+  const all=sorted();const i=all.findIndex(p=>p.id===currentId);if(i<0)return;
+  if(e.key==="ArrowLeft"&&all[i-1]){openModal(all[i-1].id)}
+  else if(e.key==="ArrowRight"&&all[i+1]){openModal(all[i+1].id)}
+});
+
+function showDetail(id){openModal(id)}
+
+// ============ View toggle handler ============
+document.getElementById("view-toggle").addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;
+  state.view=b.dataset.view;localStorage.setItem("blog-view",state.view);render();
+});
+
+// ============ Load more ============
+document.getElementById("load-more").addEventListener("click",()=>{
+  state.limit+=PAGE_SIZE;renderCards();
+});
+
+// ============ Reveal observer ============
+let revealObs;
+function triggerReveal(){
+  if(!revealObs){
+    revealObs=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("revealed");revealObs.unobserve(e.target)}});
+    },{threshold:.05,rootMargin:"0px 0px -40px 0px"});
+  }
+  document.querySelectorAll(".reveal:not(.revealed)").forEach(el=>revealObs.observe(el));
+}
+
+// ============ Custom cursor ============
+(function(){
+  if(navigator.maxTouchPoints>0)return;
+  const cursor=document.createElement("div");cursor.className="custom-cursor";document.body.appendChild(cursor);
+  document.addEventListener("mousemove",e=>{cursor.style.left=e.clientX+"px";cursor.style.top=e.clientY+"px"});
+  document.addEventListener("mousedown",()=>cursor.classList.add("click"));
+  document.addEventListener("mouseup",()=>setTimeout(()=>cursor.classList.remove("click"),150));
+  function bindHover(){
+    document.querySelectorAll("a,button,.featured-card,.grid-card,.blog-row,.chip").forEach(el=>{
+      el.addEventListener("mouseenter",()=>cursor.classList.add("hover"));
+      el.addEventListener("mouseleave",()=>cursor.classList.remove("hover"));
+    });
+  }
+  bindHover();window._cursorBindHover=bindHover;
+})();
+
+// ============ Nav scroll shrink ============
+(function(){const nav=document.querySelector(".nav");window.addEventListener("scroll",()=>nav.classList.toggle("scrolled",window.scrollY>100),{passive:true})})();
+
+// ============ Hamburger ============
+(function(){
+  const h=document.querySelector(".hamburger");const n=document.querySelector(".nav-links");
+  if(h&&n)h.addEventListener("click",()=>n.classList.toggle("open"));
+})();
+
+// ============ Boot ============
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!-- composition: radial · mood: precise -->
+<!-- focal: HAN core (800,450) · 6 domain nodes R=272 -->
+<!-- palette: declared, mapped to live site index.html :root tokens -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="以 HAN 为中心向多个领域辐射的星图循环动画">
+<defs>
+  <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+    <stop offset="0%" stop-color="#f7c948" stop-opacity="0.30"/>
+    <stop offset="55%" stop-color="#c9a233" stop-opacity="0.08"/>
+    <stop offset="100%" stop-color="#f7c948" stop-opacity="0"/>
+  </radialGradient>
+</defs>
+
+<style>
+  .bg{fill:#121212}
+  text{font-weight:500}
+  .rings{transform-box:fill-box;transform-origin:center;animation:spin 140s linear infinite}
+  @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+  .glow{transform-box:fill-box;transform-origin:center;animation:breathe 7s ease-in-out infinite}
+  @keyframes breathe{0%,100%{opacity:.6}50%{opacity:1}}
+  .core{transform-box:fill-box;transform-origin:center;animation:corepulse 5s ease-in-out infinite}
+  @keyframes corepulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+  .node{transform-box:fill-box;transform-origin:center;animation:bob 6s ease-in-out infinite;animation-delay:var(--d)}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  .ring{transform-box:fill-box;transform-origin:center;animation:halo 3.2s ease-out infinite;animation-delay:var(--d)}
+  @keyframes halo{0%{transform:scale(1);opacity:.5}70%{opacity:0}100%{transform:scale(1.5);opacity:0}}
+  
+  .d0{animation:td0 3s linear infinite;animation-delay:0.00s}
+  @keyframes td0{0%{transform:translate(800px,450px);opacity:0}12%{opacity:1}80%{opacity:1}100%{transform:translate(800px,178px);opacity:0}}
+  .d1{animation:td1 3.4s linear infinite;animation-delay:0.45s}
+  @keyframes td1{0%{transform:translate(800px,450px);opacity:0}12%{opacity:1}80%{opacity:1}100%{transform:translate(1035.6px,314px);opacity:0}}
+  .d2{animation:td2 2.8s linear infinite;animation-delay:0.90s}
+  @keyframes td2{0%{transform:translate(800px,450px);opacity:0}12%{opacity:1}80%{opacity:1}100%{transform:translate(1035.6px,586px);opacity:0}}
+  .d3{animation:td3 3.6s linear infinite;animation-delay:1.35s}
+  @keyframes td3{0%{transform:translate(800px,450px);opacity:0}12%{opacity:1}80%{opacity:1}100%{transform:translate(800px,722px);opacity:0}}
+  .d4{animation:td4 3.1s linear infinite;animation-delay:1.80s}
+  @keyframes td4{0%{transform:translate(800px,450px);opacity:0}12%{opacity:1}80%{opacity:1}100%{transform:translate(564.4px,586px);opacity:0}}
+  .d5{animation:td5 3.3s linear infinite;animation-delay:2.25s}
+  @keyframes td5{0%{transform:translate(800px,450px);opacity:0}12%{opacity:1}80%{opacity:1}100%{transform:translate(564.4px,314px);opacity:0}}
+  @media (prefers-reduced-motion: reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important}}
+</style>
+
+<rect class="bg" x="0" y="0" width="1600" height="900"/>
+
+<!-- radar rings (rotating, symmetric) -->
+<g class="rings" stroke="#2a2a2a" fill="none">
+  <circle cx="800" cy="450" r="120" stroke-width="1"/>
+  <circle cx="800" cy="450" r="272" stroke-width="1" stroke-dasharray="3 12"/>
+  <circle cx="800" cy="450" r="342" stroke-width="1" stroke-dasharray="2 18" opacity="0.6"/>
+</g>
+
+<!-- edges -->
+<g>
+  <line x1="800" y1="450" x2="800" y2="178" stroke="#c9a233" stroke-width="1.5" opacity="0.22"/>
+  <line x1="800" y1="450" x2="1035.6" y2="314" stroke="#c9a233" stroke-width="1.5" opacity="0.22"/>
+  <line x1="800" y1="450" x2="1035.6" y2="586" stroke="#c9a233" stroke-width="1.5" opacity="0.22"/>
+  <line x1="800" y1="450" x2="800" y2="722" stroke="#c9a233" stroke-width="1.5" opacity="0.22"/>
+  <line x1="800" y1="450" x2="564.4" y2="586" stroke="#c9a233" stroke-width="1.5" opacity="0.22"/>
+  <line x1="800" y1="450" x2="564.4" y2="314" stroke="#c9a233" stroke-width="1.5" opacity="0.22"/>
+</g>
+
+<!-- traveling signals -->
+<g>
+  <circle class="dot d0" r="5" fill="#f7c948"/>
+  <circle class="dot d1" r="5" fill="#f7c948"/>
+  <circle class="dot d2" r="5" fill="#f7c948"/>
+  <circle class="dot d3" r="5" fill="#f7c948"/>
+  <circle class="dot d4" r="5" fill="#f7c948"/>
+  <circle class="dot d5" r="5" fill="#f7c948"/>
+</g>
+
+<!-- nodes -->
+<g>
+  <g class="node n0" style="--d:0.00s">
+    <circle cx="800" cy="178" r="46" fill="#1a1a1a" stroke="#f7c948" stroke-width="2.5"/>
+    <circle class="ring" cx="800" cy="178" r="46" fill="none" stroke="#f7c948" stroke-width="1.5"/>
+    <g transform="translate(800 178) scale(2.1) translate(-12 -12)" fill="none" stroke="#f7c948" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><line x1="12" y1="7" x2="12" y2="11"/><circle cx="8" cy="16" r="1"/><circle cx="16" cy="16" r="1"/></g>
+    <text x="800" y="258" text-anchor="middle" font-family="'JetBrains Mono','PingFang SC',monospace" font-size="18" fill="#888" letter-spacing="1">AI 提效</text>
+  </g>
+  <g class="node n1" style="--d:0.30s">
+    <circle cx="1035.6" cy="314" r="46" fill="#1a1a1a" stroke="#f7c948" stroke-width="2.5"/>
+    <circle class="ring" cx="1035.6" cy="314" r="46" fill="none" stroke="#f7c948" stroke-width="1.5"/>
+    <g transform="translate(1035.6 314) scale(2.1) translate(-12 -12)" fill="none" stroke="#f7c948" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="15" y1="13" x2="15.01" y2="13"/><line x1="18" y1="11" x2="18.01" y2="11"/><rect x="2" y="6" width="20" height="12" rx="2"/></g>
+    <text x="1035.6" y="394" text-anchor="middle" font-family="'JetBrains Mono','PingFang SC',monospace" font-size="18" fill="#888" letter-spacing="1">游戏制作</text>
+  </g>
+  <g class="node n2" style="--d:0.60s">
+    <circle cx="1035.6" cy="586" r="46" fill="#1a1a1a" stroke="#f7c948" stroke-width="2.5"/>
+    <circle class="ring" cx="1035.6" cy="586" r="46" fill="none" stroke="#f7c948" stroke-width="1.5"/>
+    <g transform="translate(1035.6 586) scale(2.1) translate(-12 -12)" fill="none" stroke="#f7c948" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></g>
+    <text x="1035.6" y="666" text-anchor="middle" font-family="'JetBrains Mono','PingFang SC',monospace" font-size="18" fill="#888" letter-spacing="1">游戏交易</text>
+  </g>
+  <g class="node n3" style="--d:0.90s">
+    <circle cx="800" cy="722" r="46" fill="#1a1a1a" stroke="#f7c948" stroke-width="2.5"/>
+    <circle class="ring" cx="800" cy="722" r="46" fill="none" stroke="#f7c948" stroke-width="1.5"/>
+    <g transform="translate(800 722) scale(2.1) translate(-12 -12)" fill="none" stroke="#f7c948" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></g>
+    <text x="800" y="802" text-anchor="middle" font-family="'JetBrains Mono','PingFang SC',monospace" font-size="18" fill="#888" letter-spacing="1">虚拟现实</text>
+  </g>
+  <g class="node n4" style="--d:1.20s">
+    <circle cx="564.4" cy="586" r="46" fill="#1a1a1a" stroke="#f7c948" stroke-width="2.5"/>
+    <circle class="ring" cx="564.4" cy="586" r="46" fill="none" stroke="#f7c948" stroke-width="1.5"/>
+    <g transform="translate(564.4 586) scale(2.1) translate(-12 -12)" fill="none" stroke="#f7c948" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></g>
+    <text x="564.4" y="666" text-anchor="middle" font-family="'JetBrains Mono','PingFang SC',monospace" font-size="18" fill="#888" letter-spacing="1">UGC/AIGC</text>
+  </g>
+  <g class="node n5" style="--d:1.50s">
+    <circle cx="564.4" cy="314" r="46" fill="#1a1a1a" stroke="#f7c948" stroke-width="2.5"/>
+    <circle class="ring" cx="564.4" cy="314" r="46" fill="none" stroke="#f7c948" stroke-width="1.5"/>
+    <g transform="translate(564.4 314) scale(2.1) translate(-12 -12)" fill="none" stroke="#f7c948" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></g>
+    <text x="564.4" y="394" text-anchor="middle" font-family="'JetBrains Mono','PingFang SC',monospace" font-size="18" fill="#888" letter-spacing="1">游戏平台</text>
+  </g>
+</g>
+
+<!-- center: HAN core -->
+<rect class="glow" x="600" y="250" width="400" height="400" fill="url(#coreGlow)"/>
+<g class="core">
+  <circle cx="800" cy="450" r="62" fill="#1a1a1a" stroke="#c9a233" stroke-width="1.5"/>
+  <circle cx="800" cy="450" r="62" fill="none" stroke="#f7c948" stroke-width="4" stroke-dasharray="273 117" opacity="0.9"/>
+  <text x="800" y="462" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="36" font-weight="700" fill="#f7c948" letter-spacing="2">HAN</text>
+</g>
+
+<!-- corner tag -->
+<text x="90" y="64" font-family="'JetBrains Mono',monospace" font-size="18" fill="#555" letter-spacing="3" opacity="0.55">// FIELD MAP</text>
+</svg>
