@@ -20,14 +20,22 @@
 [CmdletBinding()]
 param(
   [string]$WorkerBase = 'https://myblog-notion-proxy.wenhuawasi.workers.dev',
-  [string]$AssetDir   = (Join-Path $PSScriptRoot '..\src\assets\notion'),
+  [string]$AssetDir   = '',
   [switch]$Force
 )
 
 $ErrorActionPreference = 'Stop'
 $endpoints = @('/blog', '/works', '/banner', '/timeline')
 
-# Ensure target dir
+# 自动解析 AssetDir（兼容 -File / & ScriptBlock 两种调用方式）
+if (-not $AssetDir) {
+  $scriptDir = $PSScriptRoot
+  if (-not $scriptDir -and $MyInvocation.MyCommand.Path) {
+    $scriptDir = Split-Path $MyInvocation.MyCommand.Path -Parent
+  }
+  if (-not $scriptDir) { $scriptDir = (Get-Location).Path + '\scripts' }
+  $AssetDir = Join-Path $scriptDir '..\src\assets\notion'
+}
 $AssetDir = [System.IO.Path]::GetFullPath($AssetDir)
 if (-not (Test-Path $AssetDir)) {
   New-Item -ItemType Directory -Path $AssetDir -Force | Out-Null
@@ -57,7 +65,7 @@ foreach ($ep in $endpoints) {
       $segs = $uri.AbsolutePath.Split('/', [System.StringSplitOptions]::RemoveEmptyEntries)
       if ($segs.Length -lt 2) { continue }
       $fileId   = $segs[$segs.Length - 2]
-      $filename = [System.Web.HttpUtility]::UrlDecode($segs[$segs.Length - 1])
+      $filename = [System.Uri]::UnescapeDataString($segs[$segs.Length - 1])
       $ext      = [System.IO.Path]::GetExtension($filename).ToLower()
       if (-not $ext) { continue }
       $key = "$fileId$ext"
