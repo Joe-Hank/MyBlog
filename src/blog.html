@@ -78,10 +78,10 @@ img{max-width:100%;display:block}
 .list-view.hidden{display:none}
 
 /* Featured */
-.featured-card{position:relative;display:grid;grid-template-columns:54% 46%;aspect-ratio:1000/400;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:48px;cursor:none;transition:transform .25s ease,border-color .25s ease;container-type:inline-size}
+.featured-card{position:relative;display:grid;grid-template-columns:60% 40%;aspect-ratio:1000/320;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:48px;cursor:none;transition:transform .25s ease,border-color .25s ease;container-type:inline-size}
 .featured-card:hover{transform:translateY(-2px);border-color:var(--border-strong)}
 .featured-tone{position:relative;padding:30px 36px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:var(--tone)}
-.featured-tone .cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transition:transform .5s ease}
+.featured-tone .cover{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:0;transition:transform .5s ease}
 .featured-card:hover .featured-tone .cover{transform:scale(1.04)}
 .featured-tone::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.78) 0%,rgba(0,0,0,.35) 38%,rgba(0,0,0,.15) 70%,transparent 100%);pointer-events:none;z-index:1}
 .featured-tone>*{position:relative;z-index:2}
@@ -487,7 +487,7 @@ var DataStore=(function(){var bc=null;var proxy=(typeof SITE_CONFIG!=='undefined
     }
 
     var hero=list[0];
-    var heroCover=(hero.images&&hero.images[0])?'<img class="cover" src="'+hero.images[0]+'" alt="" loading="lazy">':'';
+    var heroCover=(hero.images&&hero.images[0])?'<img class="cover" src="'+hero.images[0]+'" alt="" fetchpriority="high">':'';
     featuredSlot.innerHTML=
       '<article class="featured-card" data-id="'+hero.id+'">'+
         '<div class="featured-tone" style="--tone:'+(TONE_MAP[hero.category]||'var(--bg-elevated)')+'">'+
@@ -501,7 +501,6 @@ var DataStore=(function(){var bc=null;var proxy=(typeof SITE_CONFIG!=='undefined
           '<div>'+
             '<div class="body-top">'+
               '<span class="featured-tag">Featured</span>'+
-              '<span class="body-meta">'+dotDate(hero.date)+' · <span class="accent">'+hero.category+'</span> · '+readMin(hero)+' Min Read</span>'+
             '</div>'+
             '<h2>'+hero.title+'</h2>'+
             '<p class="summary">'+(hero.summary||'')+'</p>'+
