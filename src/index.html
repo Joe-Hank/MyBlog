@@ -120,17 +120,13 @@ img{max-width:100%;display:block}
 .btn.primary{background:var(--accent);color:#000;border-color:var(--accent)}
 .btn.primary:hover{background:#ffe066;box-shadow:0 0 16px rgba(247,201,72,.3)}
 
-/* ============ Hero + Works = 100vh ============ */
-.hero-wrap{
+/* ============ Hero + Workflow = 100vh ============ */
+.hero-first{
   height:calc(100vh - var(--nav-h));
   display:flex;flex-direction:column;
   overflow:hidden;
 }
-.hero{
-  padding:0;
-  flex:1;min-height:0;
-  display:flex;flex-direction:column;
-}
+.hero{flex-shrink:0;padding:0}
 .hero-grid{
   display:grid;grid-template-columns:1fr 420px;
   flex:1;min-height:0;
@@ -224,8 +220,8 @@ img{max-width:100%;display:block}
 }
 
 /* ============ Workflow Pipeline ============ */
-.workflow-section{padding:64px 0}
-.workflow-inner{width:100%;padding:0 32px}
+.workflow-section{flex:1;min-height:0;display:flex;flex-direction:column;padding:48px 0}
+.workflow-inner{width:100%;padding:0 32px;flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center}
 .pipeline{
   display:flex;align-items:stretch;
   border:1px solid var(--border);border-radius:var(--radius);
@@ -407,7 +403,7 @@ img{max-width:100%;display:block}
   .nav-links.open a{height:48px;padding:0 32px;border-bottom:1px solid var(--border)}
   .hamburger{display:flex}
   .workflow-inner,.focus-inner,.blog-inner{padding:0 20px}
-  .hero-wrap{height:auto}
+  .hero-first{height:auto}
   .hero{height:auto}
   .hero-grid{grid-template-columns:1fr}
   .hero-visual{height:260px}
@@ -457,8 +453,8 @@ img{max-width:100%;display:block}
   </div>
 </nav>
 
-<!-- ===== Hero + Works = 100vh ===== -->
-<div class="hero-wrap">
+<!-- ===== Hero + Workflow = 100vh ===== -->
+<div class="hero-first">
 <div class="hero">
   <div class="hero-grid">
     <div class="hero-visual">
@@ -479,8 +475,6 @@ img{max-width:100%;display:block}
     </div>
   </div>
 </div>
-
-</div><!-- /hero-wrap -->
 
 <!-- ===== Workflow Pipeline ===== -->
 <section class="workflow-section">
@@ -517,6 +511,7 @@ img{max-width:100%;display:block}
     </div>
   </div>
 </section>
+</div><!-- /hero-first -->
 
 <!-- ===== Focus Areas ===== -->
 <section class="focus-section">
