@@ -255,10 +255,9 @@ img{max-width:100%;display:block}
 .logo-track .logo-item{
   position:absolute;top:0;left:0;height:100%;
   display:flex;align-items:center;justify-content:center;gap:16px;
-  flex-shrink:0;opacity:0;transition:opacity .3s;pointer-events:none;
+  flex-shrink:0;
 }
-.logo-track .logo-item.in-view{pointer-events:auto}
-.logo-track .logo-item:hover{opacity:1 !important}
+.logo-track .logo-item:hover{opacity:1}
 .logo-track .logo-item img{height:28px;width:auto}
 .logo-track .logo-item .logo-text{height:20px;width:auto}
 .logo-carousel .fade-left,.logo-carousel .fade-right{
@@ -786,7 +785,7 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
   a.addEventListener('click',function(e){e.preventDefault();var t=document.getElementById('contact');if(t)t.scrollIntoView({behavior:'smooth'})});
 });
 
-// Logo Carousel — JS-driven scroll with opacity fade-in/fade-out per item-width
+// Logo Carousel — JS-driven scroll, pre-positioned items
 (function(){
   var container=document.querySelector('.logo-carousel');
   var track=document.getElementById('logo-track');
@@ -803,8 +802,9 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
     carouselW=container.offsetWidth;
     itemW=carouselW/items.length;
     items.forEach(function(it,i){
-      positions[i]=carouselW+i*itemW;
+      positions[i]=i*itemW;
       it.style.width=itemW+'px';
+      it.style.transform='translateX('+positions[i]+'px)';
     });
   }
   initPositions();
@@ -814,47 +814,20 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
     var newW=carouselW/items.length;
     if(Math.abs(newW-itemW)>1){
       itemW=newW;
-      items.forEach(function(it){it.style.width=itemW+'px';});
+      items.forEach(function(it,i){
+        it.style.width=itemW+'px';
+      });
     }
 
     items.forEach(function(it,i){
       positions[i]-=speed/60;
-      var x=positions[i];
-      // recycle: when fully off left edge, move to far right
-      if(x<-itemW){
-        // find the rightmost position
+      // recycle: when fully off left edge, jump to far right
+      if(positions[i]<-itemW){
         var maxP=-Infinity;
         positions.forEach(function(p){if(p>maxP)maxP=p;});
         positions[i]=maxP+itemW;
-        x=positions[i];
       }
-
-      it.style.transform='translateX('+x+'px)';
-
-      // opacity: fade in over first itemW, fade out over last itemW
-      var opacity=0;
-      if(x>=carouselW){
-        opacity=0; // not entered yet
-      }else if(x>=carouselW-itemW){
-        // entering: 0→1 over the last itemW of travel before fully on screen
-        var t=(carouselW-x)/itemW; // 0 at right edge, 1 when fully in
-        opacity=Math.min(0.7,t*0.7);
-      }else if(x>=0){
-        opacity=0.7; // fully visible
-      }else if(x>=-itemW){
-        // exiting: 0.7→0 over the first itemW of travel off left edge
-        var t=(-x)/itemW; // 0 at left edge, 1 when fully out
-        opacity=0.7*(1-t);
-      }else{
-        opacity=0;
-      }
-      if(opacity>0.005){
-        it.style.opacity=opacity;
-        it.classList.add('in-view');
-      }else{
-        it.style.opacity=0;
-        it.classList.remove('in-view');
-      }
+      it.style.transform='translateX('+positions[i]+'px)';
     });
 
     requestAnimationFrame(tick);
