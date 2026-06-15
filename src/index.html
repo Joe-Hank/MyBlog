@@ -379,8 +379,30 @@ img{max-width:100%;display:block}
 .fnext:hover{background:var(--accent);color:#000;border-color:var(--accent);transform:rotate(-180deg)}
 .fnext svg{width:16px;height:16px;display:block}
 
-/* ============ Blog Feed ============ */
+/* ============ Blog Feed — Featured Card ============ */
 .blog-section{padding:64px 0}
+.featured-card{position:relative;display:grid;grid-template-columns:60% 40%;aspect-ratio:1000/320;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-top:24px;cursor:none;transition:transform .25s ease,border-color .25s ease}
+.featured-card:hover{transform:translateY(-2px);border-color:var(--border-strong)}
+.featured-tone{position:relative;padding:30px 36px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:var(--tone)}
+.featured-tone .cover{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:0;transition:transform .5s ease}
+.featured-card:hover .featured-tone .cover{transform:scale(1.04)}
+.featured-tone::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.78) 0%,rgba(0,0,0,.35) 38%,rgba(0,0,0,.15) 70%,transparent 100%);pointer-events:none;z-index:1}
+.featured-tone>*{position:relative;z-index:2}
+.featured-tone .tone-foot{display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase}
+.featured-tone .tone-foot .stamp{color:var(--text-secondary)}
+.featured-tone .tone-foot .cat{color:var(--accent);font-weight:700}
+.featured-body{position:relative;padding:30px 36px;display:flex;flex-direction:column;justify-content:space-between;min-width:0;overflow:hidden}
+.featured-body .body-top{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.featured-body .featured-tag{display:inline-flex;align-items:center;gap:8px;padding:5px 10px 5px 12px;border:1px solid var(--accent);color:var(--accent);font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:3px}
+.featured-body .featured-tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.featured-body .body-meta{font-family:var(--mono);font-size:11px;color:var(--text-muted);letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap}
+.featured-body .body-meta .accent{color:var(--text-secondary)}
+.featured-body h2{font-size:clamp(22px,2.6cqw,34px);font-weight:800;line-height:1.2;letter-spacing:-.5px;color:var(--text);transition:color .2s;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-top:10px}
+.featured-card:hover h2{color:var(--accent)}
+.featured-body .summary{color:var(--text-secondary);font-size:13.5px;line-height:1.65;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-top:12px}
+.featured-body .read-cta{font-family:var(--mono);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:700;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:18px;margin-top:14px;transition:gap .25s}
+.featured-card:hover .read-cta .arrow{transform:translateX(4px)}
+.featured-body .read-cta .arrow{transition:transform .25s}
 .blog-table{
   border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:24px;
 }
@@ -485,6 +507,10 @@ img{max-width:100%;display:block}
   .nav-inner{padding:0 20px}
   .workflow-inner{padding:0 20px}
   .container{padding:0 20px}
+  .featured-card{grid-template-columns:1fr;aspect-ratio:auto}
+  .featured-tone{aspect-ratio:16/9;padding:24px}
+  .featured-body{padding:24px}
+  .featured-body h2{font-size:22px}
   .hero-first{height:auto}
   .hero{height:auto}
   .hero-grid{grid-template-columns:1fr}
@@ -678,43 +704,7 @@ img{max-width:100%;display:block}
       <h2>最近文章</h2>
       <a href="blog.html" class="section-action">View All &rarr;</a>
     </div>
-    <div class="blog-table">
-      <div class="blog-table-header">
-        <span>Date</span><span>Title</span><span>Category</span>
-      </div>
-      <div id="recent-blog-list">
-        <div class="blog-row" onclick="location.href='blog.html?id=post-001'">
-          <span class="blog-date">2025.03.18</span>
-          <div><div class="blog-title">从零搭建一条可复用的 AI 工作流</div><div class="blog-summary">为什么你应该把 Agent 拆成流水线而不是对话</div></div>
-          <span class="blog-category">AI提效</span>
-          <span class="blog-status"><span class="dot"></span>Published</span>
-        </div>
-        <div class="blog-row" onclick="location.href='blog.html?id=post-002'">
-          <span class="blog-date">2025.02.22</span>
-          <div><div class="blog-title">Claude Code 使用心得：把 CLI 变成副驾驶</div><div class="blog-summary">三个月深度使用后的 10 条真经验</div></div>
-          <span class="blog-category">AI提效</span>
-          <span class="blog-status"><span class="dot"></span>Published</span>
-        </div>
-        <div class="blog-row" onclick="location.href='blog.html?id=post-003'">
-          <span class="blog-date">2025.01.10</span>
-          <div><div class="blog-title">设计系统与 Design Token 的第二春</div><div class="blog-summary">在 AI 生成式设计时代，Token 为什么更重要了</div></div>
-          <span class="blog-category">UGC/AIGC</span>
-          <span class="blog-status"><span class="dot"></span>Published</span>
-        </div>
-        <div class="blog-row" onclick="location.href='blog.html?id=post-004'">
-          <span class="blog-date">2024.12.05</span>
-          <div><div class="blog-title">一个独立开发者的年度复盘</div><div class="blog-summary">关于时间、精力与持续产出的一些思考</div></div>
-          <span class="blog-category">游戏制作</span>
-          <span class="blog-status"><span class="dot"></span>Published</span>
-        </div>
-        <div class="blog-row" onclick="location.href='blog.html?id=post-005'">
-          <span class="blog-date">2024.11.14</span>
-          <div><div class="blog-title">Rust × WebAssembly 的前端复兴</div><div class="blog-summary">性能、工程化与心智模型的全面对比</div></div>
-          <span class="blog-category">游戏平台</span>
-          <span class="blog-status"><span class="dot"></span>Published</span>
-        </div>
-      </div>
-    </div>
+    <div id="blog-featured-slot"></div>
   </div>
 </section>
 
@@ -858,22 +848,55 @@ var DataStore=(function(){
   });
 })();
 
-// Recent Blog
+// Blog Featured Card — render first post as featured card
 (function(){
-  var blogList=document.getElementById('recent-blog-list');
-  if(blogList){
-    DataStore.getAllBlogPosts().then(function(posts){
-      blogList.innerHTML=posts.slice(0,5).map(function(post){
-        var title=post.title.length>24?post.title.substring(0,24)+'…':post.title;
-        var summary=post.summary.length>30?post.summary.substring(0,30)+'…':post.summary;
-        return '<div class="blog-row" onclick="location.href=\'blog.html?id='+post.id+'\'">'
-          +'<span class="blog-date">'+post.date+'</span>'
-          +'<div><div class="blog-title">'+title+'</div><div class="blog-summary">'+summary+'</div></div>'
-          +'<span class="blog-category">'+post.category+'</span></div>';
-      }).join('');
-      if(window._cursorBindHover)window._cursorBindHover();
-    });
+  var slot=document.getElementById('blog-featured-slot');
+  if(!slot||!window.DataStore)return;
+
+  var TONE_MAP={
+    'AI提效':'#1e1e2e','游戏制作':'#1e1e22','AI + 游戏':'#241c2e',
+    '虚拟现实':'#1a2e2a','游戏交易':'#2a2418','PC 平台':'#2a2418',
+    '移动 APP':'#2e2418','UGC/AIGC':'#2a1a3e','游戏平台':'#1e2a2e'
+  };
+  function dotDate(d){return d&&d.length>=10?d.substring(0,10).replace(/-/g,'.'):d||''}
+  function readMin(p){
+    if(!p.content)return 3;
+    var words=(p.content.match(/[\u4e00-\u9fff]/g)||[]).length+(p.content.match(/[a-zA-Z]+/g)||[]).length;
+    return Math.max(1,Math.ceil(words/200));
   }
+
+  DataStore.getAllBlogPosts().then(function(posts){
+    if(!posts||!posts.length)return;
+    var hero=posts[0];
+    var heroCover=(hero.images&&hero.images[0])?'<img class="cover" src="'+hero.images[0]+'" alt="" fetchpriority="high">':'';
+    slot.innerHTML=
+      '<article class="featured-card" data-id="'+hero.id+'">'+
+        '<div class="featured-tone" style="--tone:'+(TONE_MAP[hero.category]||'var(--bg-elevated)')+'">'+
+          heroCover+
+          '<div class="tone-foot">'+
+            '<span class="stamp">// '+dotDate(hero.date)+'</span>'+
+            '<span class="cat">'+hero.category+'</span>'+
+          '</div>'+
+        '</div>'+
+        '<div class="featured-body">'+
+          '<div>'+
+            '<div class="body-top">'+
+              '<span class="featured-tag">Featured</span>'+
+            '</div>'+
+            '<h2>'+hero.title+'</h2>'+
+            '<p class="summary">'+(hero.summary||'')+'</p>'+
+          '</div>'+
+          '<div class="read-cta"><span>Read Article</span><span class="arrow">&rarr;</span></div>'+
+        '</div>'+
+      '</article>';
+
+    slot.querySelectorAll('[data-id]').forEach(function(el){
+      el.addEventListener('click',function(){
+        window.location.href='blog.html?id='+el.dataset.id;
+      });
+    });
+    if(window._cursorBindHover)window._cursorBindHover();
+  });
 })();
 
 // Smooth scroll
@@ -1085,7 +1108,7 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
 // Scroll Reveal
 (function(){
   document.querySelectorAll('.workflow-section,.focus-section,.blog-section,.contact-section,.contact-block').forEach(function(s){s.classList.add('reveal')});
-  ['.pipeline .pipe-node','#recent-blog-list .blog-row'].forEach(function(sel){
+  ['.pipeline .pipe-node','#blog-featured-slot .featured-card'].forEach(function(sel){
     document.querySelectorAll(sel).forEach(function(el,i){el.classList.add('reveal');if(i>0&&i<6)el.classList.add('reveal-d'+i)});
   });
   var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('revealed');obs.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
