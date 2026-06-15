@@ -467,7 +467,7 @@ img{max-width:100%;display:block}
 @media (max-width:768px){
   body{cursor:auto}
   a,button{cursor:auto}
-  .custom-cursor{display:none}
+  .custom-cursor { display: none !important; pointer-events: none !important; }
   .nav-links{display:none}
   .nav-links.open{
     display:flex;flex-direction:column;
@@ -507,17 +507,36 @@ img{max-width:100%;display:block}
   .fstage { width: 100% !important; max-width: none !important; aspect-ratio: 16/10 !important; height: auto !important; }
   .fcard { width: 88% !important; height: 88% !important; left: 50% !important; top: 50% !important; transform: translate(-50%,-50%) !important; }
 
-  /* Logo Carousel Mobile — larger items, more spacing */
-  .logo-carousel{height:88px}
-  .logo-track .logo-item{gap:12px !important}
-  .logo-track .logo-item img{height:36px !important;width:auto !important}
-  .logo-track .logo-item .logo-text{height:28px !important;width:auto !important}
-
   /* Section Header Mobile — larger, more interactive */
-  .section-header{padding:20px 0}
-  .section-header .section-id{font-size:12px !important}
-  .section-header h2{font-size:24px !important}
-  .section-header .section-action{font-size:14px !important;padding:8px 12px}
+  .section-header {
+    padding: 20px 0;
+    gap: 12px;
+  }
+  .section-header .section-id {
+    font-size: 11px !important;
+  }
+  .section-header h2 {
+    font-size: 20px !important;
+    line-height: 1.2;
+  }
+  .section-header .section-action {
+    font-size: 12px !important;
+    padding: 6px 14px !important;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 20px !important;
+    color: var(--accent) !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0 !important;
+    height: 32px;
+    transition: background .15s, transform .1s;
+  }
+  .section-header .section-action:active {
+    background: var(--bg-hover) !important;
+    transform: scale(0.96);
+  }
 
   .featured-card{grid-template-columns:1fr;aspect-ratio:auto}
   .featured-tone{aspect-ratio:16/9;padding:24px}
@@ -898,7 +917,8 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
 
   function initPositions(){
     var carouselW = container.offsetWidth;
-    itemW = carouselW / (items.length / 2); 
+    var visibleCount = window.matchMedia('(max-width:768px)').matches ? 3 : (items.length / 2);
+    itemW = carouselW / visibleCount;
     totalW = items.length * itemW;
     items.forEach(function(it, i){
       positions[i] = (i - 2) * itemW;
