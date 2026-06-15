@@ -291,13 +291,13 @@ img{max-width:100%;display:block}
 .fblk .ftext{
   flex:0 0 auto;
   width:80vw;
-  max-width:1000px;
+  max-width:calc(1000px + 12ch);
   display:flex;
   flex-direction:column;
   align-items:flex-start;
   text-align:left;
   gap:12px;
-  padding:20px 0 32px 48px;
+  padding:20px 0 32px calc(48px + 2ch);
   margin-top:40px;
 }
 .eyb{
@@ -317,7 +317,8 @@ img{max-width:100%;display:block}
 
 .fttl{font-size:clamp(36px,4vw,46px);font-weight:900;line-height:1;letter-spacing:-1.5px;color:var(--text);margin:2px 0 6px}
 .fsub{font-family:var(--mono);font-size:11px;font-weight:600;line-height:1;letter-spacing:1px;color:var(--text-secondary);text-transform:uppercase;display:none} /* 融入主结构或隐藏以保持纯净度 */
-.fdsc{font-size:22px;line-height:1.6;color:#a0a0a0;max-width:640px;margin-top:4px;min-height:20px}
+.fdsc{font-size:22px;line-height:1.6;color:#a0a0a0;max-width:100%;min-height:20px;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
 .terminal-cursor{display:inline-block;width:2px;height:1em;background:#a0a0a0;margin-left:2px;vertical-align:text-bottom;animation:blink 1s step-end infinite}
 @keyframes blink{50%{opacity:0}}
 
@@ -495,6 +496,7 @@ img{max-width:100%;display:block}
   .fblk-track { height: auto !important; }
   .fblk { position: relative !important; top: 0 !important; height: auto !important; min-height: 0; opacity: 1 !important; filter: none !important; padding-top: 0; }
   .fblk .ftext { text-align: left !important; align-items: flex-start !important; padding: 20px 10px 10px 20px; gap: 12px; }
+  .fdsc { font-size: 20px !important; -webkit-line-clamp: 3 !important; }
   .fcards { width: 100%; }
   .fstage { width: 100% !important; max-width: none !important; aspect-ratio: 16/10 !important; height: auto !important; }
   .fcard { width: 88% !important; height: 88% !important; left: 50% !important; top: 50% !important; transform: translate(-50%,-50%) !important; }
