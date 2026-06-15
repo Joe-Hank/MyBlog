@@ -29,7 +29,8 @@
   --radius-lg:10px;
   --mono:'JetBrains Mono','Fira Code',Consolas,monospace;
   --sans:'Inter','Helvetica Neue','PingFang SC',sans-serif;
-  --nav-h:56px;
+  --nav-h:84px;
+  --nav-h-shrink:56px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -80,6 +81,7 @@ img{max-width:100%;display:block}
   backdrop-filter:blur(12px);
   border-bottom:1px solid var(--border);
   height:var(--nav-h);
+  transition:height .35s ease,background .3s ease;
 }
 .nav-inner{
   width:100%;
@@ -94,12 +96,13 @@ img{max-width:100%;display:block}
 .nav-links{display:flex;gap:0;height:100%}
 .nav-links a{
   display:flex;align-items:center;
-  padding:0 20px;height:var(--nav-h);
+  padding:0 20px;
+  height:var(--nav-h);
   font-family:var(--mono);font-size:12px;font-weight:600;
   text-transform:uppercase;letter-spacing:1px;
   color:var(--text-secondary);
   border-bottom:2px solid transparent;
-  transition:all .15s;
+  transition:all .35s ease;
 }
 .nav-links a:hover{color:var(--text);background:var(--bg-hover)}
 .nav-links a.active{color:var(--accent);border-bottom-color:var(--accent)}
@@ -354,7 +357,7 @@ img{max-width:100%;display:block}
   cursor:none;
   transform-origin:center center;
   /* 精确控制图2中向左上延伸的级联物理偏移 (--d 为 0 到 1 的分布状态值) */
-  transform:translate(calc(-50% - 28px * var(--d,0)),calc(-50% - 24px * var(--d,0))) scale(calc(1 - .035 * var(--d,0)));
+  transform:translate(calc(-50% - 112px * var(--d,0)),calc(-50% - 24px * var(--d,0))) scale(calc(1 - .035 * var(--d,0)));
   filter:brightness(calc(1 - .28 * var(--d,0)));
   box-shadow:0 25px 55px rgba(0,0,0,.65);
   transition:transform .35s cubic-bezier(.215,.61,.355,1),filter .35s,box-shadow .35s;
@@ -458,9 +461,9 @@ img{max-width:100%;display:block}
 .btn.primary:hover{transform:translateY(-1px)}
 
 /* ============ Nav Shrink ============ */
-.nav{transition:height .3s ease,background .3s ease}
-.nav.scrolled{height:48px;background:rgba(18,18,18,.98)}
-.nav.scrolled .nav-links a{height:48px}
+.nav{transition:height .35s ease,background .3s ease}
+.nav.scrolled{height:var(--nav-h-shrink);background:rgba(18,18,18,.98)}
+.nav.scrolled .nav-links a{height:var(--nav-h-shrink)}
 
 /* ============ Mobile ============ */
 @media (max-width:768px){
@@ -1084,8 +1087,19 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
   document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
 })();
 
-// Nav Scroll Shrink
-(function(){var nav=document.querySelector('.nav');if(!nav)return;window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>100)},{passive:true})})();
+// Nav Scroll Shrink — triggers when focus section header approaches
+(function(){
+  var nav=document.querySelector('.nav');
+  if(!nav)return;
+  var focusHeader=document.querySelector('.focus-section .section-header');
+  window.addEventListener('scroll',function(){
+    if(!focusHeader)return;
+    var rect=focusHeader.getBoundingClientRect();
+    // Nav shrinks when focus section header enters the viewport area near nav
+    var shrinkThreshold=nav.offsetHeight+20;
+    nav.classList.toggle('scrolled',rect.top<shrinkThreshold&&rect.bottom>0);
+  },{passive:true});
+})();
 
 // Back to Top
 (function(){var btn=document.getElementById('back-to-top');if(!btn)return;window.addEventListener('scroll',function(){btn.classList.toggle('visible',window.scrollY>400)},{passive:true});btn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})})})();
