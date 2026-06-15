@@ -1092,21 +1092,16 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
   document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
 })();
 
-// Nav Scroll Shrink — one-way lock once focus section is reached
+// Nav Scroll Shrink — smooth bidirectional transition
 (function(){
   var nav=document.querySelector('.nav');
   if(!nav)return;
   var focusHeader=document.querySelector('.focus-section .section-header');
-  var hasShrunk=false;
   window.addEventListener('scroll',function(){
-    if(hasShrunk)return; // 一旦收缩就不再恢复
     if(!focusHeader)return;
     var rect=focusHeader.getBoundingClientRect();
     var shrinkThreshold=nav.offsetHeight+20;
-    if(rect.top<shrinkThreshold&&rect.bottom>0){
-      nav.classList.add('scrolled');
-      hasShrunk=true;
-    }
+    nav.classList.toggle('scrolled',rect.top<shrinkThreshold&&rect.bottom>0);
   },{passive:true});
 })();
 
