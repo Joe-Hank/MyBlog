@@ -785,7 +785,7 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
   a.addEventListener('click',function(e){e.preventDefault();var t=document.getElementById('contact');if(t)t.scrollIntoView({behavior:'smooth'})});
 });
 
-// Logo Carousel — JS-driven scroll, pre-positioned items
+// Logo Carousel — JS-driven scroll, items enter from off-screen right
 (function(){
   var container=document.querySelector('.logo-carousel');
   var track=document.getElementById('logo-track');
@@ -801,8 +801,9 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
   function initPositions(){
     carouselW=container.offsetWidth;
     itemW=carouselW/items.length;
+    // Start 2 items off-screen left so the right side has buffer
     items.forEach(function(it,i){
-      positions[i]=i*itemW;
+      positions[i]=(i-2)*itemW;
       it.style.width=itemW+'px';
       it.style.transform='translateX('+positions[i]+'px)';
     });
@@ -821,11 +822,9 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
 
     items.forEach(function(it,i){
       positions[i]-=speed/60;
-      // recycle: when fully off left edge, jump to far right
+      // recycle: fully off left edge → spawn at right edge (off-screen)
       if(positions[i]<-itemW){
-        var maxP=-Infinity;
-        positions.forEach(function(p){if(p>maxP)maxP=p;});
-        positions[i]=maxP+itemW;
+        positions[i]=carouselW;
       }
       it.style.transform='translateX('+positions[i]+'px)';
     });
