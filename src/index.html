@@ -269,7 +269,6 @@ img{max-width:100%;display:block}
 
 /* ============ Focus Areas ============ */
 .focus-section{padding:64px 0}
-.focus-inner{width:100%;padding:0 32px}
 .focus-wrap{margin-top:24px}
 .fblk{display:flex;min-height:546px}
 .fblk:nth-child(even){flex-direction:row-reverse}
@@ -300,7 +299,6 @@ img{max-width:100%;display:block}
 
 /* ============ Blog Feed ============ */
 .blog-section{padding:64px 0}
-.blog-inner{width:100%;padding:0 32px}
 .blog-table{
   border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:24px;
 }
@@ -402,7 +400,8 @@ img{max-width:100%;display:block}
   }
   .nav-links.open a{height:48px;padding:0 32px;border-bottom:1px solid var(--border)}
   .hamburger{display:flex}
-  .workflow-inner,.focus-inner,.blog-inner{padding:0 20px}
+  .workflow-inner{padding:0 20px}
+  .container{padding:0 20px}
   .hero-first{height:auto}
   .hero{height:auto}
   .hero-grid{grid-template-columns:1fr}
@@ -515,7 +514,7 @@ img{max-width:100%;display:block}
 
 <!-- ===== Focus Areas ===== -->
 <section class="focus-section">
-  <div class="focus-inner">
+  <div class="container">
     <div class="section-header">
       <span class="section-id">SEC.02</span>
       <h2>我的关注领域</h2>
@@ -579,7 +578,7 @@ img{max-width:100%;display:block}
 
 <!-- ===== Blog Feed ===== -->
 <section class="blog-section">
-  <div class="blog-inner">
+  <div class="container">
     <div class="section-header">
       <span class="section-id">SEC.03</span>
       <h2>最近文章</h2>
