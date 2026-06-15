@@ -316,7 +316,9 @@ img{max-width:100%;display:block}
 
 .fttl{font-size:clamp(36px,4vw,46px);font-weight:900;line-height:1;letter-spacing:-1.5px;color:var(--text);margin:2px 0 6px}
 .fsub{font-family:var(--mono);font-size:11px;font-weight:600;line-height:1;letter-spacing:1px;color:var(--text-secondary);text-transform:uppercase;display:none} /* 融入主结构或隐藏以保持纯净度 */
-.fdsc{font-size:14px;line-height:1.6;color:#a0a0a0;max-width:640px;margin-top:4px}
+.fdsc{font-size:14px;line-height:1.6;color:#a0a0a0;max-width:640px;margin-top:4px;min-height:20px}
+.terminal-cursor{display:inline-block;width:2px;height:1em;background:#a0a0a0;margin-left:2px;vertical-align:text-bottom;animation:blink 1s step-end infinite}
+@keyframes blink{50%{opacity:0}}
 
 .fcards{
   flex:1 1 auto;
@@ -602,14 +604,14 @@ img{max-width:100%;display:block}
           <div class="ftext">
             <span class="eyb">MODULE -01-</span>
             <div class="fttl">AI+</div>
-            <p class="fdsc">把 AI 当副驾驶，而不是玩具。从多 Agent 编排到本地优先的生成工作台，探索 AI 把一个人扩张成一支队伍的边界。</p>
+            <p class="fdsc"></p>
           </div>
           <div class="fcards">
             <div class="fstage">
               <button class="fnext" type="button" aria-label="切换下一张"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>
-              <div class="fcard" data-href="works.html?id=work-001" style="--tone:#2a1a3e"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/66232f50-831c-4b5a-856f-ff09c1b81e44.png" alt="" loading="lazy"><span class="ctag">UGC / AIGC</span><div class="cfoot"><div class="ct">AIGC 私人工作台</div><div class="cm">2026 · 本地优先生成</div></div></div>
-              <div class="fcard" data-href="blog.html?id=post-003" style="--tone:#1d2030"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/Claude副驾驶-1.png" alt="" loading="lazy"><span class="ctag">AI 提效</span><div class="cfoot"><div class="ct">把 Claude Code 变成副驾驶</div><div class="cm">Blog · 工程纪律</div></div></div>
-              <div class="fcard" data-href="works.html?id=work-003" style="--tone:#202a2e"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/MyCrew-1.png" alt="" loading="lazy"><span class="ctag">AI 提效</span><div class="cfoot"><div class="ct">CrewAI × Unity 多 Agent 编排</div><div class="cm">2026 · 失败学复盘</div></div></div>
+              <div class="fcard" data-href="works.html?id=work-001" data-desc="【占位：模块一 · 描述文字 01】把 AI 当副驾驶，而不是玩具。从多 Agent 编排到本地优先的生成工作台，探索 AI 把一个人扩张成一支队伍的边界。" style="--tone:#2a1a3e"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/66232f50-831c-4b5a-856f-ff09c1b81e44.png" alt="" loading="lazy"><span class="ctag">UGC / AIGC</span><div class="cfoot"><div class="ct">AIGC 私人工作台</div><div class="cm">2026 · 本地优先生成</div></div></div>
+              <div class="fcard" data-href="blog.html?id=post-003" data-desc="【占位：模块一 · 描述文字 02】深度使用微调命令行提示词，把 Claude Code 全面打造成无缝衔接的工程开发副驾驶。" style="--tone:#1d2030"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/Claude副驾驶-1.png" alt="" loading="lazy"><span class="ctag">AI 提效</span><div class="cfoot"><div class="ct">把 Claude Code 变成副驾驶</div><div class="cm">Blog · 工程纪律</div></div></div>
+              <div class="fcard" data-href="works.html?id=work-003" data-desc="【占位：模块一 · 描述文字 03】探索多智能体在复杂游戏叙事与决策场景下的行为流水线，以及工程落地层面的失败学复盘。" style="--tone:#202a2e"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/MyCrew-1.png" alt="" loading="lazy"><span class="ctag">AI 提效</span><div class="cfoot"><div class="ct">CrewAI × Unity 多 Agent 编排</div><div class="cm">2026 · 失败学复盘</div></div></div>
             </div>
           </div>
         </div>
@@ -621,15 +623,15 @@ img{max-width:100%;display:block}
           <div class="ftext">
             <span class="eyb">MODULE -02-</span>
             <div class="fttl">游戏</div>
-            <p class="fdsc">以游戏为中心，以技术为脉络。从系统策划到 XR 沉浸式体验，从 Steam 的江山到游戏内的交易链路。</p>
+            <p class="fdsc"></p>
           </div>
           <div class="fcards">
             <div class="fstage">
               <button class="fnext" type="button" aria-label="切换下一张"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>
-              <div class="fcard" data-href="works.html?id=work-006" style="--tone:#1e1e22"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/SLG手游-1.png" alt="" loading="lazy"><span class="ctag">游戏制作</span><div class="cfoot"><div class="ct">欧美 SLG 手游 · 系统策划</div><div class="cm">2022 · 数据配表</div></div></div>
-              <div class="fcard" data-href="works.html?id=work-002" style="--tone:#241c2e"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/DFHistorian-1.png" alt="" loading="lazy"><span class="ctag">AI + 游戏</span><div class="cfoot"><div class="ct">DFHistorian · AI+矮人要塞</div><div class="cm">2026 · 解析器</div></div></div>
-              <div class="fcard" data-href="works.html?id=work-007" style="--tone:#1a2e2a"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/Lemmings-1.png" alt="" loading="lazy"><span class="ctag">虚拟现实</span><div class="cfoot"><div class="ct">Lemmings MR · 共址多人 XR</div><div class="cm">2026 · 混合现实</div></div></div>
-              <div class="fcard" data-href="blog.html?id=post-004" style="--tone:#2a2418"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/游戏电商-1.jpeg" alt="" loading="lazy"><span class="ctag">游戏交易</span><div class="cfoot"><div class="ct">游戏电商业的一年：两个 0→1</div><div class="cm">Blog · PM 复盘</div></div></div>
+              <div class="fcard" data-href="works.html?id=work-006" data-desc="【占位：模块二 · 描述文字 01】精细化数据配表设计与核心玩法数值模型构建，打通高并发重度手游数值系统的底层闭环。" style="--tone:#1e1e22"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/SLG手游-1.png" alt="" loading="lazy"><span class="ctag">游戏制作</span><div class="cfoot"><div class="ct">欧美 SLG 手游 · 系统策划</div><div class="cm">2022 · 数据配表</div></div></div>
+              <div class="fcard" data-href="works.html?id=work-002" data-desc="【占位：模块二 · 描述文字 02】解析矮人要塞庞大的历史日志档案，并重组为基于本地大模型驱动的对话式编年史查询工具。" style="--tone:#241c2e"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/DFHistorian-1.png" alt="" loading="lazy"><span class="ctag">AI + 游戏</span><div class="cfoot"><div class="ct">DFHistorian · AI+矮人要塞</div><div class="cm">2026 · 解析器</div></div></div>
+              <div class="fcard" data-href="works.html?id=work-007" data-desc="【占位：模块二 · 描述文字 03】结合空间计算与共址多人近场互动，重构经典解谜游戏在混合现实环境下的多维交互模式。" style="--tone:#1a2e2a"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/Lemmings-1.png" alt="" loading="lazy"><span class="ctag">虚拟现实</span><div class="cfoot"><div class="ct">Lemmings MR · 共址多人 XR</div><div class="cm">2026 · 混合现实</div></div></div>
+              <div class="fcard" data-href="blog.html?id=post-004" data-desc="【占位：模块二 · 描述文字 04】主导并落地两款千万级虚拟交易电商线从 0 到 1 的全周期架构，全盘复盘核心产品判断指标。" style="--tone:#2a2418"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/游戏电商-1.jpeg" alt="" loading="lazy"><span class="ctag">游戏交易</span><div class="cfoot"><div class="ct">游戏电商业的一年：两个 0→1</div><div class="cm">Blog · PM 复盘</div></div></div>
             </div>
           </div>
         </div>
@@ -641,13 +643,13 @@ img{max-width:100%;display:block}
           <div class="ftext">
             <span class="eyb">MODULE -03-</span>
             <div class="fttl">APP</div>
-            <p class="fdsc">从 0 到 1 搭一条新业务线。PC 端游戏内交易插件、移动端游戏电商专区，把产品判断落到真实灰度数据上。</p>
+            <p class="fdsc"></p>
           </div>
           <div class="fcards">
             <div class="fstage">
               <button class="fnext" type="button" aria-label="切换下一张"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>
-              <div class="fcard" data-href="works.html?id=work-004" style="--tone:#2a2418"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/PC交易插件-1.jpeg" alt="" loading="lazy"><span class="ctag">PC 平台</span><div class="cfoot"><div class="ct">PC 游戏工具平台 · 交易插件</div><div class="cm">2024 · 灰度 300 人</div></div></div>
-              <div class="fcard" data-href="works.html?id=work-005" style="--tone:#2e2418"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/三角洲专区-1.jpeg" alt="" loading="lazy"><span class="ctag">移动 APP</span><div class="cfoot"><div class="ct">移动端游戏电商 · 三角洲专区</div><div class="cm">2024 · MAU 12k</div></div></div>
+              <div class="fcard" data-href="works.html?id=work-004" data-desc="【占位：模块三 · 描述文字 01】设计并推行 PC 工具内嵌轻量级高频交易插件，依托敏捷反馈与精细灰度数据驱动高价值功能演进。" style="--tone:#2a2418"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/PC交易插件-1.jpeg" alt="" loading="lazy"><span class="ctag">PC 平台</span><div class="cfoot"><div class="ct">PC 游戏工具平台 · 交易插件</div><div class="cm">2024 · 灰度 300 人</div></div></div>
+              <div class="fcard" data-href="works.html?id=work-005" data-desc="【占位：模块三 · 描述文字 02】全权负责移动端虚拟电商专区核心业务线冷启动，借助多维留存监控实现月度活跃用户突破 12k。" style="--tone:#2e2418"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/三角洲专区-1.jpeg" alt="" loading="lazy"><span class="ctag">移动 APP</span><div class="cfoot"><div class="ct">移动端游戏电商 · 三角洲专区</div><div class="cm">2024 · MAU 12k</div></div></div>
             </div>
           </div>
         </div>
@@ -913,6 +915,7 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
     var n=cards.length;if(!n)return;
     var active=0;
     var btn=blk.querySelector('.fnext');
+    var dscEl=blk.querySelector('.fdsc');
 
     // 暴露核心状态更改器给滚动拦截驱动引擎
     blk._updateStack = function(index) {
@@ -926,20 +929,70 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
         c.classList.toggle('front',rd===0);
         if(rd===0&&btn)c.appendChild(btn);
       });
+
+      // 切换触发：执行带快速回退删除的打字机逻辑
+      if(dscEl && cards[active]) {
+        var nextText = cards[active].getAttribute('data-desc') || "";
+        triggerIndustrialTypewriter(dscEl, nextText);
+      }
     };
+
+    // 工业风防串色打字机核心逻辑（支持连续疯狂下滑/点击拦截）
+    function triggerIndustrialTypewriter(element, targetText) {
+      // 1. 如果此前有未播完的定时器，立即就地清除，实现强制拦截
+      if (element.typingInterval) {
+        clearInterval(element.typingInterval);
+      }
+
+      // 获取当前正在展示的残存文本内容
+      var currentText = element.textContent || "";
+      if (currentText.endsWith('|')) {
+        currentText = currentText.slice(0, -1);
+      }
+
+      // 阶段 A：以极快的速率进行倒序擦除动画（Backspacing）
+      element.typingInterval = setInterval(function() {
+        if (currentText.length > 0) {
+          currentText = currentText.slice(0, -1);
+          element.innerHTML = currentText + '<span class="terminal-cursor"></span>';
+        } else {
+          // 彻底擦除完毕，清除回退定时器
+          clearInterval(element.typingInterval);
+
+          // 阶段 B：正向逐字键入全新的文本内容（Typing）
+          var charIndex = 0;
+          element.typingInterval = setInterval(function() {
+            if (charIndex <= targetText.length) {
+              element.innerHTML = targetText.slice(0, charIndex) + '<span class="terminal-cursor"></span>';
+              charIndex++;
+            } else {
+              // 全文键入完毕，清除定时器，留存静止光标
+              clearInterval(element.typingInterval);
+              element.innerHTML = targetText + '<span class="terminal-cursor"></span>';
+            }
+          }, 24); // 极佳的输入律动速度
+        }
+      }, 8); // 超高速倒擦删除
+    }
 
     if(btn){
       if(n>1)btn.addEventListener('click',function(e){e.stopPropagation();var nextIdx=(active+1)%n;blk._updateStack(nextIdx);});
       else btn.style.display='none';
     }
     cards.forEach(function(c){c.addEventListener('click',function(){var h=c.getAttribute('data-href');if(h)window.location.href=h;});});
-    
+
     // 初始化首张布局
     cards.forEach(function(c,i){
       c.style.setProperty('--d',i/(n>1?n-1:1));
       c.style.zIndex=n-i;
       if(i===0) c.classList.add('front');
     });
+
+    // 初始化首屏打字机（显示第一张卡片的描述）
+    if(dscEl && cards[0]) {
+      var firstText = cards[0].getAttribute('data-desc') || "";
+      triggerIndustrialTypewriter(dscEl, firstText);
+    }
   });
   if(window._cursorBindHover)window._cursorBindHover();
 })();
