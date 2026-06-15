@@ -787,52 +787,60 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
 
 // Logo Carousel — JS-driven scroll, items enter from off-screen right
 (function(){
-  var container=document.querySelector('.logo-carousel');
-  var track=document.getElementById('logo-track');
-  if(!container||!track)return;
-  var items=Array.prototype.slice.call(track.querySelectorAll('.logo-item'));
-  if(!items.length)return;
+  var container = document.querySelector('.logo-carousel');
+  var track = document.getElementById('logo-track');
+  var items = Array.prototype.slice.call(track.querySelectorAll('.logo-item'));
 
-  var speed=60; // px/s
-  var positions=[];
-  var itemW=0;
-  var carouselW=0;
+  var speed = 60; // 每秒移动 60px
+  var positions = [], itemW = 0, totalW = 0;
+  var lastTime = performance.now();
 
   function initPositions(){
-    carouselW=container.offsetWidth;
-    itemW=carouselW/items.length;
-    // Start 2 items off-screen left so the right side has buffer
-    items.forEach(function(it,i){
-      positions[i]=(i-2)*itemW;
-      it.style.width=itemW+'px';
-      it.style.transform='translateX('+positions[i]+'px)';
+    var carouselW = container.offsetWidth;
+    // 修正：前6后6，说明每屏应正好容纳 6 个 Logo，其余 6 个在屏外做无缝循环缓冲
+    itemW = carouselW / (items.length / 2); 
+    totalW = items.length * itemW; // 总轨迹长度
+
+    items.forEach(function(it, i){
+      positions[i] = (i - 2) * itemW;  // 初始位置左移 2 个身位
+      it.style.width = itemW + 'px';
+      it.style.transform = 'translateX(' + positions[i] + 'px)';
     });
   }
+  
+  // 初始化布局
   initPositions();
 
-  function tick(){
-    carouselW=container.offsetWidth;
-    var newW=carouselW/items.length;
-    if(Math.abs(newW-itemW)>1){
-      itemW=newW;
-      items.forEach(function(it,i){
-        it.style.width=itemW+'px';
-      });
-    }
+  // 1. 响应窗口缩放：防抖或直接重置布局
+  window.addEventListener('resize', initPositions);
 
-    items.forEach(function(it,i){
-      positions[i]-=speed/60;
-      // recycle: fully off left edge → spawn at right edge (off-screen)
-      if(positions[i]<-itemW){
-        positions[i]=carouselW;
+  function tick(now){
+    // 使用时间差（Delta Time）计算位移，防止因帧率不稳导致速度忽快忽慢
+    var delta = (now - lastTime) / 1000;
+    lastTime = now;
+
+    // 极端情况下（如标签页切换后台挂起后返回）做个保护
+    if (isNaN(delta) || delta > 0.1) delta = 1/60; 
+
+    items.forEach(function(it, i){
+      // 每个 item 向左移动
+      positions[i] -= speed * delta;
+
+      // 核心边界回收逻辑：
+      // 因为初始位置最左是 -2*itemW，所以当它向左完全滑出视口（即比 -2*itemW 还要小一个身位）时
+      // 瞬间将其回收到队列的最右侧（加上总长度 totalW）
+      if (positions[i] < -3 * itemW) {
+        positions[i] += totalW;
       }
-      it.style.transform='translateX('+positions[i]+'px)';
+      
+      it.style.transform = 'translateX(' + positions[i] + 'px)';
     });
 
     requestAnimationFrame(tick);
   }
+  
+  // 启动动画循环
   requestAnimationFrame(tick);
-  if(window._cursorBindHover)window._cursorBindHover();
 })();
 
 // Focus Areas — card stack (图标切换 / 点卡片跳转)
