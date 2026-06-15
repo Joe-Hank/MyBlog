@@ -715,7 +715,7 @@ var DataStore=(function(){
   return {getAllWorks:getAllWorks,getWorks:getWorks,getWorkById:getWorkById,getAllBlogPosts:getAllBlogPosts,getBlogPosts:getBlogPosts,getBlogPostById:getBlogPostById,getBanners:getBanners};
 })();
 
-// Hero Banner — dynamic (Notion-driven, 8s auto-rotate + arrows)
+// Hero Banner — top 4 works (first image as cover)
 (function(){
   var slider=document.getElementById('hero-slider');
   var dotsEl=document.getElementById('hero-dots');
@@ -724,19 +724,21 @@ var DataStore=(function(){
   if(!slider||!dotsEl)return;
   if(!window.DataStore)return;
 
-  DataStore.getBanners().then(function(banners){
-    if(!banners||!banners.length)return;
-    var total=banners.length;
+  DataStore.getAllWorks().then(function(works){
+    var slides=works.slice(0,4);
+    if(!slides.length)return;
+    var total=slides.length;
     var slideW=100/total;
 
     slider.style.width=(total*100)+'%';
-    slider.innerHTML=banners.map(function(b){
-      var inner='<img src="'+b.image+'" alt="'+(b.title||'banner')+'">'
-        +(b.title?'<div class="slide-title">'+b.title+(b.subtitle?' · '+b.subtitle:'')+'</div>':'');
-      var body=b.link?'<a href="'+b.link+'">'+inner+'</a>':inner;
+    slider.innerHTML=slides.map(function(w){
+      var thumb=w.thumbnail||(w.images&&w.images[0])||'';
+      var inner='<img src="'+thumb+'" alt="'+w.title+'">'
+        +'<div class="slide-title">'+w.title+'</div>';
+      var body='<a href="works.html?id='+w.id+'">'+inner+'</a>';
       return '<div class="slide" style="width:'+slideW+'%">'+body+'</div>';
     }).join('');
-    dotsEl.innerHTML=banners.map(function(_,i){return '<span'+(i===0?' class="active"':'')+'></span>'}).join('');
+    dotsEl.innerHTML=slides.map(function(_,i){return '<span'+(i===0?' class="active"':'')+'></span>'}).join('');
     var dots=dotsEl.querySelectorAll('span');
 
     var current=0;var timer;
