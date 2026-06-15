@@ -148,7 +148,6 @@ img{max-width:100%;display:block}
 .hero-slider .slide img{
   width:100%;height:100%;object-fit:cover;object-position:top center;
 }
-/* Slide title overlay */
 .hero-slider .slide .slide-title{
   position:absolute;bottom:0;left:0;right:0;
   padding:32px 28px 20px;
@@ -158,7 +157,6 @@ img{max-width:100%;display:block}
   pointer-events:none;
 }
 
-/* Banner nav arrows */
 .hero-arrow{
   position:absolute;top:50%;transform:translateY(-50%);
   z-index:4;
@@ -204,7 +202,6 @@ img{max-width:100%;display:block}
 }
 .hero-cta{display:flex;gap:12px;flex-wrap:wrap}
 
-
 /* ============ Section Headers ============ */
 .section-header{
   display:flex;align-items:center;justify-content:space-between;
@@ -242,7 +239,6 @@ img{max-width:100%;display:block}
 .pipe-node h4{font-size:13px;font-weight:600;margin-bottom:4px}
 .pipe-node p{font-size:11px;color:var(--text-secondary);line-height:1.5}
 
-/* Logo Carousel */
 .logo-carousel{
   position:relative;overflow:hidden;height:72px;display:flex;align-items:center;
   border-top:1px solid var(--border);margin-top:24px;
@@ -266,9 +262,8 @@ img{max-width:100%;display:block}
 .logo-carousel .fade-left{left:0;background:linear-gradient(to right,var(--bg-surface),transparent)}
 .logo-carousel .fade-right{right:0;background:linear-gradient(to left,var(--bg-surface),transparent)}
 
-/* ============ Focus Areas — Premium Interlock Scroll ============ */
+/* ============ Focus Areas — Premium Vertical Interlock Scroll ============ */
 .focus-section{position:relative;padding:0}
-/* 标题图层单独粘性锚定，卡在导航栏下方 */
 .focus-section .section-header{
   position:sticky;
   top:56px;
@@ -277,40 +272,96 @@ img{max-width:100%;display:block}
   padding:24px 0 16px;
 }
 .focus-wrap{margin-top:0;position:relative}
-/* 每一个大板块的滚动轨道生命周期 */
-.fblk-track{position:relative;height:150vh}
-/* 核心内容块开启高阶粘性锁死 */
+/* 延长轨道高度，给卡片在滑轮下的切换流出充分的生命周期空隙 */
+.fblk-track{position:relative;height:240vh}
+/* 纵向对齐的内容面板锚定 */
 .fblk{
   display:flex;
-  min-height:500px;
-  height:calc(100vh - 140px);
-  position:sticky;
-  top:140px;
-  background:var(--bg);
+  flex-direction:column;
   align-items:center;
+  justify-content:flex-start;
+  min-height:550px;
+  height:calc(100vh - 130px);
+  position:sticky;
+  top:130px;
+  background:var(--bg);
   will-change:opacity,filter;
 }
-.fblk-track:nth-child(even) .fblk{flex-direction:row-reverse}
-.fblk .ftext{flex:0 0 40%;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:6px;padding:44px 52px}
-.fblk-track:nth-child(even) .ftext{align-items:flex-end;text-align:right}
-.eyb{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;font-weight:700;line-height:1;letter-spacing:2px;color:var(--accent);text-transform:uppercase}
-.eyb::before{content:"";width:26px;height:2px;background:var(--accent)}
-.fblk-track:nth-child(even) .eyb{flex-direction:row-reverse}
-.fttl{font-size:clamp(32px,3.4vw,48px);font-weight:800;line-height:1.03;letter-spacing:-1.2px;color:var(--text);margin:8px 0 2px}
-.fsub{font-family:var(--mono);font-size:12px;font-weight:600;line-height:1;letter-spacing:1px;color:var(--text-secondary);text-transform:uppercase}
-.fdsc{font-size:15px;line-height:1.8;color:#d6d6d6;max-width:360px;margin-top:12px}
-.fcards{flex:0 0 60%;min-width:0;display:flex;flex-direction:column;height:100%;justify-content:center}
-.fstage{position:relative;width:100%;aspect-ratio:16/10;max-height:85%;overflow:hidden}
-.fcard{position:absolute;right:8%;bottom:12%;width:60%;aspect-ratio:16/10;border:1px solid var(--border-strong);border-radius:var(--radius-lg);overflow:hidden;background:var(--tone,var(--bg-elevated));cursor:none;transform-origin:bottom right;transform:translate(calc(-78px*var(--d,0)),calc(-60px*var(--d,0))) scale(calc(1 - .1*var(--d,0)));filter:brightness(calc(1 - .38*var(--d,0)));box-shadow:0 26px 54px rgba(0,0,0,.6);transition:transform .55s cubic-bezier(.22,.61,.36,1),filter .55s,box-shadow .55s,border-color .3s}
-.fblk-track:nth-child(even) .fcard{left:52px;right:auto;transform-origin:bottom left;transform:translate(calc(78px*var(--d,0)),calc(-60px*var(--d,0))) scale(calc(1 - .1*var(--d,0)))}
-.fcard.front:hover{box-shadow:0 26px 54px rgba(0,0,0,.6),0 0 22px rgba(247,201,72,.18)}
+/* 移除多余的交替行反转规则，统一上下结构 */
+.fblk .ftext{
+  flex:0 0 auto;
+  width:100%;
+  max-width:800px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  gap:4px;
+  padding:10px 20px 24px;
+}
+.eyb{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  justify-content:center;
+  font-family:var(--mono);
+  font-size:11px;
+  font-weight:700;
+  line-height:1;
+  letter-spacing:2px;
+  color:var(--accent);
+  text-transform:uppercase;
+}
+.eyb::before, .eyb::after{content:"";width:20px;height:2px;background:var(--accent)}
+.fttl{font-size:clamp(28px,3vw,38px);font-weight:800;line-height:1.1;letter-spacing:-1px;color:var(--text);margin:6px 0 2px}
+.fsub{font-family:var(--mono);font-size:11px;font-weight:600;line-height:1;letter-spacing:1px;color:var(--text-secondary);text-transform:uppercase}
+.fdsc{font-size:13.5px;line-height:1.7;color:#d6d6d6;max-width:540px;margin-top:8px}
+
+.fcards{
+  flex:1 1 auto;
+  width:100%;
+  max-width:900px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  min-height:0;
+}
+/* 图像容器等比收放，绝不撑满画布 */
+.fstage{
+  position:relative;
+  width:65vw;
+  max-width:720px;
+  aspect-ratio:16/10;
+  overflow:visible;
+}
+/* 卡片堆叠采用中心锚定法，以追求上下排版下的对称美学 */
+.fcard{
+  position:absolute;
+  left:50%;
+  top:46%;
+  width:88%;
+  height:88%;
+  border:1px solid var(--border-strong);
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  background:var(--tone,var(--bg-elevated));
+  cursor:none;
+  transform-origin:center center;
+  /* 精确的层级物理偏移，层层向后向上推演 */
+  transform:translate(calc(-50% + 20px * var(--d,0)),calc(-50% - 16px * var(--d,0))) scale(calc(1 - .05 * var(--d,0)));
+  filter:brightness(calc(1 - .32 * var(--d,0)));
+  box-shadow:0 20px 45px rgba(0,0,0,.55);
+  transition:transform .35s cubic-bezier(.215,.61,.355,1),filter .35s,box-shadow .35s;
+}
+.fcard.front:hover{box-shadow:0 24px 50px rgba(0,0,0,.6),0 0 22px rgba(247,201,72,.15)}
 .fcard .cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transition:transform .55s ease}
-.fcard.front:hover .cover{transform:scale(1.05)}
-.fcard::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,.82) 0%,rgba(0,0,0,.4) 46%,rgba(0,0,0,.08) 76%,transparent 100%)}
+.fcard.front:hover .cover{transform:scale(1.04)}
+.fcard::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,.8) 0%,rgba(0,0,0,.35) 50%,transparent 100%)}
 .fcard .ctag,.fcard .cfoot{z-index:2}
 .ctag{position:absolute;top:14px;left:16px;font-family:var(--mono);font-size:10px;font-weight:700;line-height:1;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);background:rgba(0,0,0,.4);border:1px solid rgba(247,201,72,.4);padding:4px 9px;border-radius:4px}
-.cfoot{position:absolute;left:18px;right:18px;bottom:16px}
-.cfoot .ct{font-size:17px;font-weight:700;line-height:1.25;color:#fff;margin-bottom:4px}
+.cfoot{position:absolute;left:18px;right:18px;bottom:16px;text-align:left}
+.cfoot .ct{font-size:16px;font-weight:700;line-height:1.25;color:#fff;margin-bottom:3px}
 .cfoot .cm{font-family:var(--mono);font-size:10px;font-weight:600;line-height:1;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.62)}
 .fnext{position:absolute;top:12px;right:12px;z-index:6;width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.28);background:rgba(0,0,0,.42);color:#fff;cursor:none;transition:transform .35s ease,background .2s,color .2s,border-color .2s}
 .fnext:hover{background:var(--accent);color:#000;border-color:var(--accent);transform:rotate(-180deg)}
@@ -434,18 +485,16 @@ img{max-width:100%;display:block}
   .pipe-node{border-right:none;border-bottom:1px solid var(--border)}
   .pipe-node:last-child{border-bottom:none}
   
-  /* 移动端平滑退级机制 */
+  /* 移动端平滑降级机制 */
   .focus-section .section-header { position: relative; top: 0; padding: 24px 0; }
   .focus-wrap { margin-top: 24px; }
   .fblk-track { height: auto !important; }
-  .fblk { position: relative !important; top: 0 !important; height: auto !important; min-height: 0; opacity: 1 !important; filter: none !important; }
-  .fblk,.fblk-track:nth-child(even) .fblk{flex-direction:column;min-height:0}
-  .fblk .ftext{flex:none;align-items:flex-start;text-align:left;padding:30px 22px 8px}
-  .fblk-track:nth-child(even) .ftext{align-items:flex-start;text-align:left}
-  .fblk-track:nth-child(even) .eyb{flex-direction:row}
-  .fcards{flex:none}
-  .fstage{height:280px}
-  .fcard{width:74%}
+  .fblk { position: relative !important; top: 0 !important; height: auto !important; min-height: 0; opacity: 1 !important; filter: none !important; padding-top: 0; }
+  .fblk .ftext { text-align: left !important; align-items: flex-start !important; padding: 20px 10px 10px; }
+  .eyb::after { display: none; }
+  .fcards { width: 100%; }
+  .fstage { width: 100% !important; max-width: none !important; aspect-ratio: 16/10 !important; height: auto !important; }
+  .fcard { width: 88% !important; height: 88% !important; left: 50% !important; top: 50% !important; }
   
   .blog-table-header{display:none}
   .blog-row{grid-template-columns:1fr;gap:4px;padding:14px 20px}
@@ -464,6 +513,7 @@ img{max-width:100%;display:block}
 </head>
 <body>
 
+<!-- ===== Nav ===== -->
 <nav class="nav">
   <div class="nav-inner">
     <div class="logo">MYBLOG.HAN</div>
@@ -477,6 +527,7 @@ img{max-width:100%;display:block}
   </div>
 </nav>
 
+<!-- ===== Hero + Workflow = 100vh ===== -->
 <div class="hero-first">
 <div class="hero">
   <div class="hero-grid">
@@ -499,6 +550,7 @@ img{max-width:100%;display:block}
   </div>
 </div>
 
+<!-- ===== Workflow Pipeline ===== -->
 <section class="workflow-section">
   <div class="workflow-inner">
     <div class="section-header">
@@ -533,7 +585,10 @@ img{max-width:100%;display:block}
     </div>
   </div>
 </section>
-</div><section class="focus-section">
+</div><!-- /hero-first -->
+
+<!-- ===== Focus Areas ===== -->
+<section class="focus-section">
   <div class="container">
     <div class="section-header">
       <span class="section-id">SEC.02</span>
@@ -541,6 +596,7 @@ img{max-width:100%;display:block}
     </div>
     <div class="focus-wrap">
 
+      <!-- Module 01 轨道 -->
       <div class="fblk-track">
         <div class="fblk">
           <div class="ftext">
@@ -560,6 +616,7 @@ img{max-width:100%;display:block}
         </div>
       </div>
 
+      <!-- Module 02 轨道 -->
       <div class="fblk-track">
         <div class="fblk">
           <div class="ftext">
@@ -580,6 +637,7 @@ img{max-width:100%;display:block}
         </div>
       </div>
 
+      <!-- Module 03 轨道 -->
       <div class="fblk-track">
         <div class="fblk">
           <div class="ftext">
@@ -602,6 +660,7 @@ img{max-width:100%;display:block}
   </div>
 </section>
 
+<!-- ===== Blog Feed ===== -->
 <section class="blog-section">
   <div class="container">
     <div class="section-header">
@@ -649,6 +708,7 @@ img{max-width:100%;display:block}
   </div>
 </section>
 
+<!-- ===== Contact ===== -->
 <section id="contact" class="contact-section">
   <div class="container">
     <div class="section-header">
@@ -676,6 +736,7 @@ img{max-width:100%;display:block}
   </div>
 </section>
 
+<!-- ===== Footer ===== -->
 <footer class="footer">
   <div class="footer-inner">
     <p>&copy; 2026 MYBLOG.HAN · built with <span class="accent">&lt;ClaudeCode/&gt;</span> & figma</p>
@@ -691,14 +752,13 @@ img{max-width:100%;display:block}
 
 <script src="data/config.js"></script>
 <script>
-// Custom Cursor — 不再用 'ontouchstart' in window 判断，因为 Win11 触屏设备即使用鼠标也会返回 true
+// Custom Cursor
 (function(){
   if(window.matchMedia('(max-width:768px)').matches&&navigator.maxTouchPoints>0)return;
   var cursor=document.createElement('div');cursor.className='custom-cursor';document.body.appendChild(cursor);
   document.addEventListener('mousemove',function(e){cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px'});
   document.addEventListener('mousedown',function(){cursor.classList.add('click')});
   document.addEventListener('mouseup',function(){setTimeout(function(){cursor.classList.remove('click')},150)});
-  // Hover effect on interactive elements
   function bindHover(){
     document.querySelectorAll('a,button,.work-card,.blog-row,.fcard,.fnext,.tab,.hero-dots span,.gallery-dots span,.logo-item').forEach(function(el){
       el.addEventListener('mouseenter',function(){cursor.classList.add('hover')});
@@ -723,7 +783,7 @@ img{max-width:100%;display:block}
   }
 })();
 
-// Data layer (Notion proxy with local JSON fallback)
+// Data layer
 var DataStore=(function(){
   var worksCache=null;var blogCache=null;var bannerCache=null;
   var proxy=(typeof SITE_CONFIG!=='undefined'&&SITE_CONFIG.notionProxy)||'';
@@ -739,7 +799,7 @@ var DataStore=(function(){
   return {getAllWorks:getAllWorks,getWorks:getWorks,getWorkById:getWorkById,getAllBlogPosts:getAllBlogPosts,getBlogPosts:getBlogPosts,getBlogPostById:getBlogPostById,getBanners:getBanners};
 })();
 
-// Hero Banner — top 4 works (first image as cover)
+// Hero Banner
 (function(){
   var slider=document.getElementById('hero-slider');
   var dotsEl=document.getElementById('hero-dots');
@@ -811,72 +871,56 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
   a.addEventListener('click',function(e){e.preventDefault();var t=document.getElementById('contact');if(t)t.scrollIntoView({behavior:'smooth'})});
 });
 
-// Logo Carousel — JS-driven scroll, items enter from off-screen right
+// Logo Carousel
 (function(){
   var container = document.querySelector('.logo-carousel');
   var track = document.getElementById('logo-track');
   var items = Array.prototype.slice.call(track.querySelectorAll('.logo-item'));
-
-  var speed = 60; // 每秒移动 60px
+  var speed = 60;
   var positions = [], itemW = 0, totalW = 0;
   var lastTime = performance.now();
 
   function initPositions(){
     var carouselW = container.offsetWidth;
-    // 修正：前6后6，说明每屏应正好容纳 6 个 Logo，其余 6 个在屏外做无缝循环缓冲
     itemW = carouselW / (items.length / 2); 
-    totalW = items.length * itemW; // 总轨迹长度
-
+    totalW = items.length * itemW;
     items.forEach(function(it, i){
-      positions[i] = (i - 2) * itemW;  // 初始位置左移 2 个身位
+      positions[i] = (i - 2) * itemW;
       it.style.width = itemW + 'px';
       it.style.transform = 'translateX(' + positions[i] + 'px)';
     });
   }
-  
-  // 初始化布局
   initPositions();
-
-  // 1. 响应窗口缩放：防抖或直接重置布局
   window.addEventListener('resize', initPositions);
 
   function tick(now){
-    // 使用时间差（Delta Time）计算位移，防止因帧率不稳导致速度忽快忽慢
     var delta = (now - lastTime) / 1000;
     lastTime = now;
-
-    // 极端情况下（如标签页切换后台挂起后返回）做个保护
     if (isNaN(delta) || delta > 0.1) delta = 1/60; 
-
     items.forEach(function(it, i){
-      // 每个 item 向左移动
       positions[i] -= speed * delta;
-
-      // 核心边界回收逻辑：
-      // 因为初始位置最左是 -2*itemW，所以当它向左完全滑出视口（即比 -2*itemW 还要小一个身位）时
-      // 瞬间将其回收到队列的最右侧（加上总长度 totalW）
       if (positions[i] < -3 * itemW) {
         positions[i] += totalW;
       }
-      
       it.style.transform = 'translateX(' + positions[i] + 'px)';
     });
-
     requestAnimationFrame(tick);
   }
-  
-  // 启动动画循环
   requestAnimationFrame(tick);
 })();
 
-// Focus Areas — card stack (图标切换 / 点卡片跳转)
+// Focus Areas — Stack State & Event System
 (function(){
   document.querySelectorAll('.focus-wrap .fblk').forEach(function(blk){
     var cards=Array.prototype.slice.call(blk.querySelectorAll('.fcard'));
     var n=cards.length;if(!n)return;
     var active=0;
-    var countEl=blk.querySelector('.fcount'),btn=blk.querySelector('.fnext'),stage=blk.querySelector('.fstage');
-    function layout(){
+    var btn=blk.querySelector('.fnext');
+
+    // 暴露核心状态更改器给滚动拦截驱动引擎
+    blk._updateStack = function(index) {
+      if (active === index) return;
+      active = index;
       cards.forEach(function(c,i){
         var rd=(i-active+n)%n;
         var vis=n>1?rd/(n-1):0;
@@ -885,29 +929,32 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
         c.classList.toggle('front',rd===0);
         if(rd===0&&btn)c.appendChild(btn);
       });
-      if(countEl)countEl.textContent=(active+1)+' / '+n;
-    }
-    function next(){active=(active+1)%n;layout();}
+    };
+
     if(btn){
-      if(n>1)btn.addEventListener('click',function(e){e.stopPropagation();next();});
+      if(n>1)btn.addEventListener('click',function(e){e.stopPropagation();var nextIdx=(active+1)%n;blk._updateStack(nextIdx);});
       else btn.style.display='none';
     }
     cards.forEach(function(c){c.addEventListener('click',function(){var h=c.getAttribute('data-href');if(h)window.location.href=h;});});
-    layout();
+    
+    // 初始化首张布局
+    cards.forEach(function(c,i){
+      c.style.setProperty('--d',i/(n>1?n-1:1));
+      c.style.zIndex=n-i;
+      if(i===0) c.classList.add('front');
+    });
   });
   if(window._cursorBindHover)window._cursorBindHover();
 })();
 
-// Premium Interlock Scroll Driver — 独立渲染关注领域的滚动叠放虚化机制
+// Premium Vertical Interlock Scroll Driver — 纵向滚动无缝切卡与高质感淡出机制
 (function(){
   if (window.innerWidth <= 768) return;
 
   var tracks = document.querySelectorAll('.fblk-track');
   
   function handleFocusScroll() {
-    var viewHeight = window.innerHeight;
-    // 对应 CSS 中绑定的内容区域锁死高度起始点
-    var stickyTopOffset = 140; 
+    var stickyTopOffset = 130; 
 
     tracks.forEach(function(track) {
       var fblk = track.querySelector('.fblk');
@@ -915,17 +962,29 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
 
       var rect = track.getBoundingClientRect();
       
-      // 当轨道的头部扣入触发范围时
+      // 当版块进入粘性锚定生命周期内
       if (rect.top <= stickyTopOffset) {
         var totalScrollable = rect.height - fblk.offsetHeight;
         var currentScrolled = stickyTopOffset - rect.top;
         var progress = Math.min(Math.max(currentScrolled / totalScrollable, 0), 1);
         
-        // 前 40% 深度维持绝对清晰状态，后 60% 深度执行高质感虚化和透明度淡出
-        if (progress > 0.4) {
-          var fadeProgress = (progress - 0.4) / 0.6;
+        // 核心一：0% -> 85% 程长通过滚动深度自动完成轮播切牌
+        if (typeof fblk._updateStack === 'function') {
+          var cards = fblk.querySelectorAll('.fcard');
+          var n = cards.length;
+          if (n > 0) {
+            var cycleProgress = Math.min(progress / 0.85, 1);
+            var activeIndex = Math.floor(cycleProgress * n);
+            if (activeIndex >= n) activeIndex = n - 1;
+            fblk._updateStack(activeIndex);
+          }
+        }
+
+        // 核心二：85% -> 100% 后期进入平滑毛玻璃虚化与淡出，为新内容让位
+        if (progress > 0.85) {
+          var fadeProgress = (progress - 0.85) / 0.15;
           var opacityValue = 1 - fadeProgress;
-          var blurValue = fadeProgress * 20; // 设定最大毛玻璃虚化半径 20px
+          var blurValue = fadeProgress * 20; 
           
           fblk.style.opacity = opacityValue;
           fblk.style.filter = 'blur(' + blurValue + 'px)';
@@ -936,7 +995,10 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
           fblk.style.pointerEvents = 'auto';
         }
       } else {
-        // 未进场的重置为初始清晰状态
+        // 未进场或往回滑出范围时，复位初始清晰与首张牌状态
+        if (typeof fblk._updateStack === 'function') {
+          fblk._updateStack(0);
+        }
         fblk.style.opacity = 1;
         fblk.style.filter = 'blur(0px)';
         fblk.style.pointerEvents = 'auto';
@@ -959,7 +1021,7 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
   window.addEventListener('resize', handleFocusScroll);
 })();
 
-// Scroll Reveal — 已剔除可能引发 position: sticky 渲染锁上下文失效的 .fblk 静态变换
+// Scroll Reveal
 (function(){
   document.querySelectorAll('.workflow-section,.focus-section,.blog-section,.contact-section,.contact-block').forEach(function(s){s.classList.add('reveal')});
   ['.pipeline .pipe-node','#recent-blog-list .blog-row'].forEach(function(sel){
@@ -975,7 +1037,7 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
 // Back to Top
 (function(){var btn=document.getElementById('back-to-top');if(!btn)return;window.addEventListener('scroll',function(){btn.classList.toggle('visible',window.scrollY>400)},{passive:true});btn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})})})();
 
-// Email: mailto + copy to clipboard
+// Email
 (function(){
   var email='wenhuawasi@gmail.com';
   var toast=document.createElement('div');
@@ -993,7 +1055,6 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
     });
   });
 })();
-
 </script>
 </body>
 </html>
