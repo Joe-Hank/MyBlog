@@ -292,14 +292,10 @@ img{max-width:100%;display:block}
 /* ============ Focus Areas ============ */
 .focus-section{padding:64px 0}
 .focus-wrap{margin-top:24px}
-.fblk{display:flex;min-height:420px}
+.fblk{display:flex;min-height:546px}
 .fblk:nth-child(even){flex-direction:row-reverse}
 .fblk .ftext{flex:0 0 40%;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:6px;padding:44px 52px}
 .fblk:nth-child(even) .ftext{align-items:flex-end;text-align:right}
-/* Override 2nd fblk (游戏) to match AI+ layout: text left, cards right */
-.fblk:nth-child(2){flex-direction:row}
-.fblk:nth-child(2) .ftext{align-items:flex-start;text-align:left}
-.fblk:nth-child(2) .eyb{flex-direction:row}
 .eyb{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;font-weight:700;line-height:1;letter-spacing:2px;color:var(--accent);text-transform:uppercase}
 .eyb::before{content:"";width:26px;height:2px;background:var(--accent)}
 .fblk:nth-child(even) .eyb{flex-direction:row-reverse}
@@ -309,9 +305,7 @@ img{max-width:100%;display:block}
 .fcards{flex:0 0 60%;min-width:0;display:flex;flex-direction:column}
 .fstage{position:relative;flex:1;overflow:hidden}
 .fcard{position:absolute;right:8%;bottom:12%;width:60%;aspect-ratio:16/10;border:1px solid var(--border-strong);border-radius:var(--radius-lg);overflow:hidden;background:var(--tone,var(--bg-elevated));cursor:none;transform-origin:bottom right;transform:translate(calc(-78px*var(--d,0)),calc(-60px*var(--d,0))) scale(calc(1 - .1*var(--d,0)));filter:brightness(calc(1 - .38*var(--d,0)));box-shadow:0 26px 54px rgba(0,0,0,.6);transition:transform .55s cubic-bezier(.22,.61,.36,1),filter .55s,box-shadow .55s,border-color .3s}
-.fblk:nth-child(even) .fcard{left:8%;right:auto;transform-origin:bottom left;transform:translate(calc(78px*var(--d,0)),calc(-60px*var(--d,0))) scale(calc(1 - .1*var(--d,0)))}
-/* Override 2nd fblk (游戏) card to right-anchor like AI+ */
-.fblk:nth-child(2) .fcard{left:auto;right:8%;transform-origin:bottom right;transform:translate(calc(-78px*var(--d,0)),calc(-60px*var(--d,0))) scale(calc(1 - .1*var(--d,0)))}
+.fblk:nth-child(even) .fcard{left:52px;right:auto;transform-origin:bottom left;transform:translate(calc(78px*var(--d,0)),calc(-60px*var(--d,0))) scale(calc(1 - .1*var(--d,0)))}
 .fcard.front:hover{box-shadow:0 26px 54px rgba(0,0,0,.6),0 0 22px rgba(247,201,72,.18)}
 .fcard .cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transition:transform .55s ease}
 .fcard.front:hover .cover{transform:scale(1.05)}
@@ -523,8 +517,6 @@ img{max-width:100%;display:block}
       <span class="section-id">SEC.02</span>
       <h2>AI增效工作流</h2>
     </div>
-    <p style="color:var(--text-secondary);font-size:13px;margin-top:16px;max-width:600px">从目标定义到产品交付，再到商业效用验证，每个步骤都是学术积累与行业前沿的协奏曲。</p>
-
     <div class="pipeline">
       <div class="pipe-node"><div class="pipe-num">01</div><h4>定义目标</h4><p>价值验证 · 用户分析 · 定义指标</p></div>
       <div class="pipe-node"><div class="pipe-num">02</div><h4>路径规划</h4><p>选择技术路径 · 评估成本与性能</p></div>
