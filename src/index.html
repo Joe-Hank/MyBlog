@@ -120,95 +120,6 @@ img{max-width:100%;display:block}
 .btn.primary{background:var(--accent);color:#000;border-color:var(--accent)}
 .btn.primary:hover{background:#ffe066;box-shadow:0 0 16px rgba(247,201,72,.3)}
 
-/* ============ Hero + Works = 100vh ============ */
-.hero-works-wrap{
-  height:calc(100vh - var(--nav-h));
-  display:flex;flex-direction:column;
-  overflow:hidden;
-}
-.hero{
-  padding:0;
-  flex:1;min-height:0;
-  display:flex;flex-direction:column;
-}
-.hero-grid{
-  display:grid;grid-template-columns:1fr 420px;
-  flex:1;min-height:0;
-  border-bottom:1px solid var(--border);
-}
-.hero-visual{
-  position:relative;overflow:hidden;
-  border-right:1px solid var(--border);
-}
-.hero-slider{
-  display:flex;height:100%;
-  transition:transform .8s cubic-bezier(.4,0,.2,1);
-}
-.hero-slider .slide{
-  height:100%;flex-shrink:0;
-  position:relative;
-}
-.hero-slider .slide a{display:block;width:100%;height:100%}
-.hero-slider .slide img{
-  width:100%;height:100%;object-fit:cover;
-}
-/* Slide title overlay */
-.hero-slider .slide .slide-title{
-  position:absolute;bottom:0;left:0;right:0;
-  padding:32px 28px 20px;
-  background:linear-gradient(transparent,rgba(0,0,0,.65));
-  font-family:var(--mono);font-size:14px;font-weight:600;
-  color:#fff;letter-spacing:.5px;
-  pointer-events:none;
-}
-
-/* Banner nav arrows */
-.hero-arrow{
-  position:absolute;top:50%;transform:translateY(-50%);
-  z-index:4;
-  width:40px;height:40px;border-radius:50%;
-  background:rgba(0,0,0,.45);
-  border:1px solid rgba(255,255,255,.15);
-  color:#fff;font-size:18px;
-  display:flex;align-items:center;justify-content:center;
-  cursor:none;transition:all .2s;
-  backdrop-filter:blur(4px);
-}
-.hero-arrow:hover{background:var(--accent);color:#000;border-color:var(--accent)}
-.hero-arrow.prev{left:16px}
-.hero-arrow.next{right:16px}
-
-.hero-dots{
-  position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
-  display:flex;gap:8px;z-index:3;
-}
-.hero-dots span{
-  width:8px;height:8px;border-radius:50%;
-  background:rgba(255,255,255,.25);
-  cursor:none;transition:.2s;
-}
-.hero-dots span.active{background:var(--accent);box-shadow:0 0 6px rgba(247,201,72,.5)}
-
-.hero-panel{
-  padding:48px 40px;display:flex;flex-direction:column;justify-content:center;
-  background:var(--bg-surface);
-}
-.hero-panel .eyebrow{
-  font-family:var(--mono);font-size:11px;color:var(--accent);
-  text-transform:uppercase;letter-spacing:2px;margin-bottom:20px;
-}
-.hero-panel h1{
-  font-size:36px;font-weight:800;letter-spacing:-.5px;
-  line-height:1.2;margin-bottom:16px;
-}
-.hero-panel h1 .accent{color:var(--accent);display:block}
-.hero-panel .lead{
-  color:var(--text-secondary);font-size:14px;line-height:1.7;
-  margin-bottom:32px;max-width:360px;
-}
-.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
-
-
 /* ============ Section Headers ============ */
 .section-header{
   display:flex;align-items:center;justify-content:space-between;
@@ -223,27 +134,9 @@ img{max-width:100%;display:block}
   font-family:var(--mono);font-size:11px;color:var(--accent);cursor:none;
 }
 
-/* ============ Works Grid ============ */
-.works-section{padding:0;flex-shrink:0}
-.works-grid{display:grid;grid-template-columns:repeat(4,1fr)}
-.work-card{
-  border-right:1px solid var(--border);border-bottom:1px solid var(--border);
-  background:var(--bg-surface);cursor:none;transition:all .2s;overflow:hidden;
-}
-.work-card:nth-child(4n){border-right:none}
-.work-card:hover{background:var(--bg-elevated)}
-.work-card:hover .work-thumb img{transform:scale(1.05)}
-.work-thumb{aspect-ratio:16/10;overflow:hidden;border-bottom:1px solid var(--border)}
-.work-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s;filter:saturate(.7)}
-.work-meta{padding:16px 20px}
-.work-meta h4{font-size:13px;font-weight:600;margin-bottom:4px}
-.work-meta .work-info{
-  font-family:var(--mono);font-size:10px;color:var(--text-muted);
-  display:flex;gap:12px;align-items:center;
-}
-
 /* ============ Workflow Pipeline ============ */
 .workflow-section{padding:64px 0}
+.workflow-inner{width:100%;padding:0 32px}
 .pipeline{
   display:flex;align-items:stretch;
   border:1px solid var(--border);border-radius:var(--radius);
@@ -291,6 +184,7 @@ img{max-width:100%;display:block}
 
 /* ============ Focus Areas ============ */
 .focus-section{padding:64px 0}
+.focus-inner{width:100%;padding:0 32px}
 .focus-wrap{margin-top:24px}
 .fblk{display:flex;min-height:546px}
 .fblk:nth-child(even){flex-direction:row-reverse}
@@ -321,6 +215,7 @@ img{max-width:100%;display:block}
 
 /* ============ Blog Feed ============ */
 .blog-section{padding:64px 0}
+.blog-inner{width:100%;padding:0 32px}
 .blog-table{
   border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:24px;
 }
@@ -422,17 +317,7 @@ img{max-width:100%;display:block}
   }
   .nav-links.open a{height:48px;padding:0 32px;border-bottom:1px solid var(--border)}
   .hamburger{display:flex}
-  .hero-works-wrap{height:auto}
-  .hero{height:auto}
-  .hero-grid{grid-template-columns:1fr}
-  .hero-visual{height:260px}
-  .hero-panel{padding:32px 20px}
-  .hero-panel h1{font-size:28px}
-  .hero-arrow{width:32px;height:32px;font-size:14px}
-  .hero-arrow.prev{left:10px}
-  .hero-arrow.next{right:10px}
-  .works-grid{grid-template-columns:repeat(2,1fr)}
-  .work-card:nth-child(2n){border-right:none}
+  .workflow-inner,.focus-inner,.blog-inner{padding:0 20px}
   .pipeline{flex-direction:column}
   .pipe-node{border-right:none;border-bottom:1px solid var(--border)}
   .pipe-node:last-child{border-bottom:none}
@@ -474,47 +359,11 @@ img{max-width:100%;display:block}
   </div>
 </nav>
 
-<!-- ===== Hero + Works = 100vh ===== -->
-<div class="hero-works-wrap">
-<div class="hero">
-  <div class="hero-grid">
-    <div class="hero-visual">
-      <div class="hero-slider" id="hero-slider"></div>
-      <button class="hero-arrow prev" id="hero-prev">&larr;</button>
-      <button class="hero-arrow next" id="hero-next">&rarr;</button>
-      <div class="hero-dots" id="hero-dots"></div>
-    </div>
-    <div class="hero-panel">
-      <div class="eyebrow">// Welcome</div>
-      <h1>I build with<span class="accent">AI & Creativity.</span></h1>
-      <p class="lead">一名专注于 AI 工作流、创意工程与前沿交互设计的独立创造者。在二进制与美学之间，寻找下一代产品的边界。</p>
-      <div class="hero-cta">
-        <a class="btn primary" href="works.html">我的作品 &rarr;</a>
-        <a class="btn" href="blog.html">我的Blog</a>
-        <a class="btn" href="#contact">联系我</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== Works Grid ===== -->
-<section class="works-section">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-id">SEC.01</span>
-      <h2>Works</h2>
-      <a href="works.html" class="section-action">View All &rarr;</a>
-    </div>
-  </div>
-  <div class="works-grid" id="home-works-grid"></div>
-</section>
-</div><!-- /hero-works-wrap -->
-
 <!-- ===== Workflow Pipeline ===== -->
 <section class="workflow-section">
-  <div class="container">
+  <div class="workflow-inner">
     <div class="section-header">
-      <span class="section-id">SEC.02</span>
+      <span class="section-id">SEC.01</span>
       <h2>AI增效工作流</h2>
     </div>
     <div class="pipeline">
@@ -548,9 +397,9 @@ img{max-width:100%;display:block}
 
 <!-- ===== Focus Areas ===== -->
 <section class="focus-section">
-  <div class="container">
+  <div class="focus-inner">
     <div class="section-header">
-      <span class="section-id">SEC.03</span>
+      <span class="section-id">SEC.02</span>
       <h2>我的关注领域</h2>
     </div>
     <div class="focus-wrap">
@@ -612,9 +461,9 @@ img{max-width:100%;display:block}
 
 <!-- ===== Blog Feed ===== -->
 <section class="blog-section">
-  <div class="container">
+  <div class="blog-inner">
     <div class="section-header">
-      <span class="section-id">SEC.04</span>
+      <span class="section-id">SEC.03</span>
       <h2>最近文章</h2>
       <a href="blog.html" class="section-action">View All &rarr;</a>
     </div>
@@ -662,7 +511,7 @@ img{max-width:100%;display:block}
 <section id="contact" class="contact-section">
   <div class="container">
     <div class="section-header">
-      <span class="section-id">SEC.05</span>
+      <span class="section-id">SEC.04</span>
       <h2>联系我</h2>
     </div>
     <div class="contact-block">
@@ -711,7 +560,7 @@ img{max-width:100%;display:block}
   document.addEventListener('mouseup',function(){setTimeout(function(){cursor.classList.remove('click')},150)});
   // Hover effect on interactive elements
   function bindHover(){
-    document.querySelectorAll('a,button,.work-card,.blog-row,.fcard,.fnext,.tab,.hero-dots span,.gallery-dots span,.logo-item').forEach(function(el){
+    document.querySelectorAll('a,button,.work-card,.blog-row,.fcard,.fnext,.tab,.gallery-dots span,.logo-item').forEach(function(el){
       el.addEventListener('mouseenter',function(){cursor.classList.add('hover')});
       el.addEventListener('mouseleave',function(){cursor.classList.remove('hover')});
     });
@@ -748,71 +597,6 @@ var DataStore=(function(){
   function getBlogPostById(id){return getAllBlogPosts().then(function(data){return data.find(function(b){return b.id===id})||null})}
   function getBanners(){return bannerCache?Promise.resolve(bannerCache):fetchSrc('/banner','data/banner.json').then(function(d){bannerCache=d;return d})}
   return {getAllWorks:getAllWorks,getWorks:getWorks,getWorkById:getWorkById,getAllBlogPosts:getAllBlogPosts,getBlogPosts:getBlogPosts,getBlogPostById:getBlogPostById,getBanners:getBanners};
-})();
-
-// Hero Banner — dynamic (Notion-driven, 8s auto-rotate + arrows)
-(function(){
-  var slider=document.getElementById('hero-slider');
-  var dotsEl=document.getElementById('hero-dots');
-  var prevBtn=document.getElementById('hero-prev');
-  var nextBtn=document.getElementById('hero-next');
-  if(!slider||!dotsEl)return;
-  if(!window.DataStore)return;
-
-  DataStore.getBanners().then(function(banners){
-    if(!banners||!banners.length)return;
-    var total=banners.length;
-    var slideW=100/total;
-
-    slider.style.width=(total*100)+'%';
-    slider.innerHTML=banners.map(function(b){
-      var inner='<img src="'+b.image+'" alt="'+(b.title||'banner')+'">'
-        +(b.title?'<div class="slide-title">'+b.title+(b.subtitle?' · '+b.subtitle:'')+'</div>':'');
-      var body=b.link?'<a href="'+b.link+'">'+inner+'</a>':inner;
-      return '<div class="slide" style="width:'+slideW+'%">'+body+'</div>';
-    }).join('');
-    dotsEl.innerHTML=banners.map(function(_,i){return '<span'+(i===0?' class="active"':'')+'></span>'}).join('');
-    var dots=dotsEl.querySelectorAll('span');
-
-    var current=0;var timer;
-    function go(idx){
-      current=((idx%total)+total)%total;
-      slider.style.transform='translateX(-'+(current*slideW)+'%)';
-      dots.forEach(function(d,i){d.classList.toggle('active',i===current)});
-    }
-    function next(){go(current+1)}
-    function prev(){go(current-1)}
-    function start(){stop();if(total>1)timer=setInterval(next,8000)}
-    function stop(){if(timer){clearInterval(timer);timer=null}}
-
-    dots.forEach(function(d,i){d.addEventListener('click',function(){stop();go(i);start()})});
-    if(prevBtn)prevBtn.addEventListener('click',function(){stop();prev();start()});
-    if(nextBtn)nextBtn.addEventListener('click',function(){stop();next();start()});
-
-    var visual=slider.parentElement;
-    visual.addEventListener('mouseenter',stop);
-    visual.addEventListener('mouseleave',start);
-    start();
-    if(window._cursorBindHover)window._cursorBindHover();
-  });
-})();
-
-// Home Works Grid — top 4 from Notion (or local fallback)
-(function(){
-  var grid=document.getElementById('home-works-grid');
-  if(!grid||!window.DataStore)return;
-  DataStore.getAllWorks().then(function(works){
-    var top=works.slice(0,4);
-    grid.innerHTML=top.map(function(w){
-      var thumb=w.thumbnail||(w.images&&w.images[0])||'';
-      var tag=w.tags&&w.tags[0]?w.tags[0]:(w.category||'');
-      return '<div class="work-card" onclick="location.href=\'works.html?id='+w.id+'\'">'
-        +'<div class="work-thumb"><img src="'+thumb+'" alt="'+w.title+'" loading="lazy"></div>'
-        +'<div class="work-meta"><h4>'+w.title+'</h4><div class="work-info"><span>'+(w.year||'')+'</span><span>'+tag+'</span></div></div>'
-        +'</div>';
-    }).join('');
-    if(window._cursorBindHover)window._cursorBindHover();
-  });
 })();
 
 // Recent Blog
