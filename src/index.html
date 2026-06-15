@@ -81,13 +81,13 @@ img{max-width:100%;display:block}
   backdrop-filter:blur(12px);
   border-bottom:1px solid var(--border);
   height:var(--nav-h);
-  transition:height .35s ease,background .3s ease;
+  transition:height .5s cubic-bezier(.4,0,.2,1);
 }
 .nav-inner{
   width:100%;
   display:flex;align-items:center;justify-content:space-between;
   padding:0 32px;height:100%;
-  transition:all .35s ease;
+  transition:max-width .5s cubic-bezier(.4,0,.2,1),margin .5s cubic-bezier(.4,0,.2,1);
 }
 .nav.scrolled .nav-inner{
   max-width:1400px;margin:0 auto;
@@ -106,7 +106,7 @@ img{max-width:100%;display:block}
   text-transform:uppercase;letter-spacing:1px;
   color:var(--text-secondary);
   border-bottom:2px solid transparent;
-  transition:all .35s ease;
+  transition:height .5s cubic-bezier(.4,0,.2,1),color .2s,background .2s;
 }
 .nav-links a:hover{color:var(--text);background:var(--bg-hover)}
 .nav-links a.active{color:var(--accent);border-bottom-color:var(--accent)}
@@ -465,7 +465,7 @@ img{max-width:100%;display:block}
 .btn.primary:hover{transform:translateY(-1px)}
 
 /* ============ Nav Shrink ============ */
-.nav{transition:height .35s ease,background .3s ease}
+.nav{transition:height .5s cubic-bezier(.4,0,.2,1)}
 .nav.scrolled{height:var(--nav-h-shrink);background:rgba(18,18,18,.98)}
 .nav.scrolled .nav-links a{height:var(--nav-h-shrink)}
 
@@ -1092,17 +1092,21 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
   document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
 })();
 
-// Nav Scroll Shrink — triggers when focus section header approaches
+// Nav Scroll Shrink — one-way lock once focus section is reached
 (function(){
   var nav=document.querySelector('.nav');
   if(!nav)return;
   var focusHeader=document.querySelector('.focus-section .section-header');
+  var hasShrunk=false;
   window.addEventListener('scroll',function(){
+    if(hasShrunk)return; // 一旦收缩就不再恢复
     if(!focusHeader)return;
     var rect=focusHeader.getBoundingClientRect();
-    // Nav shrinks when focus section header enters the viewport area near nav
     var shrinkThreshold=nav.offsetHeight+20;
-    nav.classList.toggle('scrolled',rect.top<shrinkThreshold&&rect.bottom>0);
+    if(rect.top<shrinkThreshold&&rect.bottom>0){
+      nav.classList.add('scrolled');
+      hasShrunk=true;
+    }
   },{passive:true});
 })();
 
