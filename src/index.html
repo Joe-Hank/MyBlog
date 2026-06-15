@@ -251,11 +251,12 @@ img{max-width:100%;display:block}
 .logo-track{
   display:flex;align-items:center;
   animation:scrollLogos 30s linear infinite;
-  width:max-content;will-change:transform;
+  width:200%;
 }
 .logo-track .logo-item{
-  display:flex;align-items:center;gap:24px;flex-shrink:0;
-  opacity:.4;transition:opacity .2s;padding:0 48px;
+  flex:0 0 calc(100%/12);
+  display:flex;align-items:center;justify-content:center;gap:16px;flex-shrink:0;
+  opacity:.4;transition:opacity .2s;
 }
 .logo-track .logo-item:hover{opacity:1}
 .logo-track .logo-item img{height:28px;width:auto}
