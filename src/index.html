@@ -266,10 +266,48 @@ img{max-width:100%;display:block}
 .logo-carousel .fade-left{left:0;background:linear-gradient(to right,var(--bg-surface),transparent)}
 .logo-carousel .fade-right{right:0;background:linear-gradient(to left,var(--bg-surface),transparent)}
 
-/* ============ Focus Areas ============ */
-.focus-section{padding:64px 0}
-.focus-wrap{margin-top:24px}
-.fblk{display:flex;min-height:546px}
+/* ============ Focus Areas 滚动高级交互 ============ */
+.focus-section {
+  position: relative;
+  padding: 64px 0 0 0;
+}
+
+/* 核心：将标题变为粘性定位，固定在视口顶端 */
+.focus-section .section-header {
+  position: sticky;
+  top: 40px;          /* 距离视口顶部距离，可根据项目导航栏高度调整 */
+  z-index: 100;
+  pointer-events: none; /* 防止隐形层挡住下方卡片的点击交互 */
+}
+.focus-section .section-header * {
+  pointer-events: auto;
+}
+
+.focus-wrap {
+  margin-top: -40px;   /* 冲抵标题高度，使第一个模块顺畅滑上 */
+  position: relative;
+}
+
+/* 新增：滚动轨道。高度代表该模块在屏幕中卡住、并供用户往下滚动的生存周期 */
+.fblk-track {
+  position: relative;
+  height: 160vh;       /* 160% 视口高度，数值越大，虚化消失的速度越慢越丝滑 */
+}
+
+/* 核心：大版块变为粘性定位，当贴顶时锁定不动，等待虚化逻辑触发 */
+.fblk {
+  display: flex;
+  height: 100vh;       /* 充满一屏 */
+  position: sticky;
+  top: 0;
+  align-items: center;
+  padding-top: 100px;  /* 为上方固定的 SEC.02 标题留出物理空隙 */
+  box-sizing: border-box;
+  will-change: transform, opacity, filter;
+  background: var(--bg-surface, #0f0f11); /* 必须带背景色，用于遮挡上一层内容 */
+}
+
+/* 其他基础排版样式保持不变 */
 .fblk:nth-child(even){flex-direction:row-reverse}
 .fblk .ftext{flex:0 0 40%;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:6px;padding:44px 52px}
 .fblk:nth-child(even) .ftext{align-items:flex-end;text-align:right}
@@ -295,7 +333,6 @@ img{max-width:100%;display:block}
 .fnext{position:absolute;top:12px;right:12px;z-index:6;width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.28);background:rgba(0,0,0,.42);color:#fff;cursor:none;transition:transform .35s ease,background .2s,color .2s,border-color .2s}
 .fnext:hover{background:var(--accent);color:#000;border-color:var(--accent);transform:rotate(-180deg)}
 .fnext svg{width:16px;height:16px;display:block}
-
 /* ============ Blog Feed ============ */
 .blog-section{padding:64px 0}
 .blog-table{
@@ -388,15 +425,18 @@ img{max-width:100%;display:block}
 
 /* ============ Mobile ============ */
 @media (max-width:768px){
-  body{cursor:auto}
-  a,button{cursor:auto}
-  .custom-cursor{display:none}
-  .nav-links{display:none}
-  .nav-links.open{
-    display:flex;flex-direction:column;
-    position:absolute;top:56px;left:0;right:0;
-    background:var(--bg-surface);border-bottom:1px solid var(--border);
-  }
+  .focus-section .section-header { position: relative; top: 0; }
+  .focus-wrap { margin-top: 24px; }
+  .fblk-track { height: auto !important; }
+  .fblk { position: relative !important; height: auto; padding-top: 0; opacity: 1 !important; filter: none !important; }
+  .fblk,.fblk:nth-child(even){flex-direction:column;min-height:0}
+  .fblk .ftext{flex:none;align-items:flex-start;text-align:left;padding:30px 22px 8px}
+  .fblk:nth-child(even) .ftext{align-items:flex-start;text-align:left}
+  .fblk:nth-child(even) .eyb{flex-direction:row}
+  .fcards{flex:none}
+  .fstage{height:280px}
+  .fcard{width:74%}
+}
   .nav-links.open a{height:48px;padding:0 32px;border-bottom:1px solid var(--border)}
   .hamburger{display:flex}
   .workflow-inner{padding:0 20px}
@@ -510,65 +550,41 @@ img{max-width:100%;display:block}
   </div>
 </section>
 </div><!-- /hero-first -->
-
-<!-- ===== Focus Areas ===== -->
 <section class="focus-section">
   <div class="container">
     <div class="section-header">
       <span class="section-id">SEC.02</span>
       <h2>我的关注领域</h2>
     </div>
+    
     <div class="focus-wrap">
 
-      <div class="fblk">
-        <div class="ftext">
-          <span class="eyb">Module 01</span>
-          <div class="fttl">AI+</div>
-          <div class="fsub">AI 提效 · UGC / AIGC</div>
-          <p class="fdsc">把 AI 当副驾驶，而不是玩具。从多 Agent 编排到本地优先的生成工作台，探索 AI 把一个人扩张成一支队伍的边界。</p>
-        </div>
-        <div class="fcards">
-          <div class="fstage">
-            <button class="fnext" type="button" aria-label="切换下一张"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>
-            <div class="fcard" data-href="works.html?id=work-001" style="--tone:#2a1a3e"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/66232f50-831c-4b5a-856f-ff09c1b81e44.png" alt="" loading="lazy"><span class="ctag">UGC / AIGC</span><div class="cfoot"><div class="ct">AIGC 私人工作台</div><div class="cm">2026 · 本地优先生成</div></div></div>
-            <div class="fcard" data-href="blog.html?id=post-003" style="--tone:#1d2030"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/Claude副驾驶-1.png" alt="" loading="lazy"><span class="ctag">AI 提效</span><div class="cfoot"><div class="ct">把 Claude Code 变成副驾驶</div><div class="cm">Blog · 工程纪律</div></div></div>
-            <div class="fcard" data-href="works.html?id=work-003" style="--tone:#202a2e"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/MyCrew-1.png" alt="" loading="lazy"><span class="ctag">AI 提效</span><div class="cfoot"><div class="ct">CrewAI × Unity 多 Agent 编排</div><div class="cm">2026 · 失败学复盘</div></div></div>
+      <div class="fblk-track">
+        <div class="fblk">
+          <div class="ftext">
+            <span class="eyb">Module 01</span>
+            <div class="fttl">AI+</div>
+            <div class="fsub">AI 提效 · UGC / AIGC</div>
+            <p class="fdsc">把 AI 当副驾驶，而不是玩具。从多 Agent 编排到本地优先的生成工作台，探索 AI 把一个人扩张成一支队伍的边界。</p>
+          </div>
+          <div class="fcards">
+            <div class="fstage">
+              <button class="fnext" type="button" aria-label="切换下一张">...</button>
+              <div class="fcard" data-href="works.html?id=work-001" style="--tone:#2a1a3e">...</div>
+              <div class="fcard" data-href="blog.html?id=post-003" style="--tone:#1d2030">...</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="fblk">
-        <div class="ftext">
-          <span class="eyb">Module 02</span>
-          <div class="fttl">游戏</div>
-          <div class="fsub">制作 · 平台 · 交易 · XR</div>
-          <p class="fdsc">以游戏为中心，以技术为脉络。从系统策划到 XR 沉浸式体验，从 Steam 的江山到游戏内的交易链路。</p>
-        </div>
-        <div class="fcards">
-          <div class="fstage">
-            <button class="fnext" type="button" aria-label="切换下一张"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>
-            <div class="fcard" data-href="works.html?id=work-006" style="--tone:#1e1e22"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/SLG手游-1.png" alt="" loading="lazy"><span class="ctag">游戏制作</span><div class="cfoot"><div class="ct">欧美 SLG 手游 · 系统策划</div><div class="cm">2022 · 数据配表</div></div></div>
-            <div class="fcard" data-href="works.html?id=work-002" style="--tone:#241c2e"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/DFHistorian-1.png" alt="" loading="lazy"><span class="ctag">AI + 游戏</span><div class="cfoot"><div class="ct">DFHistorian · AI+矮人要塞</div><div class="cm">2026 · 解析器</div></div></div>
-            <div class="fcard" data-href="works.html?id=work-007" style="--tone:#1a2e2a"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/Lemmings-1.png" alt="" loading="lazy"><span class="ctag">虚拟现实</span><div class="cfoot"><div class="ct">Lemmings MR · 共址多人 XR</div><div class="cm">2026 · 混合现实</div></div></div>
-            <div class="fcard" data-href="blog.html?id=post-004" style="--tone:#2a2418"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/游戏电商-1.jpeg" alt="" loading="lazy"><span class="ctag">游戏交易</span><div class="cfoot"><div class="ct">游戏电商业的一年：两个 0→1</div><div class="cm">Blog · PM 复盘</div></div></div>
+      <div class="fblk-track">
+        <div class="fblk">
           </div>
-        </div>
       </div>
 
-      <div class="fblk">
-        <div class="ftext">
-          <span class="eyb">Module 03</span>
-          <div class="fttl">APP</div>
-          <div class="fsub">应用 · 产品 · 0→1</div>
-          <p class="fdsc">从 0 到 1 搭一条新业务线。PC 端游戏内交易插件、移动端游戏电商专区，把产品判断落到真实灰度数据上。</p>
-        </div>
-        <div class="fcards">
-          <div class="fstage">
-            <button class="fnext" type="button" aria-label="切换下一张"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>
-            <div class="fcard" data-href="works.html?id=work-004" style="--tone:#2a2418"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/PC交易插件-1.jpeg" alt="" loading="lazy"><span class="ctag">PC 平台</span><div class="cfoot"><div class="ct">PC 游戏工具平台 · 交易插件</div><div class="cm">2024 · 灰度 300 人</div></div></div>
-            <div class="fcard" data-href="works.html?id=work-005" style="--tone:#2e2418"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/三角洲专区-1.jpeg" alt="" loading="lazy"><span class="ctag">移动 APP</span><div class="cfoot"><div class="ct">移动端游戏电商 · 三角洲专区</div><div class="cm">2024 · MAU 12k</div></div></div>
+      <div class="fblk-track">
+        <div class="fblk">
           </div>
-        </div>
       </div>
 
     </div>
@@ -845,33 +861,72 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
   requestAnimationFrame(tick);
 })();
 
-// Focus Areas — card stack (图标切换 / 点卡片跳转)
+// Focus Areas — 滚动驱动的逐帧虚化淡出控制器
 (function(){
-  document.querySelectorAll('.focus-wrap .fblk').forEach(function(blk){
-    var cards=Array.prototype.slice.call(blk.querySelectorAll('.fcard'));
-    var n=cards.length;if(!n)return;
-    var active=0;
-    var countEl=blk.querySelector('.fcount'),btn=blk.querySelector('.fnext'),stage=blk.querySelector('.fstage');
-    function layout(){
-      cards.forEach(function(c,i){
-        var rd=(i-active+n)%n;
-        var vis=n>1?rd/(n-1):0;
-        c.style.setProperty('--d',vis);
-        c.style.zIndex=n-rd;
-        c.classList.toggle('front',rd===0);
-        if(rd===0&&btn)c.appendChild(btn);
+  // 移动端体验降级保护
+  if (window.innerWidth <= 768) return;
+
+  var tracks = document.querySelectorAll('.fblk-track');
+  
+  function handleScrollAnimation() {
+    var viewHeight = window.innerHeight;
+
+    tracks.forEach(function(track) {
+      var fblk = track.querySelector('.fblk');
+      if (!fblk) return;
+
+      var rect = track.getBoundingClientRect();
+      
+      // 当轨道的头部滑过屏幕顶部时 (rect.top <= 0)
+      // 说明当前模块已经切入进入了 Sticky 固定锁定阶段
+      if (rect.top <= 0) {
+        var totalScrollableDistance = rect.height - viewHeight;
+        var currentScrolledDistance = -rect.top;
+        
+        // 计算当前轨道被消耗掉的滚动进度 (0 到 1)
+        var progress = Math.min(Math.max(currentScrolledDistance / totalScrollableDistance, 0), 1);
+        
+        // 极佳的高级感动效配比：
+        // 前 30% 滚动距离保持完全清晰，最后 70% 滚动距离里快速产生虚化和淡出
+        if (progress > 0.3) {
+          var fadeProgress = (progress - 0.3) / 0.7; // 标准化为 0-1
+          
+          var opacityValue = 1 - fadeProgress;
+          var blurValue = fadeProgress * 24; // 设定最大虚化半径 24px
+          
+          fblk.style.opacity = opacityValue;
+          fblk.style.filter = 'blur(' + blurValue + 'px)';
+          fblk.style.pointerEvents = opacityValue < 0.1 ? 'none' : 'auto'; // 完全消失后关闭点击，让出底层卡片交互
+        } else {
+          // 30% 进度之内保持原样
+          fblk.style.opacity = 1;
+          fblk.style.filter = 'blur(0px)';
+          fblk.style.pointerEvents = 'auto';
+        }
+      } else {
+        // 尚未滑到顶部的模块重置为初始清晰态
+        fblk.style.opacity = 1;
+        fblk.style.filter = 'blur(0px)';
+        fblk.style.pointerEvents = 'auto';
+      }
+    });
+  }
+
+  // 使用 requestAnimationFrame 优化滚动回调，彻底消除低端电脑的掉帧卡顿
+  var ticking = false;
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      window.requestAnimationFrame(function() {
+        handleScrollAnimation();
+        ticking = false;
       });
-      if(countEl)countEl.textContent=(active+1)+' / '+n;
+      ticking = true;
     }
-    function next(){active=(active+1)%n;layout();}
-    if(btn){
-      if(n>1)btn.addEventListener('click',function(e){e.stopPropagation();next();});
-      else btn.style.display='none';
-    }
-    cards.forEach(function(c){c.addEventListener('click',function(){var h=c.getAttribute('data-href');if(h)window.location.href=h;});});
-    layout();
   });
-  if(window._cursorBindHover)window._cursorBindHover();
+
+  // 初始化首次计算
+  handleScrollAnimation();
+  window.addEventListener('resize', handleScrollAnimation);
 })();
 
 // Scroll Reveal
