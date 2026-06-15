@@ -291,29 +291,32 @@ img{max-width:100%;display:block}
 
 /* ============ Focus Areas ============ */
 .focus-section{padding:64px 0}
-.focus-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
-  background:var(--border);border:1px solid var(--border);border-radius:var(--radius);
-  overflow:hidden;margin-top:24px;
-}
-.focus-cell{
-  background:var(--bg-surface);padding:32px 28px;
-  cursor:none;transition:all .2s;
-  display:flex;flex-direction:column;min-height:180px;
-}
-.focus-cell:hover{background:var(--bg-elevated)}
-.focus-cell:hover h3{color:var(--accent)}
-.focus-cell .cell-num{
-  font-family:var(--mono);font-size:10px;color:var(--accent);
-  text-transform:uppercase;letter-spacing:2px;margin-bottom:16px;
-}
-.focus-cell h3{font-size:16px;font-weight:700;margin-bottom:8px;transition:color .15s}
-.focus-cell p{color:var(--text-secondary);font-size:12px;line-height:1.6;margin-bottom:auto}
-.focus-cell .cell-action{
-  font-family:var(--mono);font-size:10px;color:var(--text-muted);
-  text-transform:uppercase;letter-spacing:1px;margin-top:16px;transition:color .15s;
-}
-.focus-cell:hover .cell-action{color:var(--accent)}
+.focus-wrap{margin-top:24px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.fblk{display:flex;min-height:420px;border-bottom:1px solid var(--border)}
+.fblk:last-child{border-bottom:0}
+.fblk:nth-child(even){flex-direction:row-reverse}
+.fblk .ftext{flex:0 0 40%;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:6px;padding:44px 52px}
+.fblk:nth-child(even) .ftext{align-items:flex-end;text-align:right}
+.eyb{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;font-weight:700;line-height:1;letter-spacing:2px;color:var(--accent);text-transform:uppercase}
+.eyb::before{content:"";width:26px;height:2px;background:var(--accent)}
+.fblk:nth-child(even) .eyb{flex-direction:row-reverse}
+.fttl{font-size:clamp(32px,3.4vw,48px);font-weight:800;line-height:1.03;letter-spacing:-1.2px;color:var(--text);margin:8px 0 2px}
+.fsub{font-family:var(--mono);font-size:12px;font-weight:600;line-height:1;letter-spacing:1px;color:var(--text-secondary);text-transform:uppercase}
+.fdsc{font-size:15px;line-height:1.8;color:#d6d6d6;max-width:360px;margin-top:12px}
+.fcards{flex:0 0 60%;min-width:0;display:flex;flex-direction:column}
+.fstage{position:relative;flex:1;overflow:hidden}
+.fcard{position:absolute;right:8%;bottom:12%;width:60%;aspect-ratio:16/10;border:1px solid var(--border-strong);border-radius:var(--radius-lg);overflow:hidden;background:var(--tone,var(--bg-elevated));cursor:none;transform-origin:bottom right;transform:translate(calc(-78px*var(--d,0)),calc(-60px*var(--d,0))) scale(calc(1 - .1*var(--d,0)));filter:brightness(calc(1 - .38*var(--d,0)));box-shadow:0 26px 54px rgba(0,0,0,.6);transition:transform .55s cubic-bezier(.22,.61,.36,1),filter .55s,box-shadow .55s,border-color .3s}
+.fcard.front{border-color:var(--accent)}
+.fcard.front:hover{box-shadow:0 26px 54px rgba(0,0,0,.6),0 0 22px rgba(247,201,72,.18)}
+.ctag{position:absolute;top:14px;left:16px;font-family:var(--mono);font-size:10px;font-weight:700;line-height:1;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);background:rgba(0,0,0,.4);border:1px solid rgba(247,201,72,.4);padding:4px 9px;border-radius:4px}
+.cfoot{position:absolute;left:18px;right:18px;bottom:16px}
+.cfoot .ct{font-size:17px;font-weight:700;line-height:1.25;color:#fff;margin-bottom:4px}
+.cfoot .cm{font-family:var(--mono);font-size:10px;font-weight:600;line-height:1;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.62)}
+.fnext{position:absolute;top:12px;right:12px;z-index:6;width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.28);background:rgba(0,0,0,.42);color:#fff;cursor:none;transition:transform .35s ease,background .2s,color .2s,border-color .2s}
+.fnext:hover{background:var(--accent);color:#000;border-color:var(--accent);transform:rotate(-180deg)}
+.fnext svg{width:16px;height:16px;display:block}
+.fctrl{display:flex;align-items:center;justify-content:flex-end;padding:0 9% 24px}
+.fcount{font-family:var(--mono);font-size:12px;font-weight:700;line-height:1;letter-spacing:1px;color:var(--text-secondary)}
 
 /* ============ Blog Feed ============ */
 .blog-section{padding:64px 0}
@@ -395,7 +398,6 @@ img{max-width:100%;display:block}
 .work-card{position:relative}
 .work-card:hover{transform:translateY(-3px);box-shadow:0 0 20px rgba(247,201,72,.15);z-index:2}
 .pipe-node:hover{box-shadow:inset 0 2px 0 var(--accent),0 0 20px rgba(247,201,72,.08)}
-.focus-cell:hover{box-shadow:inset 3px 0 0 var(--accent),0 0 20px rgba(247,201,72,.08)}
 .blog-row:hover{transform:translateX(8px)}
 .blog-row:hover .blog-title{text-shadow:0 0 8px rgba(247,201,72,.4)}
 .btn:hover{transform:translateY(-1px)}
@@ -433,7 +435,13 @@ img{max-width:100%;display:block}
   .pipeline{flex-direction:column}
   .pipe-node{border-right:none;border-bottom:1px solid var(--border)}
   .pipe-node:last-child{border-bottom:none}
-  .focus-grid{grid-template-columns:1fr}
+  .fblk,.fblk:nth-child(even){flex-direction:column;min-height:0}
+  .fblk .ftext{flex:none;align-items:flex-start;text-align:left;padding:30px 22px 8px}
+  .fblk:nth-child(even) .ftext{align-items:flex-start;text-align:left}
+  .fblk:nth-child(even) .eyb{flex-direction:row}
+  .fcards{flex:none}
+  .fstage{height:280px}
+  .fcard{width:74%}
   .blog-table-header{display:none}
   .blog-row{grid-template-columns:1fr;gap:4px;padding:14px 20px}
   .blog-row .blog-status{display:none}
@@ -547,13 +555,62 @@ img{max-width:100%;display:block}
       <h2>我的关注领域</h2>
     </div>
     <p style="color:var(--text-secondary);font-size:13px;margin-top:16px">以游戏为中心，以技术为脉络，探索环球前沿领域。</p>
-    <div class="focus-grid">
-      <a href="blog.html?category=UGC/AIGC" class="focus-cell"><div class="cell-num">Module 01</div><h3>UGC / AIGC</h3><p>用户内容生态应用 / AI带来的挑战与机遇</p><span class="cell-action">Enter &rarr;</span></a>
-      <a href="blog.html?category=AI提效" class="focus-cell"><div class="cell-num">Module 02</div><h3>AI提效</h3><p>成为多面手 拥抱未来</p><span class="cell-action">Enter &rarr;</span></a>
-      <a href="blog.html?category=虚拟现实" class="focus-cell"><div class="cell-num">Module 03</div><h3>虚拟现实</h3><p>硬件、软件、游戏、技术</p><span class="cell-action">Enter &rarr;</span></a>
-      <a href="blog.html?category=游戏平台" class="focus-cell"><div class="cell-num">Module 04</div><h3>游戏平台</h3><p>Steam如何稳坐江山？ Wegame的前路在何方？</p><span class="cell-action">Enter &rarr;</span></a>
-      <a href="blog.html?category=游戏制作" class="focus-cell"><div class="cell-num">Module 05</div><h3>游戏制作</h3><p>缘起 Unity 3D</p><span class="cell-action">Enter &rarr;</span></a>
-      <a href="blog.html?category=游戏交易" class="focus-cell"><div class="cell-num">Module 06</div><h3>游戏交易</h3><p>游戏面向的用户不只有玩家</p><span class="cell-action">Enter &rarr;</span></a>
+    <div class="focus-wrap">
+
+      <div class="fblk">
+        <div class="ftext">
+          <span class="eyb">Module 01</span>
+          <div class="fttl">AI+</div>
+          <div class="fsub">AI 提效 · UGC / AIGC</div>
+          <p class="fdsc">把 AI 当副驾驶，而不是玩具。从多 Agent 编排到本地优先的生成工作台，探索 AI 把一个人扩张成一支队伍的边界。</p>
+        </div>
+        <div class="fcards">
+          <div class="fstage">
+            <button class="fnext" type="button" aria-label="切换下一张"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>
+            <div class="fcard" data-href="works.html?id=work-001" style="--tone:#2a1a3e"><span class="ctag">UGC / AIGC</span><div class="cfoot"><div class="ct">AIGC 私人工作台</div><div class="cm">2026 · 本地优先生成</div></div></div>
+            <div class="fcard" data-href="blog.html?id=post-003" style="--tone:#1d2030"><span class="ctag">AI 提效</span><div class="cfoot"><div class="ct">把 Claude Code 变成副驾驶</div><div class="cm">Blog · 工程纪律</div></div></div>
+            <div class="fcard" data-href="works.html?id=work-003" style="--tone:#202a2e"><span class="ctag">AI 提效</span><div class="cfoot"><div class="ct">CrewAI × Unity 多 Agent 编排</div><div class="cm">2026 · 失败学复盘</div></div></div>
+          </div>
+          <div class="fctrl"><span class="fcount">1 / 3</span></div>
+        </div>
+      </div>
+
+      <div class="fblk">
+        <div class="ftext">
+          <span class="eyb">Module 02</span>
+          <div class="fttl">游戏</div>
+          <div class="fsub">制作 · 平台 · 交易 · XR</div>
+          <p class="fdsc">以游戏为中心，以技术为脉络。从系统策划到 XR 沉浸式体验，从 Steam 的江山到游戏内的交易链路。</p>
+        </div>
+        <div class="fcards">
+          <div class="fstage">
+            <button class="fnext" type="button" aria-label="切换下一张"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>
+            <div class="fcard" data-href="works.html?id=work-006" style="--tone:#1e1e22"><span class="ctag">游戏制作</span><div class="cfoot"><div class="ct">欧美 SLG 手游 · 系统策划</div><div class="cm">2022 · 数据配表</div></div></div>
+            <div class="fcard" data-href="works.html?id=work-002" style="--tone:#241c2e"><span class="ctag">AI + 游戏</span><div class="cfoot"><div class="ct">DFHistorian · AI+矮人要塞</div><div class="cm">2026 · 解析器</div></div></div>
+            <div class="fcard" data-href="works.html?id=work-007" style="--tone:#1a2e2a"><span class="ctag">虚拟现实</span><div class="cfoot"><div class="ct">Lemmings MR · 共址多人 XR</div><div class="cm">2026 · 混合现实</div></div></div>
+            <div class="fcard" data-href="blog.html?id=post-004" style="--tone:#2a2418"><span class="ctag">游戏交易</span><div class="cfoot"><div class="ct">游戏电商业的一年：两个 0→1</div><div class="cm">Blog · PM 复盘</div></div></div>
+          </div>
+          <div class="fctrl"><span class="fcount">1 / 4</span></div>
+        </div>
+      </div>
+
+      <div class="fblk">
+        <div class="ftext">
+          <span class="eyb">Module 03</span>
+          <div class="fttl">APP</div>
+          <div class="fsub">应用 · 产品 · 0→1</div>
+          <p class="fdsc">从 0 到 1 搭一条新业务线。PC 端游戏内交易插件、移动端游戏电商专区，把产品判断落到真实灰度数据上。</p>
+        </div>
+        <div class="fcards">
+          <div class="fstage">
+            <button class="fnext" type="button" aria-label="切换下一张"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>
+            <div class="fcard" data-href="works.html?id=work-004" style="--tone:#2a2418"><span class="ctag">PC 平台</span><div class="cfoot"><div class="ct">PC 游戏工具平台 · 交易插件</div><div class="cm">2024 · 灰度 300 人</div></div></div>
+            <div class="fcard" data-href="works.html?id=work-005" style="--tone:#2e2418"><span class="ctag">移动 APP</span><div class="cfoot"><div class="ct">移动端游戏电商 · 三角洲专区</div><div class="cm">2024 · MAU 12k</div></div></div>
+          </div>
+          <div class="fctrl"><span class="fcount">1 / 2</span></div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -659,7 +716,7 @@ img{max-width:100%;display:block}
   document.addEventListener('mouseup',function(){setTimeout(function(){cursor.classList.remove('click')},150)});
   // Hover effect on interactive elements
   function bindHover(){
-    document.querySelectorAll('a,button,.work-card,.blog-row,.focus-cell,.tab,.hero-dots span,.gallery-dots span,.logo-item').forEach(function(el){
+    document.querySelectorAll('a,button,.work-card,.blog-row,.fcard,.fnext,.tab,.hero-dots span,.gallery-dots span,.logo-item').forEach(function(el){
       el.addEventListener('mouseenter',function(){cursor.classList.add('hover')});
       el.addEventListener('mouseleave',function(){cursor.classList.remove('hover')});
     });
@@ -786,10 +843,39 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
   a.addEventListener('click',function(e){e.preventDefault();var t=document.getElementById('contact');if(t)t.scrollIntoView({behavior:'smooth'})});
 });
 
+// Focus Areas — card stack (图标切换 / 点卡片跳转)
+(function(){
+  document.querySelectorAll('.focus-wrap .fblk').forEach(function(blk){
+    var cards=Array.prototype.slice.call(blk.querySelectorAll('.fcard'));
+    var n=cards.length;if(!n)return;
+    var active=0;
+    var countEl=blk.querySelector('.fcount'),btn=blk.querySelector('.fnext'),stage=blk.querySelector('.fstage');
+    function layout(){
+      cards.forEach(function(c,i){
+        var rd=(i-active+n)%n;
+        var vis=n>1?rd/(n-1):0;
+        c.style.setProperty('--d',vis);
+        c.style.zIndex=n-rd;
+        c.classList.toggle('front',rd===0);
+        if(rd===0&&btn)c.appendChild(btn);
+      });
+      if(countEl)countEl.textContent=(active+1)+' / '+n;
+    }
+    function next(){active=(active+1)%n;layout();}
+    if(btn){
+      if(n>1)btn.addEventListener('click',function(e){e.stopPropagation();next();});
+      else btn.style.display='none';
+    }
+    cards.forEach(function(c){c.addEventListener('click',function(){var h=c.getAttribute('data-href');if(h)window.location.href=h;});});
+    layout();
+  });
+  if(window._cursorBindHover)window._cursorBindHover();
+})();
+
 // Scroll Reveal
 (function(){
   document.querySelectorAll('.workflow-section,.focus-section,.blog-section,.contact-section,.contact-block').forEach(function(s){s.classList.add('reveal')});
-  ['.pipeline .pipe-node','.focus-grid .focus-cell','#recent-blog-list .blog-row'].forEach(function(sel){
+  ['.pipeline .pipe-node','.focus-wrap .fblk','#recent-blog-list .blog-row'].forEach(function(sel){
     document.querySelectorAll(sel).forEach(function(el,i){el.classList.add('reveal');if(i>0&&i<6)el.classList.add('reveal-d'+i)});
   });
   var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('revealed');obs.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
