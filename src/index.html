@@ -121,7 +121,7 @@ img{max-width:100%;display:block}
 .btn.primary:hover{background:#ffe066;box-shadow:0 0 16px rgba(247,201,72,.3)}
 
 /* ============ Hero + Works = 100vh ============ */
-.hero-works-wrap{
+.hero-wrap{
   height:calc(100vh - var(--nav-h));
   display:flex;flex-direction:column;
   overflow:hidden;
@@ -223,27 +223,9 @@ img{max-width:100%;display:block}
   font-family:var(--mono);font-size:11px;color:var(--accent);cursor:none;
 }
 
-/* ============ Works Grid ============ */
-.works-section{padding:0;flex-shrink:0}
-.works-grid{display:grid;grid-template-columns:repeat(4,1fr)}
-.work-card{
-  border-right:1px solid var(--border);border-bottom:1px solid var(--border);
-  background:var(--bg-surface);cursor:none;transition:all .2s;overflow:hidden;
-}
-.work-card:nth-child(4n){border-right:none}
-.work-card:hover{background:var(--bg-elevated)}
-.work-card:hover .work-thumb img{transform:scale(1.05)}
-.work-thumb{aspect-ratio:16/10;overflow:hidden;border-bottom:1px solid var(--border)}
-.work-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s;filter:saturate(.7)}
-.work-meta{padding:16px 20px}
-.work-meta h4{font-size:13px;font-weight:600;margin-bottom:4px}
-.work-meta .work-info{
-  font-family:var(--mono);font-size:10px;color:var(--text-muted);
-  display:flex;gap:12px;align-items:center;
-}
-
 /* ============ Workflow Pipeline ============ */
 .workflow-section{padding:64px 0}
+.workflow-inner{width:100%;padding:0 32px}
 .pipeline{
   display:flex;align-items:stretch;
   border:1px solid var(--border);border-radius:var(--radius);
@@ -291,6 +273,7 @@ img{max-width:100%;display:block}
 
 /* ============ Focus Areas ============ */
 .focus-section{padding:64px 0}
+.focus-inner{width:100%;padding:0 32px}
 .focus-wrap{margin-top:24px}
 .fblk{display:flex;min-height:546px}
 .fblk:nth-child(even){flex-direction:row-reverse}
@@ -321,6 +304,7 @@ img{max-width:100%;display:block}
 
 /* ============ Blog Feed ============ */
 .blog-section{padding:64px 0}
+.blog-inner{width:100%;padding:0 32px}
 .blog-table{
   border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:24px;
 }
@@ -422,7 +406,8 @@ img{max-width:100%;display:block}
   }
   .nav-links.open a{height:48px;padding:0 32px;border-bottom:1px solid var(--border)}
   .hamburger{display:flex}
-  .hero-works-wrap{height:auto}
+  .workflow-inner,.focus-inner,.blog-inner{padding:0 20px}
+  .hero-wrap{height:auto}
   .hero{height:auto}
   .hero-grid{grid-template-columns:1fr}
   .hero-visual{height:260px}
@@ -431,8 +416,6 @@ img{max-width:100%;display:block}
   .hero-arrow{width:32px;height:32px;font-size:14px}
   .hero-arrow.prev{left:10px}
   .hero-arrow.next{right:10px}
-  .works-grid{grid-template-columns:repeat(2,1fr)}
-  .work-card:nth-child(2n){border-right:none}
   .pipeline{flex-direction:column}
   .pipe-node{border-right:none;border-bottom:1px solid var(--border)}
   .pipe-node:last-child{border-bottom:none}
@@ -475,7 +458,7 @@ img{max-width:100%;display:block}
 </nav>
 
 <!-- ===== Hero + Works = 100vh ===== -->
-<div class="hero-works-wrap">
+<div class="hero-wrap">
 <div class="hero">
   <div class="hero-grid">
     <div class="hero-visual">
@@ -497,24 +480,13 @@ img{max-width:100%;display:block}
   </div>
 </div>
 
-<!-- ===== Works Grid ===== -->
-<section class="works-section">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-id">SEC.01</span>
-      <h2>Works</h2>
-      <a href="works.html" class="section-action">View All &rarr;</a>
-    </div>
-  </div>
-  <div class="works-grid" id="home-works-grid"></div>
-</section>
-</div><!-- /hero-works-wrap -->
+</div><!-- /hero-wrap -->
 
 <!-- ===== Workflow Pipeline ===== -->
 <section class="workflow-section">
-  <div class="container">
+  <div class="workflow-inner">
     <div class="section-header">
-      <span class="section-id">SEC.02</span>
+      <span class="section-id">SEC.01</span>
       <h2>AI增效工作流</h2>
     </div>
     <div class="pipeline">
@@ -548,9 +520,9 @@ img{max-width:100%;display:block}
 
 <!-- ===== Focus Areas ===== -->
 <section class="focus-section">
-  <div class="container">
+  <div class="focus-inner">
     <div class="section-header">
-      <span class="section-id">SEC.03</span>
+      <span class="section-id">SEC.02</span>
       <h2>我的关注领域</h2>
     </div>
     <div class="focus-wrap">
@@ -612,9 +584,9 @@ img{max-width:100%;display:block}
 
 <!-- ===== Blog Feed ===== -->
 <section class="blog-section">
-  <div class="container">
+  <div class="blog-inner">
     <div class="section-header">
-      <span class="section-id">SEC.04</span>
+      <span class="section-id">SEC.03</span>
       <h2>最近文章</h2>
       <a href="blog.html" class="section-action">View All &rarr;</a>
     </div>
@@ -662,7 +634,7 @@ img{max-width:100%;display:block}
 <section id="contact" class="contact-section">
   <div class="container">
     <div class="section-header">
-      <span class="section-id">SEC.05</span>
+      <span class="section-id">SEC.04</span>
       <h2>联系我</h2>
     </div>
     <div class="contact-block">
@@ -793,24 +765,6 @@ var DataStore=(function(){
     visual.addEventListener('mouseenter',stop);
     visual.addEventListener('mouseleave',start);
     start();
-    if(window._cursorBindHover)window._cursorBindHover();
-  });
-})();
-
-// Home Works Grid — top 4 from Notion (or local fallback)
-(function(){
-  var grid=document.getElementById('home-works-grid');
-  if(!grid||!window.DataStore)return;
-  DataStore.getAllWorks().then(function(works){
-    var top=works.slice(0,4);
-    grid.innerHTML=top.map(function(w){
-      var thumb=w.thumbnail||(w.images&&w.images[0])||'';
-      var tag=w.tags&&w.tags[0]?w.tags[0]:(w.category||'');
-      return '<div class="work-card" onclick="location.href=\'works.html?id='+w.id+'\'">'
-        +'<div class="work-thumb"><img src="'+thumb+'" alt="'+w.title+'" loading="lazy"></div>'
-        +'<div class="work-meta"><h4>'+w.title+'</h4><div class="work-info"><span>'+(w.year||'')+'</span><span>'+tag+'</span></div></div>'
-        +'</div>';
-    }).join('');
     if(window._cursorBindHover)window._cursorBindHover();
   });
 })();
