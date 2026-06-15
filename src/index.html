@@ -291,9 +291,8 @@ img{max-width:100%;display:block}
 
 /* ============ Focus Areas ============ */
 .focus-section{padding:64px 0}
-.focus-wrap{margin-top:24px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-.fblk{display:flex;min-height:420px;border-bottom:1px solid var(--border)}
-.fblk:last-child{border-bottom:0}
+.focus-wrap{margin-top:24px}
+.fblk{display:flex;min-height:420px}
 .fblk:nth-child(even){flex-direction:row-reverse}
 .fblk .ftext{flex:0 0 40%;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:6px;padding:44px 52px}
 .fblk:nth-child(even) .ftext{align-items:flex-end;text-align:right}
@@ -306,7 +305,6 @@ img{max-width:100%;display:block}
 .fcards{flex:0 0 60%;min-width:0;display:flex;flex-direction:column}
 .fstage{position:relative;flex:1;overflow:hidden}
 .fcard{position:absolute;right:8%;bottom:12%;width:60%;aspect-ratio:16/10;border:1px solid var(--border-strong);border-radius:var(--radius-lg);overflow:hidden;background:var(--tone,var(--bg-elevated));cursor:none;transform-origin:bottom right;transform:translate(calc(-78px*var(--d,0)),calc(-60px*var(--d,0))) scale(calc(1 - .1*var(--d,0)));filter:brightness(calc(1 - .38*var(--d,0)));box-shadow:0 26px 54px rgba(0,0,0,.6);transition:transform .55s cubic-bezier(.22,.61,.36,1),filter .55s,box-shadow .55s,border-color .3s}
-.fcard.front{border-color:var(--accent)}
 .fcard.front:hover{box-shadow:0 26px 54px rgba(0,0,0,.6),0 0 22px rgba(247,201,72,.18)}
 .fcard .cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transition:transform .55s ease}
 .fcard.front:hover .cover{transform:scale(1.05)}
@@ -319,8 +317,6 @@ img{max-width:100%;display:block}
 .fnext{position:absolute;top:12px;right:12px;z-index:6;width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.28);background:rgba(0,0,0,.42);color:#fff;cursor:none;transition:transform .35s ease,background .2s,color .2s,border-color .2s}
 .fnext:hover{background:var(--accent);color:#000;border-color:var(--accent);transform:rotate(-180deg)}
 .fnext svg{width:16px;height:16px;display:block}
-.fctrl{display:flex;align-items:center;justify-content:flex-end;padding:0 9% 24px}
-.fcount{font-family:var(--mono);font-size:12px;font-weight:700;line-height:1;letter-spacing:1px;color:var(--text-secondary)}
 
 /* ============ Blog Feed ============ */
 .blog-section{padding:64px 0}
@@ -558,7 +554,6 @@ img{max-width:100%;display:block}
       <span class="section-id">SEC.03</span>
       <h2>我的关注领域</h2>
     </div>
-    <p style="color:var(--text-secondary);font-size:13px;margin-top:16px">以游戏为中心，以技术为脉络，探索环球前沿领域。</p>
     <div class="focus-wrap">
 
       <div class="fblk">
@@ -575,7 +570,6 @@ img{max-width:100%;display:block}
             <div class="fcard" data-href="blog.html?id=post-003" style="--tone:#1d2030"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/Claude副驾驶-1.png" alt="" loading="lazy"><span class="ctag">AI 提效</span><div class="cfoot"><div class="ct">把 Claude Code 变成副驾驶</div><div class="cm">Blog · 工程纪律</div></div></div>
             <div class="fcard" data-href="works.html?id=work-003" style="--tone:#202a2e"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/MyCrew-1.png" alt="" loading="lazy"><span class="ctag">AI 提效</span><div class="cfoot"><div class="ct">CrewAI × Unity 多 Agent 编排</div><div class="cm">2026 · 失败学复盘</div></div></div>
           </div>
-          <div class="fctrl"><span class="fcount">1 / 3</span></div>
         </div>
       </div>
 
@@ -594,7 +588,6 @@ img{max-width:100%;display:block}
             <div class="fcard" data-href="works.html?id=work-007" style="--tone:#1a2e2a"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/Lemmings-1.png" alt="" loading="lazy"><span class="ctag">虚拟现实</span><div class="cfoot"><div class="ct">Lemmings MR · 共址多人 XR</div><div class="cm">2026 · 混合现实</div></div></div>
             <div class="fcard" data-href="blog.html?id=post-004" style="--tone:#2a2418"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/游戏电商-1.jpeg" alt="" loading="lazy"><span class="ctag">游戏交易</span><div class="cfoot"><div class="ct">游戏电商业的一年：两个 0→1</div><div class="cm">Blog · PM 复盘</div></div></div>
           </div>
-          <div class="fctrl"><span class="fcount">1 / 4</span></div>
         </div>
       </div>
 
@@ -611,7 +604,6 @@ img{max-width:100%;display:block}
             <div class="fcard" data-href="works.html?id=work-004" style="--tone:#2a2418"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/PC交易插件-1.jpeg" alt="" loading="lazy"><span class="ctag">PC 平台</span><div class="cfoot"><div class="ct">PC 游戏工具平台 · 交易插件</div><div class="cm">2024 · 灰度 300 人</div></div></div>
             <div class="fcard" data-href="works.html?id=work-005" style="--tone:#2e2418"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/三角洲专区-1.jpeg" alt="" loading="lazy"><span class="ctag">移动 APP</span><div class="cfoot"><div class="ct">移动端游戏电商 · 三角洲专区</div><div class="cm">2024 · MAU 12k</div></div></div>
           </div>
-          <div class="fctrl"><span class="fcount">1 / 2</span></div>
         </div>
       </div>
 
