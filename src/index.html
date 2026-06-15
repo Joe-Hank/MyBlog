@@ -250,18 +250,23 @@ img{max-width:100%;display:block}
 }
 .logo-track{
   display:flex;align-items:center;
-  animation:scrollLogos 30s linear infinite;
-  width:200%;
+  width:100%;position:relative;
 }
 .logo-track .logo-item{
-  flex:0 0 calc(100%/12);
-  display:flex;align-items:center;justify-content:center;gap:16px;flex-shrink:0;
-  opacity:.4;transition:opacity .2s;
+  position:absolute;
+  display:flex;align-items:center;justify-content:center;gap:16px;
+  flex-shrink:0;opacity:.4;transition:opacity .2s;
+  animation:logoScroll 12s linear infinite;
 }
 .logo-track .logo-item:hover{opacity:1}
 .logo-track .logo-item img{height:28px;width:auto}
 .logo-track .logo-item .logo-text{height:20px;width:auto}
-@keyframes scrollLogos{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes logoScroll{
+  0%{transform:translateX(-100%);opacity:0}
+  8%{opacity:.4}
+  92%{opacity:.4}
+  100%{transform:translateX(100vw);opacity:0}
+}
 .logo-carousel .fade-left,.logo-carousel .fade-right{
   position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none;
 }
@@ -494,12 +499,6 @@ img{max-width:100%;display:block}
     <div class="logo-carousel">
       <div class="fade-left"></div>
       <div class="logo-track" id="logo-track">
-        <div class="logo-item"><img src="assets/logos/claude-color.png" alt="Claude"><img class="logo-text" src="assets/logos/claude-text-dark.png" alt="Claude"></div>
-        <div class="logo-item"><img src="assets/logos/coze.webp" alt="Coze"><img class="logo-text" src="assets/logos/coze-text-dark.png" alt="Coze"></div>
-        <div class="logo-item"><img src="assets/logos/qwen-color.png" alt="Qwen"><img class="logo-text" src="assets/logos/qwen-text-dark.png" alt="Qwen"></div>
-        <div class="logo-item"><img src="assets/logos/mimo-color.png" alt="Mimo"><img class="logo-text" src="assets/logos/mimo-text-dark.png" alt="Mimo"></div>
-        <div class="logo-item"><img src="assets/logos/figma-color.png" alt="Figma"><img class="logo-text" src="assets/logos/figma-text-dark.png" alt="Figma"></div>
-        <div class="logo-item"><img src="assets/logos/comfyui.webp" alt="ComfyUI"><img class="logo-text" src="assets/logos/comfyui-text-dark.png" alt="ComfyUI"></div>
         <div class="logo-item"><img src="assets/logos/claude-color.png" alt="Claude"><img class="logo-text" src="assets/logos/claude-text-dark.png" alt="Claude"></div>
         <div class="logo-item"><img src="assets/logos/coze.webp" alt="Coze"><img class="logo-text" src="assets/logos/coze-text-dark.png" alt="Coze"></div>
         <div class="logo-item"><img src="assets/logos/qwen-color.png" alt="Qwen"><img class="logo-text" src="assets/logos/qwen-text-dark.png" alt="Qwen"></div>
@@ -786,6 +785,17 @@ var DataStore=(function(){
 document.querySelectorAll('a[href="#contact"]').forEach(function(a){
   a.addEventListener('click',function(e){e.preventDefault();var t=document.getElementById('contact');if(t)t.scrollIntoView({behavior:'smooth'})});
 });
+
+// Logo Carousel — stagger animation for single-set items
+(function(){
+  var items=document.querySelectorAll('#logo-track .logo-item');
+  if(!items.length)return;
+  var n=items.length;
+  items.forEach(function(item,i){
+    item.style.animationDelay=(i*(12/n))+'s';
+  });
+  if(window._cursorBindHover)window._cursorBindHover();
+})();
 
 // Focus Areas — card stack (图标切换 / 点卡片跳转)
 (function(){
