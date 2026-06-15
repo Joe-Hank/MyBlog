@@ -87,6 +87,10 @@ img{max-width:100%;display:block}
   width:100%;
   display:flex;align-items:center;justify-content:space-between;
   padding:0 32px;height:100%;
+  transition:all .35s ease;
+}
+.nav.scrolled .nav-inner{
+  max-width:1400px;margin:0 auto;
 }
 .logo{
   font-family:var(--mono);font-weight:700;font-size:16px;
@@ -478,6 +482,7 @@ img{max-width:100%;display:block}
   }
   .nav-links.open a{height:48px;padding:0 32px;border-bottom:1px solid var(--border)}
   .hamburger{display:flex}
+  .nav-inner{padding:0 20px}
   .workflow-inner{padding:0 20px}
   .container{padding:0 20px}
   .hero-first{height:auto}
