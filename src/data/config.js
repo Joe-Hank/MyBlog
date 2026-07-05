@@ -1,7 +1,7 @@
 // MyBlog 数据源配置
-// 部署 Notion 代理后，将 Cloudflare Worker URL 填入 notionProxy
-// 例如: notionProxy: 'https://myblog-notion-proxy.your-subdomain.workers.dev'
-// 留空则使用本地 JSON 文件（data/blog.json, data/works.json）
+// 国内(阿里云)版：Notion 内容已冻结为静态快照（data/*.json），
+// notionProxy 留空 → 前端直接读本地 JSON，零 Cloudflare Worker / Notion 依赖。
+// 如需恢复实时 Notion，填回 Worker URL 即可。
 var SITE_CONFIG = {
-  notionProxy: 'https://myblog-notion-proxy.wenhuawasi.workers.dev'
+  notionProxy: ''
 };

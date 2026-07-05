@@ -4,10 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>我的博客·韩 — Industrial</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+
+
+
 <style>
+@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url('assets/fonts/inter-latin-wght-normal.woff2') format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:100 800;font-display:swap;src:url('assets/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2')}
 /* ============ Industrial Grade — Dark + Amber ============ */
 :root{
   --bg:#121212;
@@ -552,6 +554,7 @@ img{max-width:100%;display:block}
 @media(max-width:768px){.back-to-top{cursor:auto;right:16px;bottom:16px}}
 .email-toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--accent);color:#000;padding:10px 24px;border-radius:8px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:all .35s ease;z-index:999;white-space:nowrap}
 .email-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.beian{margin-top:6px;font-size:11px;color:var(--text-muted)}.beian a{color:inherit;transition:color .15s}.beian a:hover{color:var(--accent)}
 </style>
 </head>
 <body>
@@ -650,8 +653,8 @@ img{max-width:100%;display:block}
           <div class="fcards">
             <div class="fstage">
               <button class="fnext" type="button" aria-label="切换下一张"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>
-              <div class="fcard" data-href="works.html?id=work-001" data-desc="把短剧制作的 17 道工序收进一个本地优先工作台：图像/配音/视频/口型四类生成统一抽象层、本地与 fal 云端双路切换、密钥素材不出本机、成本可控。" style="--tone:#2a1a3e"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/66232f50-831c-4b5a-856f-ff09c1b81e44.png" alt="" loading="lazy"><span class="ctag">UGC / AIGC</span><div class="cfoot"><div class="ct">AIGC 私人工作台</div><div class="cm">2026 · 本地优先生成</div></div></div>
-              <div class="fcard" data-href="works.html?id=work-003" data-desc="多 Agent 编排桌面工具：十分钟、一元钱从一句话产出完整游戏设计与数字资产，靠 7 层防御把单任务可用率从 0% 拉到 85%，本地优先探 AI 产品边界。" style="--tone:#202a2e"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/MyCrew-1.png" alt="" loading="lazy"><span class="ctag">AI 提效</span><div class="cfoot"><div class="ct">CrewAI × Unity 多 Agent 编排</div><div class="cm">2026 · 失败学复盘</div></div></div>
+              <div class="fcard" data-href="works.html?id=work-001" data-desc="把短剧制作的 17 道工序收进一个本地优先工作台：图像/配音/视频/口型四类生成统一抽象层、本地与 fal 云端双路切换、密钥素材不出本机、成本可控。" style="--tone:#2a1a3e"><img class="cover" src="assets/notion/66232f50-831c-4b5a-856f-ff09c1b81e44.png" alt="" loading="lazy"><span class="ctag">UGC / AIGC</span><div class="cfoot"><div class="ct">AIGC 私人工作台</div><div class="cm">2026 · 本地优先生成</div></div></div>
+              <div class="fcard" data-href="works.html?id=work-003" data-desc="多 Agent 编排桌面工具：十分钟、一元钱从一句话产出完整游戏设计与数字资产，靠 7 层防御把单任务可用率从 0% 拉到 85%，本地优先探 AI 产品边界。" style="--tone:#202a2e"><img class="cover" src="assets/notion/MyCrew-1.png" alt="" loading="lazy"><span class="ctag">AI 提效</span><div class="cfoot"><div class="ct">CrewAI × Unity 多 Agent 编排</div><div class="cm">2026 · 失败学复盘</div></div></div>
             </div>
           </div>
         </div>
@@ -668,9 +671,9 @@ img{max-width:100%;display:block}
           <div class="fcards">
             <div class="fstage">
               <button class="fnext" type="button" aria-label="切换下一张"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>
-              <div class="fcard" data-href="works.html?id=work-006" data-desc="面向欧美、对标《口袋奇兵》的 SLG 系统策划：写系统玩法文档、做战斗养成数据配表、跨部门推进，半年内按计划交付 3 个内部大版本。" style="--tone:#1e1e22"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/SLG手游-1.png" alt="" loading="lazy"><span class="ctag">游戏制作</span><div class="cfoot"><div class="ct">欧美 SLG 手游 · 系统策划</div><div class="cm">2022 · 数据配表</div></div></div>
-              <div class="fcard" data-href="works.html?id=work-002" data-desc="把矮人要塞 160MB 历史 XML 转成 SQLite 索引、挂一个会用工具的 LLM，让 250 年程式生成的世界能用自然语言问答，当短剧与同人的素材底本。" style="--tone:#241c2e"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/DFHistorian-1.png" alt="" loading="lazy"><span class="ctag">AI + 游戏</span><div class="cfoot"><div class="ct">DFHistorian · AI+矮人要塞</div><div class="cm">2026 · 解析器</div></div></div>
-              <div class="fcard" data-href="works.html?id=work-007" data-desc="人机交互硕士毕设，把 1991 经典《Lemmings》重做成共址多人 MR：核心是让同处一物理空间的玩家对虚拟对象建立共识，徒手交互、玩法创新。" style="--tone:#1a2e2a"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/Lemmings-1.png" alt="" loading="lazy"><span class="ctag">虚拟现实</span><div class="cfoot"><div class="ct">Lemmings MR · 共址多人 XR</div><div class="cm">2026 · 混合现实</div></div></div>
+              <div class="fcard" data-href="works.html?id=work-006" data-desc="面向欧美、对标《口袋奇兵》的 SLG 系统策划：写系统玩法文档、做战斗养成数据配表、跨部门推进，半年内按计划交付 3 个内部大版本。" style="--tone:#1e1e22"><img class="cover" src="assets/notion/SLG手游-1.png" alt="" loading="lazy"><span class="ctag">游戏制作</span><div class="cfoot"><div class="ct">欧美 SLG 手游 · 系统策划</div><div class="cm">2022 · 数据配表</div></div></div>
+              <div class="fcard" data-href="works.html?id=work-002" data-desc="把矮人要塞 160MB 历史 XML 转成 SQLite 索引、挂一个会用工具的 LLM，让 250 年程式生成的世界能用自然语言问答，当短剧与同人的素材底本。" style="--tone:#241c2e"><img class="cover" src="assets/notion/DFHistorian-1.png" alt="" loading="lazy"><span class="ctag">AI + 游戏</span><div class="cfoot"><div class="ct">DFHistorian · AI+矮人要塞</div><div class="cm">2026 · 解析器</div></div></div>
+              <div class="fcard" data-href="works.html?id=work-007" data-desc="人机交互硕士毕设，把 1991 经典《Lemmings》重做成共址多人 MR：核心是让同处一物理空间的玩家对虚拟对象建立共识，徒手交互、玩法创新。" style="--tone:#1a2e2a"><img class="cover" src="assets/notion/Lemmings-1.png" alt="" loading="lazy"><span class="ctag">虚拟现实</span><div class="cfoot"><div class="ct">Lemmings MR · 共址多人 XR</div><div class="cm">2026 · 混合现实</div></div></div>
             </div>
           </div>
         </div>
@@ -687,8 +690,8 @@ img{max-width:100%;display:block}
           <div class="fcards">
             <div class="fstage">
               <button class="fnext" type="button" aria-label="切换下一张"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>
-              <div class="fcard" data-href="works.html?id=work-004" data-desc="把交易下沉到玩家正在游玩的游戏内场景、不打断游玩；图文识别免录入让挂单到成交效率 +60%，灰度 30 天触达 300 人、满意度 4.2。" style="--tone:#2a2418"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/PC交易插件-1.jpeg" alt="" loading="lazy"><span class="ctag">PC 平台</span><div class="cfoot"><div class="ct">PC 游戏工具平台 · 交易插件</div><div class="cm">2024 · 灰度 300 人</div></div></div>
-              <div class="fcard" data-href="works.html?id=work-005" data-desc="在游戏电商 APP 里开三角洲行动单游戏专区，打通上架—定价—履约—售后全链路；灰度期 MAU 约 1.2 万、供给转化 5%、日均流水千元量级。" style="--tone:#2e2418"><img class="cover" src="https://joe-hank.github.io/MyBlog/assets/notion/三角洲专区-1.jpeg" alt="" loading="lazy"><span class="ctag">移动 APP</span><div class="cfoot"><div class="ct">移动端游戏电商 · 三角洲专区</div><div class="cm">2024 · MAU 12k</div></div></div>
+              <div class="fcard" data-href="works.html?id=work-004" data-desc="把交易下沉到玩家正在游玩的游戏内场景、不打断游玩；图文识别免录入让挂单到成交效率 +60%，灰度 30 天触达 300 人、满意度 4.2。" style="--tone:#2a2418"><img class="cover" src="assets/notion/PC交易插件-1.jpeg" alt="" loading="lazy"><span class="ctag">PC 平台</span><div class="cfoot"><div class="ct">PC 游戏工具平台 · 交易插件</div><div class="cm">2024 · 灰度 300 人</div></div></div>
+              <div class="fcard" data-href="works.html?id=work-005" data-desc="在游戏电商 APP 里开三角洲行动单游戏专区，打通上架—定价—履约—售后全链路；灰度期 MAU 约 1.2 万、供给转化 5%、日均流水千元量级。" style="--tone:#2e2418"><img class="cover" src="assets/notion/三角洲专区-1.jpeg" alt="" loading="lazy"><span class="ctag">移动 APP</span><div class="cfoot"><div class="ct">移动端游戏电商 · 三角洲专区</div><div class="cm">2024 · MAU 12k</div></div></div>
             </div>
           </div>
         </div>
@@ -742,6 +745,7 @@ img{max-width:100%;display:block}
 <footer class="footer">
   <div class="footer-inner">
     <p>&copy; 2026 MYBLOG.HAN · built with <span class="accent">&lt;ClaudeCode/&gt;</span> & figma</p>
+  <p class="beian"><a href="https://beian.miit.gov.cn" target="_blank" rel="noopener">津ICP备2025041910号-2</a></p>
     <div class="social">
       <a href="https://github.com/Joe-Hank" target="_blank">GitHub</a>
       <a href="#" target="_blank">Bilibili</a>
