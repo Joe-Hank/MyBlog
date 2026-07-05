@@ -45,15 +45,23 @@ $bucket   = $env:OSS_BUCKET
 $endpoint = $env:OSS_ENDPOINT
 $cdn      = $env:CDN_DOMAIN
 $src      = Join-Path $repo 'src'
-if (-not (Get-Command ossutil -ErrorAction SilentlyContinue)) { throw 'ossutil 未安装 / 不在 PATH。见 https://help.aliyun.com/zh/oss/developer-reference/ossutil' }
+# 优先用仓库内 tools/ossutil.exe（gitignore），否则用 PATH 里的 ossutil
+$localOssutil = Join-Path $repo 'tools\ossutil.exe'
+$ossutil = if (Test-Path $localOssutil) { $localOssutil }
+           elseif (Get-Command ossutil -ErrorAction SilentlyContinue) { 'ossutil' }
+           else { throw 'ossutil 未安装：把 ossutil.exe 放进 tools/ 或加入 PATH（https://help.aliyun.com/zh/oss/developer-reference/ossutil）' }
 
 $auth = @('-i', $env:OSS_ACCESS_KEY_ID, '-k', $env:OSS_ACCESS_KEY_SECRET, '-e', $endpoint)
 
-Write-Host "→ 同步 assets/（长缓存，1 年 immutable）" -ForegroundColor Cyan
-& ossutil cp -r -f --update "$src/assets/" "oss://$bucket/assets/" @auth --meta "Cache-Control:public, max-age=31536000, immutable"
+# 一次性桶配置（首次已做，重复执行无害）：公共读 + 静态网站托管
+Write-Host "→ 确保公共读 ACL" -ForegroundColor Cyan
+& $ossutil set-acl "oss://$bucket/" public-read -b -f @auth
 
-Write-Host "→ 同步 HTML / data / 其它（短缓存，5 分钟，便于内容更新）" -ForegroundColor Cyan
-& ossutil cp -r -f --update "$src/" "oss://$bucket/" @auth --exclude "assets/*" --meta "Cache-Control:public, max-age=300"
+Write-Host "→ 同步 src/ 全量到桶" -ForegroundColor Cyan
+& $ossutil cp -r -f --update "$src/" "oss://$bucket/" @auth
+
+Write-Host "→ assets/ 设长缓存（1 年）" -ForegroundColor Cyan
+& $ossutil set-meta "oss://$bucket/assets/" "Cache-Control:public, max-age=31536000" -r -f @auth
 
 if ($SkipCdn) {
   Write-Host "[skip] 未刷新 CDN（-SkipCdn）。" -ForegroundColor DarkGray
