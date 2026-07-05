@@ -63,14 +63,16 @@ Write-Host "→ 同步 src/ 全量到桶" -ForegroundColor Cyan
 Write-Host "→ assets/ 设长缓存（1 年）" -ForegroundColor Cyan
 & $ossutil set-meta "oss://$bucket/assets/" "Cache-Control:public, max-age=31536000" -r -f @auth
 
+$aliyunExe = if (Test-Path (Join-Path $repo 'tools\aliyun.exe')) { Join-Path $repo 'tools\aliyun.exe' }
+             elseif (Get-Command aliyun -ErrorAction SilentlyContinue) { 'aliyun' } else { $null }
 if ($SkipCdn) {
   Write-Host "[skip] 未刷新 CDN（-SkipCdn）。" -ForegroundColor DarkGray
-} elseif (Get-Command aliyun -ErrorAction SilentlyContinue) {
+} elseif ($aliyunExe) {
   Write-Host "→ 刷新 CDN 目录缓存 https://$cdn/" -ForegroundColor Cyan
-  & aliyun cdn RefreshObjectCaches --ObjectPath "https://$cdn/" --ObjectType Directory `
-      --AccessKeyId $env:OSS_ACCESS_KEY_ID --AccessKeySecret $env:OSS_ACCESS_KEY_SECRET
+  & $aliyunExe cdn RefreshObjectCaches --ObjectType Directory --ObjectPath "https://$cdn/" `
+      --mode AK --access-key-id $env:OSS_ACCESS_KEY_ID --access-key-secret $env:OSS_ACCESS_KEY_SECRET --region cn-hangzhou
 } else {
-  Write-Host "[warn] 未装 aliyun CLI，跳过 CDN 刷新。可在控制台手动刷新 https://$cdn/" -ForegroundColor Yellow
+  Write-Host "[warn] 未找到 aliyun CLI（tools/aliyun.exe 或 PATH），跳过 CDN 刷新。控制台手动刷 https://$cdn/" -ForegroundColor Yellow
 }
 
 Write-Host "✔ 部署完成：https://$cdn/" -ForegroundColor Green
