@@ -266,31 +266,31 @@ img{max-width:100%;display:block}
 .logo-carousel .fade-right{right:0;background:linear-gradient(to left,var(--bg-surface),transparent)}
 
 /* ============ Focus Areas — Premium Vertical Interlock Scroll ============ */
-.focus-section{position:relative;padding:0}
+.focus-section{position:relative;padding:0;min-height:100vh;display:flex;flex-direction:column}
 .focus-section .section-header{
-  position:sticky;
-  top:56px;
-  z-index:90;
+  position:relative;
+  top:auto;
+  z-index:5;
   background:transparent;
-  padding:62px 0 16px;
+  padding:148px 0 10px;
 }
-.focus-wrap{margin-top:0;position:relative}
-/* 延长轨道高度，给卡片在滑轮下的切换流出充分的生命周期空隙 */
-.fblk-track{position:relative;height:240vh}
-/* 纵向对齐的内容面板锚定 */
+.focus-wrap{flex:1;min-height:0;margin-top:0;position:relative}
+/* 手势翻页制：三条轨道绝对堆叠，同一时刻只显一条，淡入淡出切换 */
+.fblk-track{position:absolute;inset:0;opacity:0;pointer-events:none;filter:blur(10px);
+  transition:opacity .5s ease,filter .5s ease}
+.fblk-track.active{opacity:1;pointer-events:auto;filter:blur(0)}
+/* 面板改静态满高（不再 sticky / 不再 240vh 轨道） */
 .fblk{
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:flex-start;
-  min-height:550px;
-  height:calc(100vh - 165px);
-  position:sticky;
-  top:165px;
+  height:100%;
+  min-height:0;
+  position:relative;
   background:transparent;
-  will-change:opacity,filter;
 }
-/* 改良后的左对齐高阶文本面板，完美呼应图2 */
+/* 紧凑化文本面板 */
 .fblk .ftext{
   flex:0 0 auto;
   width:80vw;
@@ -299,9 +299,9 @@ img{max-width:100%;display:block}
   flex-direction:column;
   align-items:flex-start;
   text-align:left;
-  gap:12px;
-  padding:20px 0 32px calc(48px + 2ch);
-  margin-top:40px;
+  gap:8px;
+  padding:6px 0 10px calc(48px + 2ch);
+  margin-top:0;
 }
 .eyb{
   display:inline-flex;
@@ -338,8 +338,7 @@ img{max-width:100%;display:block}
 /* 图像更大化重构：扩大幅面利用率，拒绝撑满，保持高级空气感 */
 .fstage{
   position:relative;
-  width:80vw;
-  max-width:1000px;
+  width:min(80vw,1000px,calc((100vh - 400px) * 1.6));
   aspect-ratio:16/10;
   overflow:visible;
 }
@@ -488,9 +487,10 @@ img{max-width:100%;display:block}
   .pipe-node:last-child{border-bottom:none}
   
   /* 移动端降级 */
+  .focus-section { min-height: 0; display: block; }
   .focus-section .section-header { position: relative; top: 0; padding: 24px 0; }
   .focus-wrap { margin-top: 24px; }
-  .fblk-track { height: auto !important; }
+  .fblk-track { height: auto !important; position: relative !important; inset: auto !important; opacity: 1 !important; filter: none !important; pointer-events: auto !important; }
   .fblk { position: relative !important; top: 0 !important; height: auto !important; min-height: 0; opacity: 1 !important; filter: none !important; padding-top: 0; }
   .fblk .ftext { text-align: left !important; align-items: flex-start !important; padding: 20px 10px 10px 20px; gap: 12px; }
   .fdsc { font-size: 20px !important; -webkit-line-clamp: 3 !important; }
@@ -665,7 +665,7 @@ html{scroll-snap-type:y mandatory}
 .focus-section{scroll-snap-align:start}
 .footer{scroll-snap-align:end}
 .workflow-section,.blog-section,.contact-section{
-  min-height:100vh;display:flex;flex-direction:column;justify-content:flex-start;padding:58px 0 96px}
+  min-height:100vh;display:flex;flex-direction:column;justify-content:flex-start;padding:88px 0 96px}
 .focus-endcap{height:2px;scroll-snap-align:end}
 .workflow-section>.container,.blog-section>.container,.contact-section>.container{width:100%}
 
@@ -741,14 +741,14 @@ a.chud:hover{background:rgba(247,201,72,.1)}
 .chud .k{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase}
 .chud .v{font-family:var(--mono);font-size:13px;color:var(--text);margin-top:8px}
 
-/* —— v3.2 微调：更硬的整页落位 + 主体垂直居中 + 打字不回流 —— */
-html{scroll-behavior:auto} /* 去掉全局平滑滚动：mandatory 落位更干脆，消除粘连感 */
+/* —— v3.2/3.3 微调：手势翻页制（JS 接管），关闭 CSS snap —— */
+html{scroll-behavior:auto;scroll-snap-type:none} /* 翻页由手势引擎驱动，不再用距离/吸附 */
 .workflow-section>.container,.blog-section>.container,.contact-section>.container{flex:1;display:flex;flex-direction:column}
 .hotcloud{margin:auto 0}                      /* SEC.1 热点云在标题下方剩余空间垂直居中 */
 #blog-featured-slot{margin:auto 0}            /* SEC.3 主体居中 */
 .acid-contact .talk-wrap{margin-top:auto}     /* SEC.4 主体组居中（上下 auto 夹） */
 .acid-contact .contact-hud{margin-bottom:auto}
-.fblk .fdsc{min-height:5.4em}                 /* 打字机预留 3 行高度，键入不再推挤卡片舞台 */
+.fblk .fdsc{min-height:4.8em}                 /* 打字机预留 3 行高度，键入不再推挤卡片舞台 */
 
 @media (prefers-reduced-motion:reduce){
   .hot,.orbit-btn svg{animation:none!important}
@@ -1228,6 +1228,7 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
         triggerIndustrialTypewriter(dscEl, nextText);
       }
     };
+    blk._getActive = function(){ return active; };
 
     // 工业风防串色打字机核心逻辑（支持连续疯狂下滑/点击拦截）
     function triggerIndustrialTypewriter(element, targetText) {
@@ -1289,78 +1290,85 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
   if(window._cursorBindHover)window._cursorBindHover();
 })();
 
-// Premium Vertical Interlock Scroll Driver — 纵向滚动无缝切卡与高质感淡出机制
+// Gesture Pager — 手势翻页引擎（桌面端）：一次滚动手势 = 翻一段 / 切一张，无长滚、无模糊边界
 (function(){
-  if (window.innerWidth <= 768) return;
+  if(window.matchMedia('(max-width:768px)').matches) return; // 移动端保持自然滚动
+  var secs=['.acid-hero','.workflow-section','.focus-section','.blog-section','.contact-section']
+    .map(function(sel){return document.querySelector(sel)}).filter(Boolean);
+  var FOCUS=-1;secs.forEach(function(s,i){if(s.classList.contains('focus-section'))FOCUS=i});
+  var tracks=Array.prototype.slice.call(document.querySelectorAll('.focus-wrap .fblk-track'));
+  var blks=tracks.map(function(t){return t.querySelector('.fblk')});
+  var mod=0;
+  function cardCount(i){var b=blks[i];return b?b.querySelectorAll('.fcard').length:0}
+  function curCard(i){var b=blks[i];return (b&&b._getActive)?b._getActive():0}
+  function showModule(i){mod=i;tracks.forEach(function(t,k){t.classList.toggle('active',k===i)})}
+  showModule(0);
 
-  var tracks = document.querySelectorAll('.fblk-track');
-  
-  function handleFocusScroll() {
-    var stickyTopOffset = 165;
+  var page=0,lock=false;
+  function pageTops(){
+    var tops=secs.map(function(s){return Math.round(s.getBoundingClientRect().top+window.pageYOffset)});
+    tops.push(Math.max(0,document.documentElement.scrollHeight-window.innerHeight)); // 末页=页底，露出页脚
+    return tops;
+  }
+  function goto(i){
+    var tops=pageTops();
+    if(i<0)i=0;if(i>=tops.length)i=tops.length-1;
+    page=i;lock=true;
+    window.scrollTo({top:tops[i],behavior:'smooth'});
+    setTimeout(function(){lock=false},700);
+  }
+  function syncPage(){ // 锚点/导航跳转后重对齐
+    var tops=pageTops(),y=window.pageYOffset,best=0,bd=1e9;
+    tops.forEach(function(t,i){var d=Math.abs(t-y);if(d<bd){bd=d;best=i}});
+    page=best;
+  }
+  var st;window.addEventListener('scroll',function(){clearTimeout(st);st=setTimeout(syncPage,180)},{passive:true});
 
-    tracks.forEach(function(track) {
-      var fblk = track.querySelector('.fblk');
-      if (!fblk) return;
-
-      var rect = track.getBoundingClientRect();
-      
-      // 当版块进入粘性锚定生命周期内
-      if (rect.top <= stickyTopOffset) {
-        var totalScrollable = rect.height - fblk.offsetHeight;
-        var currentScrolled = stickyTopOffset - rect.top;
-        var progress = Math.min(Math.max(currentScrolled / totalScrollable, 0), 1);
-        
-        // 核心一：0% -> 85% 程长通过滚动深度自动完成轮播切牌
-        if (typeof fblk._updateStack === 'function') {
-          var cards = fblk.querySelectorAll('.fcard');
-          var n = cards.length;
-          if (n > 0) {
-            var cycleProgress = Math.min(progress / 0.85, 1);
-            var activeIndex = Math.floor(cycleProgress * n);
-            if (activeIndex >= n) activeIndex = n - 1;
-            fblk._updateStack(activeIndex);
-          }
-        }
-
-        // 核心二：85% -> 100% 后期进入平滑毛玻璃虚化与淡出，为新内容让位
-        if (progress > 0.85) {
-          var fadeProgress = (progress - 0.85) / 0.15;
-          var opacityValue = 1 - fadeProgress;
-          var blurValue = fadeProgress * 20; 
-          
-          fblk.style.opacity = opacityValue;
-          fblk.style.filter = 'blur(' + blurValue + 'px)';
-          fblk.style.pointerEvents = opacityValue < 0.15 ? 'none' : 'auto';
-        } else {
-          fblk.style.opacity = 1;
-          fblk.style.filter = 'blur(0px)';
-          fblk.style.pointerEvents = 'auto';
-        }
-      } else {
-        // 未进场或往回滑出范围时，复位初始清晰与首张牌状态
-        if (typeof fblk._updateStack === 'function') {
-          fblk._updateStack(0);
-        }
-        fblk.style.opacity = 1;
-        fblk.style.filter = 'blur(0px)';
-        fblk.style.pointerEvents = 'auto';
+  function cool(ms){lock=true;setTimeout(function(){lock=false},ms)}
+  function step(dir){
+    if(lock)return;
+    if(page===FOCUS){ // SEC2 内：先切卡 → 再切板块 → 最后翻段
+      var c=curCard(mod),n=cardCount(mod);
+      if(dir>0){
+        if(c<n-1){blks[mod]._updateStack(c+1);cool(420);return}
+        if(mod<tracks.length-1){showModule(mod+1);cool(560);return}
+        goto(page+1);return;
+      }else{
+        if(c>0){blks[mod]._updateStack(c-1);cool(420);return}
+        if(mod>0){showModule(mod-1);cool(560);return}
+        goto(page-1);return;
       }
-    });
+    }
+    goto(page+dir);
   }
 
-  var ticking = false;
-  window.addEventListener('scroll', function() {
-    if (!ticking) {
-      window.requestAnimationFrame(function() {
-        handleFocusScroll();
-        ticking = false;
-      });
-      ticking = true;
-    }
-  }, { passive: true });
+  // 手势识别：只看行为不看距离——累计 deltaY 破阈值即触发一次，方向反转或 160ms 静默清零
+  var acc=0,lastT=0,TH=40;
+  window.addEventListener('wheel',function(e){
+    e.preventDefault();
+    var now=performance.now();
+    if(now-lastT>160||(acc!==0&&(acc>0)!==(e.deltaY>0)))acc=0;
+    lastT=now;
+    if(lock){acc=0;return}
+    acc+=e.deltaY;
+    if(acc>TH){acc=0;step(1)}
+    else if(acc<-TH){acc=0;step(-1)}
+  },{passive:false});
 
-  handleFocusScroll();
-  window.addEventListener('resize', handleFocusScroll);
+  window.addEventListener('keydown',function(e){
+    if(e.key==='ArrowDown'||e.key==='PageDown'||e.key===' '){e.preventDefault();step(1)}
+    else if(e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault();step(-1)}
+  });
+
+  var ty=null;
+  window.addEventListener('touchstart',function(e){ty=e.touches[0].clientY},{passive:true});
+  window.addEventListener('touchend',function(e){
+    if(ty==null)return;var dy=ty-e.changedTouches[0].clientY;ty=null;
+    if(Math.abs(dy)>60)step(dy>0?1:-1);
+  },{passive:true});
+
+  syncPage();
+  window.__pager={goto:goto,step:step,state:function(){return{page:page,mod:mod,card:curCard(mod),focusIdx:FOCUS}}};
 })();
 
 // Scroll Reveal
