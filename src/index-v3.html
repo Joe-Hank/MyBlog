@@ -654,6 +654,102 @@ img{max-width:100%;display:block}
   .hero-ticker{position:static;margin-top:28px}
   .section-header .section-id{font-size:52px}
 }
+
+/* ================================================================
+   v3.1 — 整页切割 · 全局流体 · 吸底原子字带 · 热点云 · AVANT 联系区
+   ================================================================ */
+
+/* —— 整页滚动切割（proximity：段落边界落位，长段内自由滚动） —— */
+html{scroll-snap-type:y proximity}
+.acid-hero,.workflow-section,.blog-section,.contact-section{scroll-snap-align:start}
+.focus-section{scroll-snap-align:start}
+.workflow-section,.blog-section,.contact-section{
+  min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:48px 0 96px}
+.workflow-section>.container,.blog-section>.container,.contact-section>.container{width:100%}
+
+/* —— 全局酸性流体（fixed 背景层，所有 section 覆于其上） —— */
+.acid-bg{position:fixed;inset:0;z-index:0;pointer-events:none}
+body>*{position:relative;z-index:1}
+body>.acid-bg{z-index:0}
+.acid-hero{background:transparent}
+.acid-hero::after{position:fixed}
+
+/* —— 吸底原子跑马灯（页底让位给页脚） —— */
+.bottom-ticker{position:fixed;left:0;right:0;bottom:0;z-index:96;border-bottom:0;
+  transform:translateY(0);transition:transform .45s cubic-bezier(.4,0,.2,1)}
+.bottom-ticker.hide{transform:translateY(105%)}
+.bottom-ticker .ticker-track{animation:none}
+.bottom-ticker .ticker-track span{padding:10px 0;font-size:10.5px;letter-spacing:2.5px}
+.bottom-ticker .ticker-track span b{color:var(--accent);font-weight:600;padding:0 14px}
+
+/* —— 热点云 —— */
+.workflow-section .section-header{margin-bottom:8px}
+.hotcloud{position:relative;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+  gap:16px 20px;padding:40px 4% 24px;will-change:transform}
+.hot{appearance:none;font-family:var(--mono);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  border:1px solid var(--border-strong);background:rgba(13,13,13,.55);color:var(--text-secondary);
+  padding:.55em .95em;cursor:none;
+  animation:hotFloat var(--fd,6.5s) ease-in-out var(--dl,0s) infinite alternate;
+  transition:background .2s,color .2s,border-color .2s,box-shadow .2s}
+.hot:hover{background:var(--accent);color:#000;border-color:var(--accent);
+  box-shadow:0 0 30px rgba(247,201,72,.35);animation-play-state:paused}
+.hot.t1{font-size:clamp(52px,6.6vw,104px);font-weight:900;letter-spacing:-.01em;line-height:.95;
+  color:var(--accent);border:2px solid var(--accent);padding:.18em .42em;
+  background:rgba(13,13,13,.72);text-shadow:0 0 44px rgba(247,201,72,.35);
+  display:inline-flex;flex-direction:column;align-items:flex-start;flex-basis:auto}
+.hot.t1 .sub{font-size:11px;font-weight:600;letter-spacing:4px;color:var(--text-secondary);
+  margin-top:10px;text-shadow:none}
+.hot.t1:hover{color:#000}
+.hot.t1:hover .sub{color:#000}
+.hot.t2{font-size:clamp(17px,1.8vw,26px);color:var(--text)}
+.hot.t3{font-size:clamp(11px,1.05vw,14px)}
+@keyframes hotFloat{from{transform:rotate(var(--rot,0deg)) translateY(0)}to{transform:rotate(var(--rot,0deg)) translateY(-10px)}}
+.hotcloud-note{text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:2px;
+  color:var(--text-muted);text-transform:uppercase;margin-top:26px}
+
+/* —— AVANT 联系区 —— */
+.acid-contact .contact-block{display:none}
+.talk-wrap{position:relative;display:flex;align-items:center;gap:40px;flex-wrap:wrap;margin-top:24px}
+.talk-giant{font-weight:900;text-transform:uppercase;line-height:.88;letter-spacing:-.03em;
+  font-size:clamp(64px,11vw,176px);margin:0;user-select:none}
+.talk-giant .o{color:transparent;-webkit-text-stroke:2px var(--accent);transition:color .35s}
+.talk-giant .f{color:var(--accent);transition:all .35s}
+.talk-giant:hover .o{color:var(--accent);-webkit-text-stroke-color:transparent}
+.talk-giant:hover .f{color:transparent;-webkit-text-stroke:2px var(--accent)}
+.orbit-btn{position:relative;width:128px;height:128px;flex-shrink:0;display:inline-flex;
+  align-items:center;justify-content:center;border:1px solid var(--border-strong);border-radius:50%;
+  background:rgba(13,13,13,.6);transition:border-color .25s,background .25s}
+.orbit-btn svg{position:absolute;inset:6px;animation:orbitSpin 14s linear infinite}
+.orbit-btn svg text{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:2.5px;fill:var(--text-secondary)}
+.orbit-btn .arr{font-size:30px;color:var(--accent);transition:transform .25s}
+.orbit-btn:hover{border-color:var(--accent);background:rgba(247,201,72,.08)}
+.orbit-btn:hover .arr{transform:translateX(6px)}
+.orbit-btn:hover svg{animation-direction:reverse}
+@keyframes orbitSpin{to{transform:rotate(360deg)}}
+.mega-mail{display:inline-block;margin-top:44px;font-family:var(--mono);font-weight:700;
+  font-size:clamp(17px,2.8vw,38px);letter-spacing:1px;color:var(--text);
+  border-bottom:2px solid var(--accent);padding-bottom:10px;transition:color .25s,letter-spacing .25s}
+.mega-mail:hover{color:var(--accent);letter-spacing:3px}
+.talk-note{font-family:var(--mono);font-size:11px;letter-spacing:2px;color:var(--text-muted);
+  text-transform:uppercase;margin-top:16px}
+.contact-hud{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);
+  border:1px solid var(--border);margin-top:52px}
+.chud{display:flex;flex-direction:column;background:rgba(13,13,13,.62);padding:18px 20px;transition:background .2s}
+a.chud:hover{background:rgba(247,201,72,.1)}
+.chud .k{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase}
+.chud .v{font-family:var(--mono);font-size:13px;color:var(--text);margin-top:8px}
+
+@media (prefers-reduced-motion:reduce){
+  .hot,.orbit-btn svg{animation:none!important}
+}
+@media (max-width:768px){
+  html{scroll-snap-type:none}
+  .hot.t1{font-size:44px}
+  .talk-wrap{gap:24px}
+  .orbit-btn{width:96px;height:96px}
+  .contact-hud{grid-template-columns:repeat(2,1fr)}
+  .bottom-ticker .ticker-track span{font-size:9.5px}
+}
 </style>
 <script>
 var _hmt = _hmt || [];
@@ -667,6 +763,19 @@ var _hmt = _hmt || [];
 </head>
 <body>
 <div class="grain-veil" aria-hidden="true"></div>
+
+<!-- ===== 全局酸性流体背景（fixed，全页共用） ===== -->
+<div class="acid-bg" aria-hidden="true">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="acid-gridlines"></div>
+</div>
+
+<!-- ===== 吸底原子跑马灯（滚到页底让位给页脚） ===== -->
+<div class="acid-ticker bottom-ticker" id="bottom-ticker" aria-hidden="true">
+  <div class="ticker-track" id="bt-track"></div>
+</div>
 
 <!-- ===== Nav ===== -->
 <nav class="nav">
@@ -684,19 +793,13 @@ var _hmt = _hmt || [];
 
 <!-- ===== Hero · INDUSTRIAL ACID（满屏 100vh · nav 隐藏） ===== -->
 <section class="hero acid-hero">
-  <div class="acid-bg" aria-hidden="true">
-    <div class="blob b1"></div>
-    <div class="blob b2"></div>
-    <div class="blob b3"></div>
-    <svg class="acid-ring" viewBox="0 0 600 600" aria-hidden="true">
-      <defs>
-        <filter id="acidWarp"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="7" result="n"><animate attributeName="baseFrequency" dur="18s" values="0.012 0.02;0.02 0.012;0.012 0.02" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" in2="n" scale="46"/></filter>
-      </defs>
-      <circle cx="300" cy="300" r="210" fill="none" stroke="#f7c948" stroke-opacity=".38" stroke-width="1.5" filter="url(#acidWarp)"/>
-      <circle cx="300" cy="300" r="150" fill="none" stroke="#f7c948" stroke-opacity=".16" stroke-width="1" filter="url(#acidWarp)"/>
-    </svg>
-    <div class="acid-gridlines"></div>
-  </div>
+  <svg class="acid-ring" viewBox="0 0 600 600" aria-hidden="true">
+    <defs>
+      <filter id="acidWarp"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="7" result="n"><animate attributeName="baseFrequency" dur="18s" values="0.012 0.02;0.02 0.012;0.012 0.02" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" in2="n" scale="46"/></filter>
+    </defs>
+    <circle cx="300" cy="300" r="210" fill="none" stroke="#f7c948" stroke-opacity=".38" stroke-width="1.5" filter="url(#acidWarp)"/>
+    <circle cx="300" cy="300" r="150" fill="none" stroke="#f7c948" stroke-opacity=".16" stroke-width="1" filter="url(#acidWarp)"/>
+  </svg>
 
   <div class="hero-hud" aria-hidden="true">
     <span class="hud tl">// JOECLOUD.ASIA — PERSONAL LAB</span>
@@ -729,11 +832,7 @@ var _hmt = _hmt || [];
     </div>
   </div>
 
-  <div class="acid-ticker hero-ticker" aria-hidden="true">
-    <div class="ticker-track">
-      <span>AIGC 工作台 ▸ 多 AGENT 编排 ▸ XR / MR ▸ 游戏制作 ▸ 产品 0→1 ▸ 本地优先 ▸ 工程纪律 ▸ UGC / AIGC ▸ 游戏交易 ▸&nbsp;</span><span>AIGC 工作台 ▸ 多 AGENT 编排 ▸ XR / MR ▸ 游戏制作 ▸ 产品 0→1 ▸ 本地优先 ▸ 工程纪律 ▸ UGC / AIGC ▸ 游戏交易 ▸&nbsp;</span>
-    </div>
-  </div>
+
 </section>
 
 <!-- ===== Workflow Pipeline（收进标准容器） ===== -->
@@ -741,34 +840,33 @@ var _hmt = _hmt || [];
   <div class="container">
     <div class="section-header">
       <span class="section-id">SEC.01</span>
-      <h2>AI增效工作流</h2>
-    </div>
-    <div class="pipeline">
-      <div class="pipe-node"><div class="pipe-num">01</div><h4>定义目标</h4><p>价值验证 · 用户分析 · 定义指标</p></div>
-      <div class="pipe-node"><div class="pipe-num">02</div><h4>路径规划</h4><p>选择技术路径 · 评估成本与性能</p></div>
-      <div class="pipe-node"><div class="pipe-num">03</div><h4>工具选择</h4><p>LLM · Agent · Tool</p></div>
-      <div class="pipe-node"><div class="pipe-num">04</div><h4>人机协同</h4><p>协同构建执行标准</p></div>
-      <div class="pipe-node"><div class="pipe-num">05</div><h4>效用评估</h4><p>技术 · 用户体验 · 业务KPI</p></div>
+      <h2>AI强增效</h2>
     </div>
 
-    <div class="logo-carousel">
-      <div class="fade-left"></div>
-      <div class="logo-track" id="logo-track">
-        <div class="logo-item"><img src="assets/logos/claude-color.png" alt="Claude"><img class="logo-text" src="assets/logos/claude-text-dark.png" alt="Claude"></div>
-        <div class="logo-item"><img src="assets/logos/coze.webp" alt="Coze"><img class="logo-text" src="assets/logos/coze-text-dark.png" alt="Coze"></div>
-        <div class="logo-item"><img src="assets/logos/qwen-color.png" alt="Qwen"><img class="logo-text" src="assets/logos/qwen-text-dark.png" alt="Qwen"></div>
-        <div class="logo-item"><img src="assets/logos/mimo-color.png" alt="Mimo"><img class="logo-text" src="assets/logos/mimo-text-dark.png" alt="Mimo"></div>
-        <div class="logo-item"><img src="assets/logos/figma-color.png" alt="Figma"><img class="logo-text" src="assets/logos/figma-text-dark.png" alt="Figma"></div>
-        <div class="logo-item"><img src="assets/logos/comfyui.webp" alt="ComfyUI"><img class="logo-text" src="assets/logos/comfyui-text-dark.png" alt="ComfyUI"></div>
-        <div class="logo-item"><img src="assets/logos/claude-color.png" alt="Claude"><img class="logo-text" src="assets/logos/claude-text-dark.png" alt="Claude"></div>
-        <div class="logo-item"><img src="assets/logos/coze.webp" alt="Coze"><img class="logo-text" src="assets/logos/coze-text-dark.png" alt="Coze"></div>
-        <div class="logo-item"><img src="assets/logos/qwen-color.png" alt="Qwen"><img class="logo-text" src="assets/logos/qwen-text-dark.png" alt="Qwen"></div>
-        <div class="logo-item"><img src="assets/logos/mimo-color.png" alt="Mimo"><img class="logo-text" src="assets/logos/mimo-text-dark.png" alt="Mimo"></div>
-        <div class="logo-item"><img src="assets/logos/figma-color.png" alt="Figma"><img class="logo-text" src="assets/logos/figma-text-dark.png" alt="Figma"></div>
-        <div class="logo-item"><img src="assets/logos/comfyui.webp" alt="ComfyUI"><img class="logo-text" src="assets/logos/comfyui-text-dark.png" alt="ComfyUI"></div>
-      </div>
-      <div class="fade-right"></div>
+    <div class="hotcloud" id="hotcloud">
+      <button type="button" class="hot t3" style="--rot:-2deg;--dl:.2s">MCP 协议</button>
+      <button type="button" class="hot t3" style="--rot:1.5deg;--dl:1.1s">RAG 语料库</button>
+      <button type="button" class="hot t2" style="--rot:-1deg;--dl:.6s">多 AGENT 编排</button>
+      <button type="button" class="hot t3" style="--rot:2deg;--dl:1.8s">LANGCHAIN</button>
+      <button type="button" class="hot t3" style="--rot:-1.4deg;--dl:.9s">CREWAI</button>
+      <button type="button" class="hot t2" style="--rot:1deg;--dl:1.4s">AI 客服</button>
+      <button type="button" class="hot t3" style="--rot:-2.2deg;--dl:.4s">WHISPER 翻译</button>
+      <button type="button" class="hot t2" style="--rot:1.8deg;--dl:2s">OCR 识图</button>
+      <button type="button" class="hot t1" style="--rot:0deg;--dl:0s">CLAUDE<span class="sub">CODE · 副驾驶</span></button>
+      <button type="button" class="hot t2" style="--rot:-1.6deg;--dl:.8s">智能商品推荐</button>
+      <button type="button" class="hot t3" style="--rot:1.2deg;--dl:1.6s">DEEPSEEK / QWEN</button>
+      <button type="button" class="hot t2" style="--rot:1.4deg;--dl:.3s">COMFYUI 出图</button>
+      <button type="button" class="hot t3" style="--rot:-1deg;--dl:2.2s">FLUX 文生图</button>
+      <button type="button" class="hot t2" style="--rot:-2deg;--dl:1.2s">AIGC 工作台</button>
+      <button type="button" class="hot t3" style="--rot:2.4deg;--dl:.5s">TTS 配音</button>
+      <button type="button" class="hot t3" style="--rot:-1.8deg;--dl:1.9s">SEEDANCE 视频</button>
+      <button type="button" class="hot t3" style="--rot:1deg;--dl:.7s">UNITY 自动化</button>
+      <button type="button" class="hot t3" style="--rot:-2.4deg;--dl:1.5s">7 层防御</button>
+      <button type="button" class="hot t3" style="--rot:1.6deg;--dl:.1s">SKILL 工程</button>
+      <button type="button" class="hot t3" style="--rot:-1.2deg;--dl:2.4s">FAL 网关</button>
+      <button type="button" class="hot t3" style="--rot:2.2deg;--dl:1s">NOTION 自动化</button>
     </div>
+    <p class="hotcloud-note">// 用 AI 把一个人扩张成一支队伍 — 以上均为实战落地项</p>
   </div>
 </section>
 
@@ -852,37 +950,33 @@ var _hmt = _hmt || [];
   </div>
 </section>
 
-<!-- ===== Talk ticker ===== -->
-<div class="acid-ticker talk-ticker" aria-hidden="true">
-  <div class="ticker-track">
-    <span>LET'S TALK ▸ 合作 ▸ COLLABORATE ▸ 委托 ▸ COMMISSION ▸ 联系我 ▸ SAY HELLO ▸&nbsp;</span><span>LET'S TALK ▸ 合作 ▸ COLLABORATE ▸ 委托 ▸ COMMISSION ▸ 联系我 ▸ SAY HELLO ▸&nbsp;</span>
-  </div>
-</div>
-
-<!-- ===== Contact ===== -->
-<section id="contact" class="contact-section">
+<!-- ===== Contact · AVANT ===== -->
+<section id="contact" class="contact-section acid-contact">
   <div class="container">
     <div class="section-header">
       <span class="section-id">SEC.04</span>
       <h2>联系我</h2>
     </div>
-    <div class="contact-block">
-      <div class="contact-info">
-        <h3>Drop me a line.</h3>
-        <p class="desc">通常 24 小时内回复。对有趣的项目总是保持开放。</p>
-        <div class="lines">
-          <div class="line"><span class="label">Email</span><a href="mailto:wenhuawasi@gmail.com">wenhuawasi@gmail.com</a></div>
-          <div class="line"><span class="label">GitHub</span><a href="https://github.com/Joe-Hank" target="_blank">github.com/Joe-Hank</a></div>
-          <div class="line"><span class="label">Loc</span>Shanghai, CN</div>
-          <div class="line"><span class="label">WeChat</span>15222883095</div>
-          <div class="line"><span class="label">Phone</span>17320029880</div>
-        </div>
-      </div>
-      <div class="contact-cta">
-        <div class="big-arrow">&rarr;</div>
-        <p>Ready to collaborate?</p>
-        <a class="btn primary" href="mailto:wenhuawasi@gmail.com">Send Email &rarr;</a>
-      </div>
+
+    <div class="talk-wrap">
+      <h3 class="talk-giant" aria-label="Let's talk"><span class="o">LET'S</span> <span class="f">TALK</span></h3>
+      <a class="orbit-btn" href="mailto:wenhuawasi@gmail.com" aria-label="发邮件">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <defs><path id="orbitPath" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs>
+          <text><textPath href="#orbitPath">SAY HELLO ▸ 合作 ▸ SAY HELLO ▸ 委托 ▸ </textPath></text>
+        </svg>
+        <span class="arr">&rarr;</span>
+      </a>
+    </div>
+
+    <a class="mega-mail" href="mailto:wenhuawasi@gmail.com">WENHUAWASI@GMAIL.COM</a>
+    <p class="talk-note">// 通常 24 小时内回复 — 对有趣的项目永远开放</p>
+
+    <div class="contact-hud">
+      <a class="chud" href="https://github.com/Joe-Hank" target="_blank" rel="noopener"><span class="k">GitHub</span><span class="v">Joe-Hank ↗</span></a>
+      <div class="chud"><span class="k">WeChat</span><span class="v">15222883095</span></div>
+      <div class="chud"><span class="k">Phone</span><span class="v">17320029880</span></div>
+      <div class="chud"><span class="k">Base</span><span class="v">Shanghai · CN 31.23°N</span></div>
     </div>
   </div>
 </section>
@@ -1060,6 +1154,7 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
 (function(){
   var container = document.querySelector('.logo-carousel');
   var track = document.getElementById('logo-track');
+  if(!container||!track)return;
   var items = Array.prototype.slice.call(track.querySelectorAll('.logo-item'));
   var speed = 60;
   var positions = [], itemW = 0, totalW = 0;
@@ -1305,6 +1400,58 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
       setTimeout(function(){toast.classList.remove('show')},2500);
     });
   });
+})();
+</script>
+<script>
+// 吸底跑马灯 — 原子字段循环（逐项测宽 · rAF 无缝，不再整段 -50% 跳变）
+(function(){
+  var track=document.getElementById('bt-track');if(!track)return;
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var WORDS=['AIGC 工作台','多 AGENT 编排','XR / MR','游戏制作','产品 0→1','本地优先','工程纪律','UGC / AIGC','游戏交易','AI 客服','OCR 识图','智能商品推荐'];
+  var setWidth=0,offset=0,raf=null,last=0,SPEED=42; // px/s
+  function build(){
+    if(raf)cancelAnimationFrame(raf);
+    track.innerHTML='';track.style.transform='translateX(0)';
+    var frag=document.createDocumentFragment();
+    function oneSet(){var s=document.createElement('span');var h='';WORDS.forEach(function(w){h+=w+'<b>▸</b>'});s.innerHTML=h;return s}
+    var probe=oneSet();frag.appendChild(probe);track.appendChild(frag);
+    setWidth=probe.getBoundingClientRect().width;
+    if(!setWidth)return;
+    var need=Math.ceil((window.innerWidth*2)/setWidth)+1;
+    for(var i=1;i<need;i++)track.appendChild(oneSet());
+    offset=0;last=0;
+    if(!reduce){raf=requestAnimationFrame(step)}
+  }
+  function step(t){
+    if(!last)last=t;
+    var dt=t-last;if(dt>200)dt=16; // 切后台回来防跳帧
+    offset=(offset+dt/1000*SPEED)%setWidth;last=t;
+    track.style.transform='translateX(-'+offset.toFixed(2)+'px)';
+    raf=requestAnimationFrame(step);
+  }
+  build();
+  var rz;window.addEventListener('resize',function(){clearTimeout(rz);rz=setTimeout(build,300)});
+  // 滚到页底：字带让位给页脚
+  var bar=document.getElementById('bottom-ticker');
+  var foot=document.querySelector('.footer');
+  if(bar&&foot&&'IntersectionObserver' in window){
+    new IntersectionObserver(function(es){
+      es.forEach(function(e){bar.classList.toggle('hide',e.isIntersecting)});
+    },{threshold:.2}).observe(foot);
+  }
+})();
+
+// 热点云 — 鼠标视差（容器级微位移，不与浮动动画打架）
+(function(){
+  var cloud=document.getElementById('hotcloud');if(!cloud)return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var sec=cloud.closest('.workflow-section');
+  sec.addEventListener('mousemove',function(e){
+    var r=sec.getBoundingClientRect();
+    var mx=(e.clientX-r.left)/r.width-.5, my=(e.clientY-r.top)/r.height-.5;
+    cloud.style.transform='translate('+(mx*-16).toFixed(1)+'px,'+(my*-10).toFixed(1)+'px)';
+  });
+  sec.addEventListener('mouseleave',function(){cloud.style.transform='translate(0,0)'});
 })();
 </script>
 </body>
