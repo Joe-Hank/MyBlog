@@ -267,6 +267,8 @@ img{max-width:100%;display:block}
 
 /* ============ Focus Areas — Premium Vertical Interlock Scroll ============ */
 .focus-section{position:relative;padding:0;min-height:100vh;display:flex;flex-direction:column}
+/* 关键：把高度沿 container 传递下去，否则绝对定位轨道的父级(focus-wrap)塌缩为 0 */
+.focus-section>.container{flex:1;min-height:0;width:100%;display:flex;flex-direction:column}
 .focus-section .section-header{
   position:relative;
   top:auto;
@@ -664,10 +666,8 @@ html{scroll-snap-type:y mandatory}
 .acid-hero,.workflow-section,.blog-section,.contact-section{scroll-snap-align:start;scroll-snap-stop:always}
 .focus-section{scroll-snap-align:start}
 .footer{scroll-snap-align:end}
-.workflow-section{
-  min-height:100vh;display:flex;flex-direction:column;justify-content:flex-start;padding:88px 0 96px}
-/* SEC3/SEC4：最初设计——标题+主体整组垂直居中（标题自然下沉） */
-.blog-section,.contact-section{
+/* SEC1/SEC3/SEC4：标题+主体整组垂直居中（标题自然下沉） */
+.workflow-section,.blog-section,.contact-section{
   min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:88px 0 96px}
 .focus-endcap{height:2px;scroll-snap-align:end}
 .workflow-section>.container,.blog-section>.container,.contact-section>.container{width:100%}
@@ -746,8 +746,6 @@ a.chud:hover{background:rgba(247,201,72,.1)}
 
 /* —— v3.2/3.3 微调：手势翻页制（JS 接管），关闭 CSS snap —— */
 html{scroll-behavior:auto;scroll-snap-type:none} /* 翻页由手势引擎驱动，不再用距离/吸附 */
-.workflow-section>.container{flex:1;display:flex;flex-direction:column}
-.hotcloud{margin:auto 0}                      /* SEC.1 热点云在标题下方剩余空间垂直居中 */
 .fblk .fdsc{min-height:4.8em}                 /* 打字机预留 3 行高度，键入不再推挤卡片舞台 */
 
 @media (prefers-reduced-motion:reduce){
