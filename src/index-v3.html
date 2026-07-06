@@ -272,7 +272,7 @@ img{max-width:100%;display:block}
   top:56px;
   z-index:90;
   background:transparent;
-  padding:24px 0 16px;
+  padding:62px 0 16px;
 }
 .focus-wrap{margin-top:0;position:relative}
 /* 延长轨道高度，给卡片在滑轮下的切换流出充分的生命周期空隙 */
@@ -284,9 +284,9 @@ img{max-width:100%;display:block}
   align-items:center;
   justify-content:flex-start;
   min-height:550px;
-  height:calc(100vh - 110px);
+  height:calc(100vh - 165px);
   position:sticky;
-  top:110px;
+  top:165px;
   background:transparent;
   will-change:opacity,filter;
 }
@@ -665,7 +665,8 @@ html{scroll-snap-type:y mandatory}
 .focus-section{scroll-snap-align:start}
 .footer{scroll-snap-align:end}
 .workflow-section,.blog-section,.contact-section{
-  min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:48px 0 96px}
+  min-height:100vh;display:flex;flex-direction:column;justify-content:flex-start;padding:58px 0 96px}
+.focus-endcap{height:2px;scroll-snap-align:end}
 .workflow-section>.container,.blog-section>.container,.contact-section>.container{width:100%}
 
 /* —— 全局酸性流体（fixed 背景层，所有 section 覆于其上） —— */
@@ -937,6 +938,7 @@ var _hmt = _hmt || [];
 
     </div>
   </div>
+  <div class="focus-endcap" aria-hidden="true"></div>
 </section>
 
 <!-- ===== Blog Feed ===== -->
@@ -1287,7 +1289,7 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
   var tracks = document.querySelectorAll('.fblk-track');
   
   function handleFocusScroll() {
-    var stickyTopOffset = 110; 
+    var stickyTopOffset = 165;
 
     tracks.forEach(function(track) {
       var fblk = track.querySelector('.fblk');
