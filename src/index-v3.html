@@ -741,6 +741,15 @@ a.chud:hover{background:rgba(247,201,72,.1)}
 .chud .k{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase}
 .chud .v{font-family:var(--mono);font-size:13px;color:var(--text);margin-top:8px}
 
+/* —— v3.2 微调：更硬的整页落位 + 主体垂直居中 + 打字不回流 —— */
+html{scroll-behavior:auto} /* 去掉全局平滑滚动：mandatory 落位更干脆，消除粘连感 */
+.workflow-section>.container,.blog-section>.container,.contact-section>.container{flex:1;display:flex;flex-direction:column}
+.hotcloud{margin:auto 0}                      /* SEC.1 热点云在标题下方剩余空间垂直居中 */
+#blog-featured-slot{margin:auto 0}            /* SEC.3 主体居中 */
+.acid-contact .talk-wrap{margin-top:auto}     /* SEC.4 主体组居中（上下 auto 夹） */
+.acid-contact .contact-hud{margin-bottom:auto}
+.fblk .fdsc{min-height:5.4em}                 /* 打字机预留 3 行高度，键入不再推挤卡片舞台 */
+
 @media (prefers-reduced-motion:reduce){
   .hot,.orbit-btn svg{animation:none!important}
 }
@@ -855,7 +864,6 @@ var _hmt = _hmt || [];
       <button type="button" class="hot t3" style="--rot:-2.2deg;--dl:.4s">WHISPER 翻译</button>
       <button type="button" class="hot t2" style="--rot:1.8deg;--dl:2s">OCR 识图</button>
       <button type="button" class="hot t1" style="--rot:0deg;--dl:0s">CLAUDE<span class="sub">CODE · 副驾驶</span></button>
-      <button type="button" class="hot t2" style="--rot:-1.6deg;--dl:.8s">智能商品推荐</button>
       <button type="button" class="hot t3" style="--rot:1.2deg;--dl:1.6s">DEEPSEEK / QWEN</button>
       <button type="button" class="hot t2" style="--rot:1.4deg;--dl:.3s">COMFYUI 出图</button>
       <button type="button" class="hot t3" style="--rot:-1deg;--dl:2.2s">FLUX 文生图</button>
@@ -868,7 +876,6 @@ var _hmt = _hmt || [];
       <button type="button" class="hot t3" style="--rot:-1.2deg;--dl:2.4s">FAL 网关</button>
       <button type="button" class="hot t3" style="--rot:2.2deg;--dl:1s">NOTION 自动化</button>
     </div>
-    <p class="hotcloud-note">// 用 AI 把一个人扩张成一支队伍 — 以上均为实战落地项</p>
   </div>
 </section>
 
@@ -1255,9 +1262,9 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
               clearInterval(element.typingInterval);
               element.innerHTML = targetText + '<span class="terminal-cursor"></span>';
             }
-          }, 24); // 极佳的输入律动速度
+          }, 16); // 输入律动速度（+50%）
         }
-      }, 8); // 超高速倒擦删除
+      }, 5); // 超高速倒擦删除（+50%）
     }
 
     if(btn){
@@ -1410,7 +1417,7 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(a){
 (function(){
   var track=document.getElementById('bt-track');if(!track)return;
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var WORDS=['AIGC 工作台','多 AGENT 编排','XR / MR','游戏制作','产品 0→1','本地优先','工程纪律','UGC / AIGC','游戏交易','AI 客服','OCR 识图','智能商品推荐'];
+  var WORDS=['AIGC 工作台','多 AGENT 编排','XR / MR','游戏制作','产品 0→1','本地优先','工程纪律','UGC / AIGC','游戏交易','AI 客服','OCR 识图'];
   var setWidth=0,offset=0,raf=null,last=0,SPEED=42; // px/s
   function build(){
     if(raf)cancelAnimationFrame(raf);
