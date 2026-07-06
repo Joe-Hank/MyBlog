@@ -271,7 +271,7 @@ img{max-width:100%;display:block}
   position:sticky;
   top:56px;
   z-index:90;
-  background:var(--bg);
+  background:transparent;
   padding:24px 0 16px;
 }
 .focus-wrap{margin-top:0;position:relative}
@@ -287,7 +287,7 @@ img{max-width:100%;display:block}
   height:calc(100vh - 110px);
   position:sticky;
   top:110px;
-  background:var(--bg);
+  background:transparent;
   will-change:opacity,filter;
 }
 /* 改良后的左对齐高阶文本面板，完美呼应图2 */
@@ -659,10 +659,11 @@ img{max-width:100%;display:block}
    v3.1 — 整页切割 · 全局流体 · 吸底原子字带 · 热点云 · AVANT 联系区
    ================================================================ */
 
-/* —— 整页滚动切割（proximity：段落边界落位，长段内自由滚动） —— */
-html{scroll-snap-type:y proximity}
-.acid-hero,.workflow-section,.blog-section,.contact-section{scroll-snap-align:start}
+/* —— 整页滚动切割（mandatory 强制落位；关注领域比视口高，规范允许其内部自由滚动） —— */
+html{scroll-snap-type:y mandatory}
+.acid-hero,.workflow-section,.blog-section,.contact-section{scroll-snap-align:start;scroll-snap-stop:always}
 .focus-section{scroll-snap-align:start}
+.footer{scroll-snap-align:end}
 .workflow-section,.blog-section,.contact-section{
   min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:48px 0 96px}
 .workflow-section>.container,.blog-section>.container,.contact-section>.container{width:100%}
