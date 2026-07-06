@@ -664,8 +664,11 @@ html{scroll-snap-type:y mandatory}
 .acid-hero,.workflow-section,.blog-section,.contact-section{scroll-snap-align:start;scroll-snap-stop:always}
 .focus-section{scroll-snap-align:start}
 .footer{scroll-snap-align:end}
-.workflow-section,.blog-section,.contact-section{
+.workflow-section{
   min-height:100vh;display:flex;flex-direction:column;justify-content:flex-start;padding:88px 0 96px}
+/* SEC3/SEC4：最初设计——标题+主体整组垂直居中（标题自然下沉） */
+.blog-section,.contact-section{
+  min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:88px 0 96px}
 .focus-endcap{height:2px;scroll-snap-align:end}
 .workflow-section>.container,.blog-section>.container,.contact-section>.container{width:100%}
 
@@ -743,11 +746,8 @@ a.chud:hover{background:rgba(247,201,72,.1)}
 
 /* —— v3.2/3.3 微调：手势翻页制（JS 接管），关闭 CSS snap —— */
 html{scroll-behavior:auto;scroll-snap-type:none} /* 翻页由手势引擎驱动，不再用距离/吸附 */
-.workflow-section>.container,.blog-section>.container,.contact-section>.container{flex:1;display:flex;flex-direction:column}
+.workflow-section>.container{flex:1;display:flex;flex-direction:column}
 .hotcloud{margin:auto 0}                      /* SEC.1 热点云在标题下方剩余空间垂直居中 */
-#blog-featured-slot{margin:auto 0}            /* SEC.3 主体居中 */
-.acid-contact .talk-wrap{margin-top:auto}     /* SEC.4 主体组居中（上下 auto 夹） */
-.acid-contact .contact-hud{margin-bottom:auto}
 .fblk .fdsc{min-height:4.8em}                 /* 打字机预留 3 行高度，键入不再推挤卡片舞台 */
 
 @media (prefers-reduced-motion:reduce){
