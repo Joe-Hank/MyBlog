@@ -1,0 +1,78 @@
+name: Publish CN (Notion → 阿里云OSS)
+
+# 国内静态站发布流水线：Notion(经 Worker) → 生成静态 → 传 OSS + 刷 CDN。
+# 触发：手动点 Run（改完 Notion 就发）；或取消下方 schedule 注释走定时。
+# 只发国内 cn-aliyun / joecloud.asia，不动 main / GitHub Pages。
+on:
+  workflow_dispatch:
+  # schedule:
+  #   - cron: '0 * * * *'      # 每小时自动发布（默认关闭）
+
+concurrency:
+  group: publish-cn
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout cn-aliyun
+        uses: actions/checkout@v4
+        with:
+          ref: cn-aliyun
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build from Notion (fetch + mirror images + regen data)
+        env:
+          WORKER_URL: https://myblog-notion-proxy.wenhuawasi.workers.dev
+        run: node scripts/build-cn.mjs
+
+      - name: Commit regenerated content back to cn-aliyun
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data src/assets/notion
+          if git diff --cached --quiet; then
+            echo "内容无变化，跳过提交"
+          else
+            git commit -m "chore(cn): publish from Notion [skip ci]"
+            git push
+          fi
+
+      - name: Install ossutil + aliyun CLI
+        run: |
+          set -e
+          curl -sSL https://gosspublic.alicdn.com/ossutil/1.7.16/ossutil64 -o /usr/local/bin/ossutil
+          chmod +x /usr/local/bin/ossutil
+          AL=$(curl -s https://api.github.com/repos/aliyun/aliyun-cli/releases/latest \
+               | grep -oE 'https://[^"]*aliyun-cli-linux-[^"]*amd64\.tgz' | head -1)
+          curl -sSL "$AL" -o /tmp/aliyun.tgz
+          tar xzf /tmp/aliyun.tgz -C /tmp
+          sudo mv /tmp/aliyun /usr/local/bin/aliyun
+          ossutil --version | head -1; aliyun version || true
+
+      - name: Deploy to OSS + refresh CDN
+        env:
+          OSS_ACCESS_KEY_ID: ${{ secrets.OSS_ACCESS_KEY_ID }}
+          OSS_ACCESS_KEY_SECRET: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
+          OSS_BUCKET: joehanblog
+          OSS_ENDPOINT: oss-cn-shanghai.aliyuncs.com
+          CDN_DOMAIN: joecloud.asia
+        run: |
+          set -e
+          AUTH="-i $OSS_ACCESS_KEY_ID -k $OSS_ACCESS_KEY_SECRET -e $OSS_ENDPOINT"
+          echo "→ 同步 src/ 到 OSS"
+          ossutil cp -r -f --update src/ "oss://$OSS_BUCKET/" $AUTH
+          echo "→ assets/ 设长缓存"
+          ossutil set-meta "oss://$OSS_BUCKET/assets/" "Cache-Control:public, max-age=31536000" -r -f $AUTH
+          echo "→ 刷新 CDN 目录"
+          aliyun cdn RefreshObjectCaches --ObjectType Directory --ObjectPath "https://$CDN_DOMAIN/" \
+            --mode AK --access-key-id "$OSS_ACCESS_KEY_ID" --access-key-secret "$OSS_ACCESS_KEY_SECRET" --region cn-hangzhou
+          echo "✔ 发布完成 https://$CDN_DOMAIN/"
