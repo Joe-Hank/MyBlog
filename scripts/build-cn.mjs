@@ -7,13 +7,14 @@
 //
 // 访客只读境内 OSS 上的成品，全程不碰 Notion。
 import { writeFileSync, readFileSync, existsSync, mkdirSync, createWriteStream } from 'node:fs';
-import { join } from 'node:path';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { pipeline } from 'node:stream/promises';
 import { Readable } from 'node:stream';
 
 const WORKER = (process.env.WORKER_URL || 'https://myblog-notion-proxy.wenhuawasi.workers.dev').replace(/\/$/, '');
 const MIRROR = 'https://joe-hank.github.io/MyBlog/';   // worker 重写后的图片前缀，相对化时去掉
-const ROOT = process.cwd();
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');   // 脚本所在=scripts/，上一级=仓库根（与运行目录无关）
 const DATA = join(ROOT, 'src', 'data');
 const ASSETS = join(ROOT, 'src', 'assets', 'notion');
 const EPS = ['blog', 'works', 'banner', 'timeline'];
