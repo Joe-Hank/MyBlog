@@ -33,5 +33,5 @@ Write-Host "② 上传 OSS + 刷新 CDN (deploy-oss.ps1)..." -ForegroundColor Cy
 & (Join-Path $here 'deploy-oss.ps1')
 
 Write-Host "`n✔ 发布完成：https://joecloud.asia/" -ForegroundColor Green
-Write-Host "  提示：内容的真源是 Notion。日常改 Notion 后跑这条脚本即可；" -ForegroundColor DarkGray
-Write-Host "        ASC 等 CN-only 条目在 src\data\works.local.json 里维护。" -ForegroundColor DarkGray
+Write-Host "  提示：blog / banner / 时间轴 的真源是 Notion（改 Notion 后跑这条脚本即可）。" -ForegroundColor DarkGray
+Write-Host "        作品库(works.json)为保护首页硬编码链接，冻结手动维护，不随 Notion 重建。" -ForegroundColor DarkGray

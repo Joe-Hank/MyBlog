@@ -3,7 +3,10 @@
 // 在【构建机】(GitHub Actions runner，境外) 上跑，不在访客浏览器跑：
 //   1. ?raw=1 取 Notion 原始 S3 图 → 镜像到 src/assets/notion/<fileId>.<ext>（幂等）
 //   2. 非 raw 取内容 → 把 GH Pages 绝对 URL 相对化 → 写 src/data/*.json
-//   3. works.json 额外合并 CN-only 覆盖层 works.local.json（如 ASC，不进 Notion 也不丢）
+//
+// ⚠ works（作品库）不在此列：worker 未对作品排序，id 是位置式(work-N)，
+//   一旦在 Notion 编辑就会重排编号、打断首页硬编码链接。作品库改为「冻结手动维护」
+//   (src/data/works.json 直接改或走 works.local.json)，不自动重建。
 //
 // 访客只读境内 OSS 上的成品，全程不碰 Notion。
 import { writeFileSync, readFileSync, existsSync, mkdirSync, createWriteStream } from 'node:fs';
@@ -17,7 +20,7 @@ const MIRROR = 'https://joe-hank.github.io/MyBlog/';   // worker 重写后的图
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');   // 脚本所在=scripts/，上一级=仓库根（与运行目录无关）
 const DATA = join(ROOT, 'src', 'data');
 const ASSETS = join(ROOT, 'src', 'assets', 'notion');
-const EPS = ['blog', 'works', 'banner', 'timeline'];
+const EPS = ['blog', 'banner', 'timeline'];   // works 冻结手动维护，不在自动重建之列
 
 mkdirSync(ASSETS, { recursive: true });
 
@@ -66,19 +69,7 @@ console.log(`images: +${dl} downloaded, ${skip} present, ${fail} failed`);
 for (const ep of EPS) {
   const body = await getText(`${WORKER}/${ep}`);
   const rel = body.split(MIRROR).join('');   // 绝对 GH Pages URL → 相对 assets/notion/...
-  let arr = JSON.parse(rel);                  // 校验合法
-
-  if (ep === 'works') {
-    const overlayPath = join(DATA, 'works.local.json');
-    if (existsSync(overlayPath)) {
-      const overlay = JSON.parse(readFileSync(overlayPath, 'utf8'));
-      const overlayIds = new Set(overlay.map(w => w.id));
-      // 覆盖层在前（如 ASC 置顶），Notion 内容去重后接其后
-      arr = overlay.concat(arr.filter(w => !overlayIds.has(w.id)));
-      console.log(`  works overlay: +${overlay.length} CN-only (${overlay.map(w => w.id).join(',')})`);
-    }
-  }
-
+  const arr = JSON.parse(rel);               // 校验合法
   writeFileSync(join(DATA, ep + '.json'), JSON.stringify(arr));
   console.log(`data: ${ep}.json → ${arr.length} 条`);
 }
